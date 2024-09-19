@@ -1,4 +1,4 @@
-import RedditThreadBanner from "@/components/ThreadBanner";
+import RedditThreadBanner from "@/components/thread-banner";
 import React from "react";
 
 const ThreadPage = () => {

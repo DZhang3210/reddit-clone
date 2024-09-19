@@ -6,11 +6,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Loader, LogOut } from "lucide-react";
+import { Loader, LogOut, Users } from "lucide-react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 const UserButton = () => {
   const { signOut } = useAuthActions();
@@ -44,7 +45,12 @@ const UserButton = () => {
           <LogOut className="size-4 mr-2" />
           Log out
         </DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/create/thread" className="flex">
+            <Users className="size-4 mr-2" />
+            Create Thread
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>Subscription</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
