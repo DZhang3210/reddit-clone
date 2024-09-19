@@ -20,16 +20,10 @@ export function StepOne({
   setDesc,
   nextStep,
 }: StepOneProps) {
-  const [errors, setErrors] = useState({ name: "", desc: "" });
+  const isFormValid = name && desc;
 
-  const validateAndProceed = () => {
-    const newErrors = { name: "", desc: "" };
-    if (!name) newErrors.name = "Community name is required";
-    if (!desc) newErrors.desc = "Community description is required";
-
-    setErrors(newErrors);
-
-    if (!newErrors.name && !newErrors.desc) {
+  const handleNext = () => {
+    if (isFormValid) {
       nextStep((prev) => prev + 1);
     }
   };
@@ -48,9 +42,6 @@ export function StepOne({
               className="mt-2 rounded-xl bg-gray-600 outline-none border-transparent"
               placeholder="Enter community name"
             />
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-            )}
           </div>
           <div>
             <Label htmlFor="description">Community Description</Label>
@@ -61,9 +52,6 @@ export function StepOne({
               className="mt-2 rounded-xl bg-gray-600 outline-none border-transparent"
               placeholder="Describe your community"
             />
-            {errors.desc && (
-              <p className="text-red-500 text-sm mt-1">{errors.desc}</p>
-            )}
           </div>
         </div>
 
@@ -100,8 +88,13 @@ export function StepOne({
           Back
         </button>
         <button
-          onClick={validateAndProceed}
-          className="rounded-full bg-blue-900 text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
+          onClick={handleNext}
+          disabled={!isFormValid}
+          className={`rounded-full px-4 py-1 transition ${
+            isFormValid
+              ? "bg-blue-900 text-white hover:text-gray-400 hover:scale-105"
+              : "bg-gray-600 text-gray-400 cursor-not-allowed"
+          }`}
         >
           Next
         </button>

@@ -19,7 +19,7 @@ export default function RootLayout({
       <html lang="en">
         <body>
           <ConvexClientProvider>
-            <RedditNavbar />
+            {/* <RedditNavbar /> */}
             {children}
           </ConvexClientProvider>
         </body>
