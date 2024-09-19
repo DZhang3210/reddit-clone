@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { FileText, Image } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const communities = [
   { value: "AskReddit", label: "r/AskReddit" },
@@ -28,6 +29,10 @@ export default function RedditCreatePost() {
   const [textContent, setTextContent] = useState("");
   const [imageTitle, setImageTitle] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [activeTab, setActiveTab] = useState("text");
+  useEffect(() => {
+    console.log(activeTab);
+  }, [activeTab]);
 
   const handleSubmit = (type: "text" | "image") => {
     const postData = {
@@ -64,10 +69,10 @@ export default function RedditCreatePost() {
           </SelectContent>
         </Select>
 
-        <Tabs defaultValue="text" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className={"grid w-full grid-cols-2 mb-4"}>
             <TabsTrigger value="text">
-              <FileText className="w-4 h-4 mr-2" />
+              <FileText className={cn("w-4 h-4 mr-2")} />
               Text
             </TabsTrigger>
             <TabsTrigger value="image">
@@ -75,53 +80,56 @@ export default function RedditCreatePost() {
               Image
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="text">
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
-                  placeholder="Enter your post title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="text-content">Text</Label>
-                <Textarea
-                  id="text-content"
-                  placeholder="Enter your post content"
-                  className="min-h-[200px]"
-                  value={textContent}
-                  onChange={(e) => setTextContent(e.target.value)}
-                />
-              </div>
+          {/* <div className="min-h-[300px] w-full"> */}{" "}
+          {/* Added w-full to ensure consistent width */}
+          <TabsContent value="text" className="mt-0 space-y-4 w-full">
+            {" "}
+            {/* Added w-full */}
+            <div>
+              <Label htmlFor="title">Title</Label>
+              <Input
+                id="title"
+                placeholder="Enter your post title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div>
+              <Label htmlFor="text-content">Text</Label>
+              <Textarea
+                id="text-content"
+                placeholder="Enter your post content"
+                className="min-h-[200px] w-full"
+                value={textContent}
+                onChange={(e) => setTextContent(e.target.value)}
+              />
             </div>
           </TabsContent>
-          <TabsContent value="image">
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="image-title">Title</Label>
-                <Input
-                  id="image-title"
-                  placeholder="Enter your image title"
-                  value={imageTitle}
-                  onChange={(e) => setImageTitle(e.target.value)}
-                />
-              </div>
-              <div
-                className="border-2 border-dashed rounded-md p-4 text-center cursor-pointer"
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={handleImageDrop}
-              >
-                {imageFile ? (
-                  <p>{imageFile.name}</p>
-                ) : (
-                  <p>Drag and drop your image here, or click to select</p>
-                )}
-              </div>
+          <TabsContent value="image" className="mt-0 space-y-4 w-full">
+            {" "}
+            {/* Added w-full */}
+            <div>
+              <Label htmlFor="image-title">Title</Label>
+              <Input
+                id="image-title"
+                placeholder="Enter your image title"
+                value={imageTitle}
+                onChange={(e) => setImageTitle(e.target.value)}
+              />
+            </div>
+            <div
+              className="border-2 border-dashed rounded-md p-4 text-center cursor-pointer min-h-[200px] w-full flex items-center justify-center"
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleImageDrop}
+            >
+              {imageFile ? (
+                <p>{imageFile.name}</p>
+              ) : (
+                <p>Drag and drop your image here, or click to select</p>
+              )}
             </div>
           </TabsContent>
+          {/* </div> */}
         </Tabs>
       </CardContent>
       <CardFooter className="flex justify-between">

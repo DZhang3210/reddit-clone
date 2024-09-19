@@ -7,8 +7,8 @@ import SignUpCard from "./sign-up-card";
 const AuthScreen = () => {
   const [state, setState] = useState<SignInFlow>("signIn");
   return (
-    <div className="h-screen flex items-center justify-center bg-[#5C3B58]">
-      <div className="md:h-auto md: w-[420px]">
+    <div className="h-screen w-full flex items-center justify-center bg-[#FE4500] overflow-hidden">
+      <div className="md:h-auto md:w-[600px]">
         {state === "signIn" ? (
           <SignInCard setState={setState} />
         ) : (

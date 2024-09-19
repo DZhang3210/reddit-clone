@@ -46,10 +46,10 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
   };
 
   return (
-    <Card className="w-full h-full p-8">
+    <Card className="w-full h-full p-8 bg-[#181C1F] text-white">
       <CardHeader className="px-0 pt-0">
         <CardTitle>Login to Continue</CardTitle>
-        <CardDescription>
+        <CardDescription className="text-gray-300">
           Use your email or another serve to continue
         </CardDescription>
       </CardHeader>
@@ -77,7 +77,12 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             type="password"
             required
           />
-          <Button type="submit" className="w-full" size="lg" disabled={pending}>
+          <Button
+            type="submit"
+            className="w-full bg-white text-black hover:bg-gray-400"
+            size="lg"
+            disabled={pending}
+          >
             Continue
           </Button>
         </form>
@@ -100,17 +105,16 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             size="lg"
             className="w-full relative"
           >
-            <FaGithub className="size-5 top-3 left-2.5" />
+            <FaGithub className="size-5 absolute top-3 left-2.5" />
             Continue with Github
           </Button>
         </div>
-        <p className="text-xs text-muted-foreground">
-          Don&apos;t have an account?
+        <p className="text-xs text-gray-300">
+          Don&apos;t have an account?{" "}
           <span
             className="text-sky-700 hover:underline cursor-pointer"
             onClick={() => setState("signUp")}
           >
-            {" "}
             Sign up
           </span>
         </p>
