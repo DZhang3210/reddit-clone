@@ -16,7 +16,7 @@ const ThreadCreate = () => {
     if (step < 0) router.push("/");
   }, [step]);
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-gray-900">
+    <div className="flex justify-center items-center w-full bg-gray-900">
       {step === 0 && (
         <StepOne
           name={name}

@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
+import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 
 interface StepTwoProps {
   profileImage: string | null;
@@ -18,79 +21,152 @@ export function StepTwo({
   setBannerImage,
   nextStep,
 }: StepTwoProps) {
-  // const [bannerPreview, setBannerPreview] = useState(null);
-  // const [iconPreview, setIconPreview] = useState(null);
+  const { mutate: generateUploadUrl } = useGenerateUploadUrl();
+  const [isUploading, setIsUploading] = useState(false);
 
-  //   const handleFileUpload = (event, type) => {
-  //     const file = event.target.files[0];
-  //     if (file) {
-  //       const reader = new FileReader();
-  //       reader.onloadend = () => {
-  //         if (type === "banner") {
-  //           setBannerPreview(reader.result);
-  //           updateFormData({ bannerImage: file });
-  //         } else {
-  //           setIconPreview(reader.result);
-  //           updateFormData({ iconImage: file });
-  //         }
-  //       };
-  //       reader.readAsDataURL(file);
-  //     }
-  //   };
+  const handleFileUpload = useCallback(
+    async (
+      event: React.ChangeEvent<HTMLInputElement>,
+      type: "banner" | "icon"
+    ) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        setIsUploading(true);
+        try {
+          const url = await generateUploadUrl({}, { throwError: true });
+          if (!url) throw new Error("Url not found");
+
+          const result = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": file.type },
+            body: file,
+          });
+          const { storageId } = await result.json();
+
+          // Create a temporary URL for preview
+          const previewUrl = URL.createObjectURL(file);
+
+          if (type === "banner") {
+            setBannerImage(previewUrl);
+          } else {
+            setProfileImage(previewUrl);
+          }
+        } catch (error) {
+          console.error("Error uploading file:", error);
+        } finally {
+          setIsUploading(false);
+        }
+      }
+    },
+    [generateUploadUrl, setBannerImage, setProfileImage]
+  );
+
+  const isNextButtonDisabled = !profileImage || !bannerImage;
 
   return (
-    <div className="space-y-4 bg-gray-800 p-5 rounded-xl w-4/5 text-gray-300">
-      <div>
-        <Label htmlFor="banner">Community Banner</Label>
-        <div className="mt-2">
-          <Button
-            variant="outline"
-            // onClick={() => document.getElementById("banner-upload").click()}
-          >
-            <Upload className="mr-2 h-4 w-4" /> Upload Banner
-          </Button>
-          <input
-            id="banner-upload"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            // onChange={(e) => handleFileUpload(e, "banner")}
-          />
+    <div className="space-y-4 bg-gray-800 p-3 sm:p-5 rounded-xl w-full sm:w-4/5 text-gray-300">
+      <div className="flex flex-col sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0">
+        <div className="w-full sm:w-1/2 space-y-4">
+          <div>
+            <h3 className="text-lg font-bold mb-4">Input</h3>
+            <Label htmlFor="banner">Community Banner</Label>
+            <div className="mt-2">
+              <Button
+                variant="outline"
+                onClick={() =>
+                  document.getElementById("banner-upload")?.click()
+                }
+                disabled={isUploading}
+                className="w-full sm:w-auto"
+              >
+                <Upload className="mr-2 h-4 w-4" />
+                {isUploading ? "Uploading..." : "Upload Banner"}
+              </Button>
+              <input
+                id="banner-upload"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => handleFileUpload(e, "banner")}
+              />
+            </div>
+            {bannerImage && (
+              <img
+                src={bannerImage}
+                alt="Banner preview"
+                className="mt-2 max-h-32 w-full object-cover rounded"
+              />
+            )}
+          </div>
+          <div>
+            <Label htmlFor="icon">Community Icon</Label>
+            <div className="mt-2">
+              <Button
+                variant="outline"
+                onClick={() => document.getElementById("icon-upload")?.click()}
+                disabled={isUploading}
+                className="w-full sm:w-auto"
+              >
+                <Upload className="mr-2 h-4 w-4" />
+                {isUploading ? "Uploading..." : "Upload Icon"}
+              </Button>
+              <input
+                id="icon-upload"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => handleFileUpload(e, "icon")}
+              />
+            </div>
+            {profileImage && (
+              <img
+                src={profileImage}
+                alt="Icon preview"
+                className="mt-2 w-20 h-20 object-cover rounded-full"
+              />
+            )}
+          </div>
         </div>
-        {bannerImage && (
-          <img
-            src={bannerImage}
-            alt="Banner preview"
-            className="mt-2 max-h-40 object-cover rounded"
-          />
-        )}
-      </div>
-      <div>
-        <Label htmlFor="icon">Community Icon</Label>
-        <div className="mt-2">
-          <Button
-            variant="outline"
-            // onClick={() => document.getElementById("icon-upload").click()}
-          >
-            <Upload className="mr-2 h-4 w-4" /> Upload Icon
-          </Button>
-          <input
-            id="icon-upload"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            // onChange={(e) => handleFileUpload(e, "icon")}
-          />
+        <div className="w-full sm:w-1/2">
+          <h3 className="text-lg font-semibold mb-4">Preview</h3>
+          <div className="relative">
+            {bannerImage ? (
+              <img
+                src={bannerImage}
+                alt="Banner preview"
+                className="w-full h-32 object-cover rounded-t-lg"
+              />
+            ) : (
+              <div className="w-full h-32 bg-gray-700 flex items-center justify-center rounded-t-lg">
+                <span className="text-gray-500">Banner Image</span>
+              </div>
+            )}
+            <div className="absolute -bottom-4 left-4">
+              {profileImage ? (
+                <img
+                  src={profileImage}
+                  alt="Profile preview"
+                  className="w-20 h-20 rounded-full border-4 border-gray-800 object-cover"
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-full bg-gray-600 border-4 border-gray-800 flex items-center justify-center">
+                  <span className="text-gray-500 text-xs">Profile</span>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="mt-8 p-4 bg-gray-900 rounded-b-lg">
+            <h4 className="text-xl font-bold">Community Name</h4>
+            <p className="text-sm text-gray-400 mt-2">r/communityname</p>
+            <p className="text-sm text-gray-300 mt-4">
+              Welcome to our community! This is where you'll see a brief
+              description of what this community is all about. Join us to
+              discuss, share, and connect with like-minded individuals.
+            </p>
+          </div>
         </div>
-        {profileImage && (
-          <img
-            src={profileImage}
-            alt="Icon preview"
-            className="mt-2 w-20 h-20 object-cover rounded-full"
-          />
-        )}
       </div>
-      <div className="w-full flex justify-end gap-2">
+      <div className="w-full flex justify-end gap-2 mt-4">
         <button
           onClick={() => nextStep((prev) => prev - 1)}
           className="rounded-full bg-black text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
@@ -99,7 +175,12 @@ export function StepTwo({
         </button>
         <button
           onClick={() => nextStep((prev) => prev + 1)}
-          className="rounded-full bg-blue-900 text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
+          disabled={isNextButtonDisabled}
+          className={`rounded-full ${
+            isNextButtonDisabled
+              ? "bg-gray-600 cursor-not-allowed"
+              : "bg-blue-900 hover:text-gray-400 hover:scale-105"
+          } text-white px-4 py-1 transition`}
         >
           Next
         </button>
