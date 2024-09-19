@@ -100,7 +100,7 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             size="lg"
             className="w-full relative"
           >
-            <FaGithub className="size-5 absolute top-3 left-2.5" />
+            <FaGithub className="size-5 top-3 left-2.5" />
             Continue with Github
           </Button>
         </div>
