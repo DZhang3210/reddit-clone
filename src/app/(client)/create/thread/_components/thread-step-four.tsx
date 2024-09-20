@@ -1,19 +1,23 @@
-import { Button } from "../ui/button";
+import { Button } from "../../../../../components/ui/button";
 
 interface StepFourProps {
   name: string | null;
   desc: string | null;
-  profileImage: string | null;
-  bannerImage: string | null;
+  onSubmit: () => void;
   nextStep: React.Dispatch<React.SetStateAction<number>>;
+  loading: boolean;
+  previewBanner: string;
+  logoImage: string;
 }
 
 export function StepFour({
   name,
   desc,
-  profileImage,
-  bannerImage,
   nextStep,
+  loading,
+  onSubmit,
+  previewBanner,
+  logoImage,
 }: StepFourProps) {
   return (
     <div className="space-y-4 bg-gray-800 p-5 rounded-xl w-4/5 text-gray-300 min-h-screen">
@@ -21,9 +25,9 @@ export function StepFour({
 
       <div className="w-full">
         <div className="relative">
-          {bannerImage ? (
+          {previewBanner ? (
             <img
-              src={bannerImage}
+              src={previewBanner}
               alt="Banner preview"
               className="w-full h-32 object-cover rounded-t-lg"
             />
@@ -33,9 +37,9 @@ export function StepFour({
             </div>
           )}
           <div className="absolute -bottom-4 left-4">
-            {profileImage ? (
+            {logoImage ? (
               <img
-                src={profileImage}
+                src={logoImage}
                 alt="Profile preview"
                 className="w-20 h-20 rounded-full border-4 border-gray-800 object-cover"
               />
@@ -62,12 +66,14 @@ export function StepFour({
         <button
           onClick={() => nextStep((prev) => prev - 1)}
           className="rounded-full bg-black text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
+          disabled={loading}
         >
           Back
         </button>
         <button
-          onClick={() => {}}
+          onClick={() => onSubmit()}
           className="rounded-full bg-blue-900 text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
+          disabled={loading}
         >
           Submit
         </button>

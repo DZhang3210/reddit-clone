@@ -2,20 +2,30 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { User } from "lucide-react";
+import { Id } from "../../convex/_generated/dataModel";
+import Link from "next/link";
 
 interface RedditThreadBannerProps {
-  backgroundImage?: string;
-  threadImage?: string;
+  backgroundImage?: string | null;
+  threadId: Id<"threads"> | undefined;
+  threadImage?: string | null;
   threadName?: string;
+  threadDesc: string | undefined;
   memberCount?: number;
+  isFollowing?: boolean | null;
 }
 
 export default function RedditThreadBanner({
+  threadId,
   backgroundImage = "/placeholder.svg?height=192&width=1024",
   threadImage = "/placeholder.svg?height=80&width=80",
   threadName = "DefaultSubreddit",
+  threadDesc,
   memberCount = 1000,
+  isFollowing = false,
 }: RedditThreadBannerProps) {
+  const [follow, setFollowing] = useState(isFollowing);
   const [isJoined, setIsJoined] = useState(false);
 
   const handleJoinClick = () => {
@@ -27,41 +37,63 @@ export default function RedditThreadBanner({
   };
 
   return (
-    <div className="relative w-full h-48 overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      >
-        {/* Overlay for better text visibility */}
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 h-full flex items-end p-4">
-        <div className="flex items-center space-x-4">
-          {/* Thread Image */}
-          <Avatar className="w-20 h-20 border-4 border-white">
-            <AvatarImage src={threadImage} alt={threadName} />
-            <AvatarFallback>{getAvatarFallback(threadName)}</AvatarFallback>
-          </Avatar>
-
-          {/* Thread Info */}
-          <div className="text-white">
-            <h1 className="text-2xl font-bold">r/{threadName}</h1>
-            <p className="text-sm">{memberCount.toLocaleString()} members</p>
+    <Link href={`/thread/${threadId}`} className="transition hover:scale-105">
+      <div className="w-full cursor-pointer">
+        <div className="relative">
+          <div className="w-full h-32 bg-gray-700 flex items-center justify-center rounded-t-lg">
+            {!backgroundImage ? (
+              <span className="text-gray-500">Banner Image</span>
+            ) : (
+              <img
+                src={backgroundImage}
+                alt="Banner preview"
+                className="mt-2 max-h-32 w-full object-cover rounded"
+              />
+            )}
           </div>
-
-          {/* Join Button */}
-          <Button
-            variant={isJoined ? "secondary" : "default"}
-            onClick={handleJoinClick}
-            className="ml-auto"
-          >
-            {isJoined ? "Joined" : "Join"}
-          </Button>
+          <div className="absolute -bottom-4 left-4">
+            <div className="w-20 h-20 rounded-full bg-gray-600 border-2 border-gray-800 flex items-center justify-center overflow-hidden ">
+              {!threadImage ? (
+                <User className="text-gray-500 w-10 h-10" />
+              ) : (
+                <img
+                  src={threadImage}
+                  alt="Banner preview"
+                  className="mt-2 max-h-32 w-full object-cover rounded"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 p-4 bg-gray-900 rounded-b-lg">
+          <div className="flex justify-between">
+            <div>
+              <h4 className="text-xl font-bold">
+                {threadName || "Community Name"}
+              </h4>
+              <p className="text-sm text-gray-400 mt-2">
+                r/
+                {threadName
+                  ? threadName.toLowerCase().replace(/\s+/g, "")
+                  : "communityname"}
+              </p>
+              <p className="text-gray-300 text-xs">{memberCount} members</p>
+            </div>
+            {isFollowing ? (
+              <Button className="py-1 px-4 bg-blue-800 hover:bg-blue-900">
+                Following
+              </Button>
+            ) : (
+              <Button className="py-1 px-4 bg-blue-600 hover:bg-blue-800">
+                Follow
+              </Button>
+            )}
+          </div>
+          <p className="text-sm text-gray-300 mt-4">
+            {threadDesc || "Community description will appear here."}
+          </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

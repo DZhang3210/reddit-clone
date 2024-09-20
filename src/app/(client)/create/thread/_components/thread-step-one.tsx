@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "../ui/button";
+import { Button } from "../../../../../components/ui/button";
 import { User } from "lucide-react";
+import Image from "next/image";
 
 interface StepOneProps {
   name: string | null;
@@ -11,6 +12,8 @@ interface StepOneProps {
   desc: string | null;
   setDesc: React.Dispatch<React.SetStateAction<string | null>>;
   nextStep: React.Dispatch<React.SetStateAction<number>>;
+  previewBanner: string;
+  logoImage: string;
 }
 
 export function StepOne({
@@ -19,6 +22,8 @@ export function StepOne({
   desc,
   setDesc,
   nextStep,
+  previewBanner,
+  logoImage,
 }: StepOneProps) {
   const isFormValid = name && desc;
 
@@ -60,11 +65,27 @@ export function StepOne({
           <h3 className="text-lg font-semibold mb-4">Preview</h3>
           <div className="relative">
             <div className="w-full h-32 bg-gray-700 flex items-center justify-center rounded-t-lg">
-              <span className="text-gray-500">Banner Image</span>
+              {!previewBanner ? (
+                <span className="text-gray-500">Banner Image</span>
+              ) : (
+                <img
+                  src={previewBanner}
+                  alt="Banner preview"
+                  className="mt-2 max-h-32 w-full object-cover rounded"
+                />
+              )}
             </div>
             <div className="absolute -bottom-4 left-4">
               <div className="w-20 h-20 rounded-full bg-gray-600 border-4 border-gray-800 flex items-center justify-center">
-                <User className="text-gray-500 w-10 h-10" />
+                {!logoImage ? (
+                  <User className="text-gray-500 w-10 h-10" />
+                ) : (
+                  <img
+                    src={logoImage}
+                    alt="Banner preview"
+                    className="mt-2 max-h-32 w-full object-cover rounded"
+                  />
+                )}
               </div>
             </div>
           </div>

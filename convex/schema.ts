@@ -4,31 +4,26 @@ import { v } from "convex/values";
 
 const schema = defineSchema({
   ...authTables,
-  members: defineTable({
-    userId: v.string(),
-    communityId: v.string(),
-    role: v.string(),
-  }),
   threads: defineTable({
     title: v.string(),
     description: v.string(),
-    profile: v.string(),
-    bannerImage: v.string(),
+    bannerImage: v.id("_storage"),
+    logoImage: v.id("_storage"),
     totalMembers: v.number(),
-    members: v.array(v.id("members")),
+    users: v.array(v.id("users")),
     createdAt: v.number(),
     updatedAt: v.number(),
-    author: v.id("members"),
+    moderators: v.array(v.id("users")),
   })
     .index("title", ["title"])
-    .index("author", ["author"])
+    .index("users", ["users"])
     .index("createdAt", ["createdAt"]),
   posts: defineTable({
     title: v.string(),
     content: v.string(),
     createdAt: v.number(),
     updatedAt: v.number(),
-    author: v.id("members"),
+    author: v.id("users"),
     thread: v.id("threads"),
   })
     .index("createdAt", ["createdAt"])

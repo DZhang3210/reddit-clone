@@ -3,15 +3,20 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
 import { useMutation } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { api } from "../../../../../../convex/_generated/api";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
+import { Id } from "../../../../../../convex/_generated/dataModel";
 
 interface StepTwoProps {
   profileImage: string | null;
-  setProfileImage: React.Dispatch<React.SetStateAction<string | null>>;
+  setProfileImage: React.Dispatch<React.SetStateAction<Id<"_storage"> | null>>;
   bannerImage: string | null;
-  setBannerImage: React.Dispatch<React.SetStateAction<string | null>>;
+  setBannerImage: React.Dispatch<React.SetStateAction<Id<"_storage"> | null>>;
   nextStep: React.Dispatch<React.SetStateAction<number>>;
+  previewBanner: string;
+  setPreviewBanner: React.Dispatch<React.SetStateAction<string>>;
+  logoImage: string;
+  setLogoImage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function StepTwo({
@@ -20,6 +25,10 @@ export function StepTwo({
   bannerImage,
   setBannerImage,
   nextStep,
+  previewBanner,
+  setPreviewBanner,
+  logoImage,
+  setLogoImage,
 }: StepTwoProps) {
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
   const [isUploading, setIsUploading] = useState(false);
@@ -46,10 +55,14 @@ export function StepTwo({
           // Create a temporary URL for preview
           const previewUrl = URL.createObjectURL(file);
 
+          console.log("PREVIEW", previewUrl);
+
           if (type === "banner") {
-            setBannerImage(previewUrl);
+            setPreviewBanner(previewUrl);
+            setBannerImage(storageId);
           } else {
-            setProfileImage(previewUrl);
+            setLogoImage(previewUrl);
+            setProfileImage(storageId);
           }
         } catch (error) {
           console.error("Error uploading file:", error);
@@ -90,9 +103,9 @@ export function StepTwo({
                 onChange={(e) => handleFileUpload(e, "banner")}
               />
             </div>
-            {bannerImage && (
+            {previewBanner && (
               <img
-                src={bannerImage}
+                src={previewBanner}
                 alt="Banner preview"
                 className="mt-2 max-h-32 w-full object-cover rounded"
               />
@@ -118,9 +131,9 @@ export function StepTwo({
                 onChange={(e) => handleFileUpload(e, "icon")}
               />
             </div>
-            {profileImage && (
+            {logoImage && (
               <img
-                src={profileImage}
+                src={logoImage}
                 alt="Icon preview"
                 className="mt-2 w-20 h-20 object-cover rounded-full"
               />
@@ -130,9 +143,9 @@ export function StepTwo({
         <div className="w-full sm:w-1/2">
           <h3 className="text-lg font-semibold mb-4">Preview</h3>
           <div className="relative">
-            {bannerImage ? (
+            {previewBanner ? (
               <img
-                src={bannerImage}
+                src={previewBanner}
                 alt="Banner preview"
                 className="w-full h-32 object-cover rounded-t-lg"
               />
@@ -142,9 +155,9 @@ export function StepTwo({
               </div>
             )}
             <div className="absolute -bottom-4 left-4">
-              {profileImage ? (
+              {logoImage ? (
                 <img
-                  src={profileImage}
+                  src={logoImage}
                   alt="Profile preview"
                   className="w-20 h-20 rounded-full border-4 border-gray-800 object-cover"
                 />
