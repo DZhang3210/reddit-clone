@@ -35,39 +35,41 @@ export const create = mutation({
   },
 });
 
-// export const get = query({
-//   args: {
-//     name: v.optional(v.string()),
-//     paginationOpts: paginationOptsValidator,
-//   },
-//   handler: async (ctx, args) => {
-//     const userId = await auth.getUserId(ctx);
-//     if (!userId) {
-//       return {
-//         page: [],
-//         isDone: true,
-//         continueCursor: "",
-//       };
-//     }
+export const get = query({
+  args: {
+    name: v.optional(v.string()),
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
+    }
 
-//     const results = await ctx.db
-//       .query("posts")
-//       .order("desc")
-//       .paginate(args.paginationOpts);
+    const results = await ctx.db
+      .query("posts")
+      .order("desc")
+      .paginate(args.paginationOpts);
 
-//     const page = await Promise.all(
-//       results.page.map(async (post) => {
-//         const image = await ctx.storage.getUrl(post?.image);
-//         // const isFollowing = await thread.users.includes(userId);
-//         return {
-//           ...post,
-//           image,
-//         };
-//       })
-//     );
-//     return {
-//       ...results,
-//       page,
-//     };
-//   },
-// });
+    const page = await Promise.all(
+      results.page.map(async (post) => {
+        if (post?.image) {
+          return {
+            ...post,
+            image: await ctx.storage.getUrl(post?.image),
+          };
+        } else {
+          return post;
+        }
+      })
+    );
+    return {
+      ...results,
+      page,
+    };
+  },
+});

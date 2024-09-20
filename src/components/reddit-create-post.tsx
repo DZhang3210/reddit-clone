@@ -92,7 +92,7 @@ export default function RedditCreatePost() {
     // imageTitle: string;
     // image: Id<"_storage">;
     console.log("Submitting post:", postData);
-    toast.success("Post successfull created");
+    toast.success("Post successfully created");
     // Here you would typically send this data to your backend
   };
 
