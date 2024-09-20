@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,6 +24,10 @@ import { useGetAllThreads } from "@/features/threads/api/use-get-all";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { useCreatePost } from "@/features/posts/api/use-create-post";
+import { Id } from "../../convex/_generated/dataModel";
+import dynamic from "next/dynamic";
+
 export default function RedditCreatePost() {
   const router = useRouter();
   const [selectedCommunity, setSelectedCommunity] = useState("");
@@ -31,14 +35,34 @@ export default function RedditCreatePost() {
   const [textContent, setTextContent] = useState("");
   const [imageTitle, setImageTitle] = useState("");
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageId, setImageId] = useState<Id<"_storage"> | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
   const [activeTab, setActiveTab] = useState("text");
+
+  useEffect(() => {}, []);
+
   useEffect(() => {
     console.log(activeTab);
   }, [activeTab]);
   const { data: threads, isLoading: threadsLoading } = useGetAllThreads();
+  const { mutate: createPost, isPending: creatingPost } = useCreatePost();
+
+  const RichTextEditor = useMemo(
+    () =>
+      dynamic(() => import("./text-editor/rich-text-editor"), {
+        ssr: false,
+        loading: () => <p>Loading editor...</p>,
+      }),
+    []
+  );
+
+  const memoizedRichTextEditor = useMemo(
+    () => <RichTextEditor content={textContent} setContent={setTextContent} />,
+    [textContent, setTextContent]
+  );
+
   const communities = threads?.map((thread) => {
     return {
       id: thread?._id,
@@ -49,11 +73,26 @@ export default function RedditCreatePost() {
   const handleSubmit = (type: "text" | "image") => {
     const postData = {
       community: selectedCommunity,
-      type,
-      title: type === "text" ? title : imageTitle,
-      content: type === "text" ? textContent : imageUrl,
+      title: title,
+      content: textContent,
+      image: imageId,
+      imageTitle,
+      threadId: selectedCommunity,
     };
+    createPost({
+      title,
+      content: textContent,
+      image: imageId || undefined,
+      imageTitle,
+      threadId: selectedCommunity as Id<"threads">,
+    });
+    // title: string;
+    // content: string;
+    // threadId: Id<"threads">;
+    // imageTitle: string;
+    // image: Id<"_storage">;
     console.log("Submitting post:", postData);
+    toast.success("Post successfull created");
     // Here you would typically send this data to your backend
   };
 
@@ -75,6 +114,7 @@ export default function RedditCreatePost() {
           // Create a temporary URL for preview
           const previewUrl = URL.createObjectURL(file);
           setImageUrl(previewUrl);
+          setImageId(storageId);
           setImageFile(file);
         } catch (error) {
           console.error("Error uploading file:", error);
@@ -98,17 +138,8 @@ export default function RedditCreatePost() {
 
   const handleRemoveImage = () => {
     setImageUrl(null);
+    setImageId(null);
     setImageFile(null);
-  };
-
-  const isPostButtonDisabled = () => {
-    if (!selectedCommunity) return true;
-    if (activeTab === "text") {
-      return !title.trim() || !textContent.trim();
-    } else if (activeTab === "image") {
-      return !imageTitle.trim() || !imageUrl;
-    }
-    return true;
   };
 
   return (
@@ -124,7 +155,7 @@ export default function RedditCreatePost() {
           <SelectContent className="bg-gray-700 text-white border-gray-600">
             {communities &&
               communities.map((community) => (
-                <SelectItem key={community.label} value={community.label}>
+                <SelectItem key={community.label} value={community.id}>
                   {community.label}
                 </SelectItem>
               ))}
@@ -162,16 +193,10 @@ export default function RedditCreatePost() {
               />
             </div>
             <div>
-              <Label htmlFor="text-content" className="text-white">
-                Text
-              </Label>
-              <Textarea
-                id="text-content"
-                placeholder="Enter your post content"
-                className="min-h-[200px] w-full bg-gray-700 text-white border-gray-600"
-                value={textContent}
-                onChange={(e) => setTextContent(e.target.value)}
-              />
+              <div className="container mx-auto p-4">
+                <h1 className="text-2xl font-bold mb-4">Rich Text Editor</h1>
+                {memoizedRichTextEditor}
+              </div>
             </div>
           </TabsContent>
           <TabsContent value="image" className="mt-0 space-y-4 w-full">
@@ -247,7 +272,7 @@ export default function RedditCreatePost() {
         <Button
           onClick={() => handleSubmit(activeTab === "text" ? "text" : "image")}
           className="bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={isPostButtonDisabled()}
+          disabled={!title || !textContent || !selectedCommunity}
         >
           Post
         </Button>

@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { auth } from "./auth";
 import { paginationOptsValidator } from "convex/server";
+import { threadId } from "worker_threads";
 
 export const getAll = query({
   args: {},
@@ -29,7 +30,14 @@ export const getById = query({
     }
     const bannerImage = await ctx.storage.getUrl(results?.bannerImage);
     const logoImage = await ctx.storage.getUrl(results?.logoImage);
-    const isFollowing = await results.users.includes(userId);
+    const user = await ctx.db.get(userId);
+    if (!user)
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
+    const isFollowing = user?.followingThreads?.includes(args.id);
     return {
       ...results,
       bannerImage,
@@ -63,7 +71,14 @@ export const get = query({
       results.page.map(async (thread) => {
         const bannerImage = await ctx.storage.getUrl(thread.bannerImage);
         const logoImage = await ctx.storage.getUrl(thread.logoImage);
-        const isFollowing = await thread.users.includes(userId);
+        const user = await ctx.db.get(userId);
+        if (!user)
+          return {
+            page: [],
+            isDone: true,
+            continueCursor: "",
+          };
+        const isFollowing = user?.followingThreads?.includes(thread._id);
         return {
           ...thread,
           bannerImage,
@@ -92,16 +107,34 @@ export const create = mutation({
       throw new Error("Not authenticated");
     }
 
+    const existingThread = await ctx.db
+      .query("threads")
+      .filter((q) => q.eq(q.field("title"), args.title))
+      .unique();
+
+    console.log("TITLE", args.title, "EXISTING", existingThread);
+
+    if (existingThread) {
+      throw new Error("Name already taken");
+    }
+
     const newThread = await ctx.db.insert("threads", {
       title: args.title,
       description: args.description,
       bannerImage: args.bannerImage,
       logoImage: args.logoImage,
       totalMembers: 1,
-      users: [userId],
       createdAt: Date.now(),
       updatedAt: Date.now(),
       moderators: [userId],
+    });
+
+    const author = await ctx.db.get(userId);
+
+    await ctx.db.insert("users", {
+      followingThreads: author?.followingThreads
+        ? [...author.followingThreads, newThread]
+        : [newThread],
     });
 
     return newThread;

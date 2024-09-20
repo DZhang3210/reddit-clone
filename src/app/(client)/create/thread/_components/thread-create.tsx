@@ -40,6 +40,9 @@ const ThreadCreate = () => {
           toast.success("Thread Created");
           router.push("/thread");
         },
+        onError: (id) => {
+          toast.error("Something went wrong");
+        },
       }
     );
   };
