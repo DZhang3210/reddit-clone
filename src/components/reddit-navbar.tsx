@@ -31,7 +31,7 @@ export default function RedditNavbar() {
 
       {/* Right side buttons */}
       <div className="flex items-center space-x-4">
-        <Link href="/create">
+        <Link href="/create/post">
           <Button
             variant="outline"
             className="flex items-center bg-gray-800 text-gray-200 hover:bg-gray-700"

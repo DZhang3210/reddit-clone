@@ -3,6 +3,14 @@ import { mutation, query } from "./_generated/server";
 import { auth } from "./auth";
 import { paginationOptsValidator } from "convex/server";
 
+export const getAll = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const results = await ctx.db.query("threads").collect();
+    return results;
+  },
+});
+
 export const getById = query({
   args: { id: v.id("threads") },
   handler: async (ctx, args) => {

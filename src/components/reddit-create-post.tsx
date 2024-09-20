@@ -1,6 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -12,19 +17,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { FileText, Image, Upload } from "lucide-react";
+import { FileText, Image, Upload, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
-
-const communities = [
-  { value: "AskReddit", label: "r/AskReddit" },
-  { value: "funny", label: "r/funny" },
-  { value: "gaming", label: "r/gaming" },
-  { value: "aww", label: "r/aww" },
-  { value: "pics", label: "r/pics" },
-];
+import { useGetAllThreads } from "@/features/threads/api/use-get-all";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function RedditCreatePost() {
+  const router = useRouter();
   const [selectedCommunity, setSelectedCommunity] = useState("");
   const [title, setTitle] = useState("");
   const [textContent, setTextContent] = useState("");
@@ -37,6 +38,13 @@ export default function RedditCreatePost() {
   useEffect(() => {
     console.log(activeTab);
   }, [activeTab]);
+  const { data: threads, isLoading: threadsLoading } = useGetAllThreads();
+  const communities = threads?.map((thread) => {
+    return {
+      id: thread?._id,
+      label: `/${thread?.title}`,
+    };
+  });
 
   const handleSubmit = (type: "text" | "image") => {
     const postData = {
@@ -77,7 +85,6 @@ export default function RedditCreatePost() {
     },
     [generateUploadUrl]
   );
-
   const handleImageDrop = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
@@ -89,19 +96,38 @@ export default function RedditCreatePost() {
     [handleFileUpload]
   );
 
+  const handleRemoveImage = () => {
+    setImageUrl(null);
+    setImageFile(null);
+  };
+
+  const isPostButtonDisabled = () => {
+    if (!selectedCommunity) return true;
+    if (activeTab === "text") {
+      return !title.trim() || !textContent.trim();
+    } else if (activeTab === "image") {
+      return !imageTitle.trim() || !imageUrl;
+    }
+    return true;
+  };
+
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-gray-800 text-white">
+    <Card className="w-full max-w-2xl mx-auto bg-gray-800 text-white mt-10">
       <CardContent className="p-6">
+        <CardHeader className="text-2xl font-semibold">
+          Create Your Amazing Post
+        </CardHeader>
         <Select onValueChange={setSelectedCommunity}>
           <SelectTrigger className="w-full mb-4 bg-gray-700 text-white border-gray-600">
             <SelectValue placeholder="Choose a community" />
           </SelectTrigger>
           <SelectContent className="bg-gray-700 text-white border-gray-600">
-            {communities.map((community) => (
-              <SelectItem key={community.value} value={community.value}>
-                {community.label}
-              </SelectItem>
-            ))}
+            {communities &&
+              communities.map((community) => (
+                <SelectItem key={community.label} value={community.label}>
+                  {community.label}
+                </SelectItem>
+              ))}
           </SelectContent>
         </Select>
 
@@ -162,16 +188,24 @@ export default function RedditCreatePost() {
               />
             </div>
             <div
-              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[200px] w-full flex flex-col items-center justify-center bg-gray-700 text-white"
+              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[200px] w-full flex flex-col items-center justify-center bg-gray-700 text-white relative"
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleImageDrop}
             >
               {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="Uploaded preview"
-                  className="max-h-48 object-contain mb-4"
-                />
+                <div className="w-full h-full relative">
+                  <img
+                    src={imageUrl}
+                    alt="post image"
+                    className="w-full h-full object-cover"
+                  />
+                  <button
+                    onClick={handleRemoveImage}
+                    className="absolute top-2 right-2 bg-gray-800 rounded-full p-5 hover:bg-gray-700"
+                  >
+                    <X className=" text-white" size={40} />
+                  </button>
+                </div>
               ) : (
                 <Image className="w-12 h-12 mb-4 text-gray-400" />
               )}
@@ -211,8 +245,9 @@ export default function RedditCreatePost() {
           Cancel
         </Button>
         <Button
-          onClick={() => handleSubmit(title ? "text" : "image")}
-          className="bg-blue-600 text-white hover:bg-blue-700"
+          onClick={() => handleSubmit(activeTab === "text" ? "text" : "image")}
+          className="bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isPostButtonDisabled()}
         >
           Post
         </Button>
