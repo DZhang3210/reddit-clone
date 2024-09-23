@@ -57,13 +57,28 @@ export const get = query({
 
     const page = await Promise.all(
       results.page.map(async (post) => {
+        const user = await ctx.db
+          .query("users")
+          .filter((q) => q.eq(q.field("_id"), post.author))
+          .unique();
+        const thread = await ctx.db
+          .query("threads")
+          .filter((q) => q.eq(q.field("_id"), post.thread))
+          .unique();
         if (post?.image) {
           return {
             ...post,
             image: await ctx.storage.getUrl(post?.image),
+            user: user,
+            thread: thread,
           };
         } else {
-          return post;
+          return {
+            ...post,
+            image: "",
+            user: user,
+            thread: thread,
+          };
         }
       })
     );

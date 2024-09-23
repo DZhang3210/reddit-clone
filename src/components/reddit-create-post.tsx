@@ -143,7 +143,7 @@ export default function RedditCreatePost() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-gray-800 text-white mt-10">
+    <Card className="w-full max-w-2xl mx-auto bg-gray-800 text-white">
       <CardContent className="p-6">
         <CardHeader className="text-2xl font-semibold">
           Create Your Amazing Post

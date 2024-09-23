@@ -91,9 +91,11 @@ body {
   }
 }
 
+.tiptap[contenteditable="true"] {
+  min-height: 100px;
+}
 .tiptap {
   padding-left: 3px;
-  min-height: 100px;
   caret-color: white;
 }
 .tiptap {

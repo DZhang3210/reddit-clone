@@ -89,7 +89,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
           onEmojiSelect={(emoji) => editor.commands.insertContent(emoji)}
         />
       </div>
-      <EditorContent editor={editor} className="prose max-w-none" />
+      <EditorContent editor={editor} className="prose max-w-none editContent" />
     </div>
   );
 };
