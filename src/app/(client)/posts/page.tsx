@@ -1,20 +1,21 @@
-"use client";
+// "use client";
 import RedditPostCard from "@/components/reddit-post-card";
-import { useGetPosts } from "@/features/posts/api/use-get-posts";
+// import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import React from "react";
 import { Doc, Id } from "../../../../convex/_generated/dataModel";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { useSearchParams, useRouter } from "next/navigation";
-import { ChevronDownIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
+// import { Button } from "@/components/ui/button";
+// import { useSearchParams, useRouter } from "next/navigation";
+// import { ChevronDownIcon } from "lucide-react";
+// import { cn } from "@/lib/utils";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "../../../../convex/_generated/api";
 
 type Post = {
   image: string | null;
@@ -32,25 +33,34 @@ type Post = {
   saved: boolean | undefined;
 };
 
-const PostsPage = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const currentFilter = searchParams.get("filter") || "Best";
+const PostsPage = async () => {
+  // const searchParams = useSearchParams();
+  // const router = useRouter();
+  // const currentFilter = searchParams.get("filter") || "Best";
 
-  const { results: posts, status, loadMore } = useGetPosts({ name: "" });
+  // const { results: posts, status, loadMore } = useGetPosts({ name: "" });
 
-  const handleFilterChange = (filter: string) => {
-    router.push(`?filter=${filter}`);
-  };
+  const posts = await fetchQuery(api.posts.get, {
+    name: "",
+    paginationOpts: { numItems: 10, cursor: null },
+  });
 
-  if (status === "LoadingFirstPage" || !posts) {
+  if (posts.page.length === 0) {
+    console.log("POSTS", posts.page);
     return <div>Loading...</div>;
   }
+  // const handleFilterChange = (filter: string) => {
+  //   router.push(`?filter=${filter}`);
+  // };
+
+  // if (status === "LoadingFirstPage" || !posts) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div className="flex flex-col gap-4 mt-4 mx-4 ">
       <div className="max-w-2xl w-full mx-auto text-4xl flex justify-start">
-        <DropdownMenu>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
@@ -77,10 +87,10 @@ const PostsPage = () => {
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
       <div className="flex flex-col items-center gap-4">
-        {posts.map((post: Post) => {
+        {/* {posts.page.map((post: Post) => {
           if (!post.thread || !post.user) return null;
           return (
             <RedditPostCard
@@ -102,7 +112,7 @@ const PostsPage = () => {
               saved={post.saved || false}
             />
           );
-        })}
+        })} */}
       </div>
     </div>
   );
