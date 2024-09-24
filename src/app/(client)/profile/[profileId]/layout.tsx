@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface ProfileLayoutProps {
   children: ReactNode;
@@ -39,66 +40,84 @@ export default function ProfileLayout({
         </div>
       </div>
 
-      <Tabs value={currentTab} className="w-full">
-        <TabsList>
-          <TabsTrigger value="overview" asChild>
+      <Tabs value={currentTab} className="w-full p-1">
+        <TabsList className="bg-gray-800">
+          <TabsTrigger value="overview" className="px-4 py-3" asChild>
             <Link
               href={`/profile/${profileId}/overview`}
-              className={
+              className={cn(
+                "py-2",
                 currentTab === "overview"
                   ? "bg-primary text-primary-foreground"
-                  : ""
-              }
+                  : "text-gray-300"
+              )}
             >
               Overview
             </Link>
           </TabsTrigger>
-          <TabsTrigger value="comments" asChild>
+          <TabsTrigger value="threads" className="px-4" asChild>
+            <Link
+              href={`/profile/${profileId}/threads`}
+              className={cn(
+                "py-2",
+                currentTab === "threads"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-gray-300"
+              )}
+            >
+              Threads
+            </Link>
+          </TabsTrigger>
+          <TabsTrigger value="comments" className="px-4 py-3" asChild>
             <Link
               href={`/profile/${profileId}/comments`}
-              className={
+              className={cn(
+                "py-2",
                 currentTab === "comments"
                   ? "bg-primary text-primary-foreground"
-                  : ""
-              }
+                  : "text-gray-300"
+              )}
             >
               Comments
             </Link>
           </TabsTrigger>
-          <TabsTrigger value="posts" asChild>
+          <TabsTrigger value="posts" className="px-4 py-3" asChild>
             <Link
               href={`/profile/${profileId}/posts`}
-              className={
+              className={cn(
+                "py-2",
                 currentTab === "posts"
                   ? "bg-primary text-primary-foreground"
-                  : ""
-              }
+                  : "text-gray-300"
+              )}
             >
               Posts
             </Link>
           </TabsTrigger>
-          <TabsTrigger value="upvoted" asChild>
+          <TabsTrigger value="upvoted" className="px-4 py-3" asChild>
             <Link
               href={`/profile/${profileId}/upvoted`}
-              className={
+              className={cn(
+                "py-2",
                 currentTab === "upvoted"
                   ? "bg-primary text-primary-foreground"
-                  : ""
-              }
+                  : "text-gray-300"
+              )}
             >
               Upvoted
             </Link>
           </TabsTrigger>
-          <TabsTrigger value="downvoted" asChild>
+          <TabsTrigger value="saved" className="px-4" asChild>
             <Link
-              href={`/profile/${profileId}/downvoted`}
-              className={
-                currentTab === "downvoted"
+              href={`/profile/${profileId}/saved`}
+              className={cn(
+                "py-2",
+                currentTab === "saved"
                   ? "bg-primary text-primary-foreground"
-                  : ""
-              }
+                  : "text-gray-300"
+              )}
             >
-              Downvoted
+              Saved
             </Link>
           </TabsTrigger>
         </TabsList>

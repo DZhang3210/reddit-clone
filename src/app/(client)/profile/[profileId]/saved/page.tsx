@@ -3,7 +3,7 @@ import { useGetUserPosts } from "@/features/profile/api/use-get-user-posts";
 import React from "react";
 import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import RedditPostCard from "@/components/reddit-post-card";
-import { useGetUserLiked } from "@/features/profile/api/use-get-user-liked";
+import { useGetUserSaved } from "@/features/profile/api/use-get-user-saved";
 
 type Post = {
   image: string | null;
@@ -21,8 +21,8 @@ type Post = {
   saved: boolean | undefined;
 };
 
-const PostsProfile = () => {
-  const { data: posts, isLoading: postsLoading } = useGetUserPosts();
+const DownvotedProfile = () => {
+  const { data: posts, isLoading: postsLoading } = useGetUserSaved();
   console.log("DATA", posts);
 
   if (postsLoading || !posts) return <div>Loading...</div>;
@@ -59,4 +59,4 @@ const PostsProfile = () => {
   );
 };
 
-export default PostsProfile;
+export default DownvotedProfile;

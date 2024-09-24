@@ -2,7 +2,7 @@
 import RedditPostCard from "@/components/reddit-post-card";
 import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import React from "react";
-import { Doc, Id } from "../../../../convex/_generated/dataModel";
+import { Doc, Id } from "../../../../../convex/_generated/dataModel";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,8 +12,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { ChevronDownIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type Post = {
   image: string | null;
@@ -34,9 +35,12 @@ type Post = {
 const PostsPage = () => {
   const { results: posts, status, loadMore } = useGetPosts({ name: "" });
   const searchParams = useSearchParams();
-  const currentFilter = searchParams.get("filter")
-    ? searchParams.get("filter")
-    : "Best";
+  const router = useRouter();
+  const currentFilter = searchParams.get("filter") || "Best";
+
+  const handleFilterChange = (filter: string) => {
+    router.push(`?filter=${filter}`);
+  };
 
   if (status === "LoadingFirstPage" || !posts) {
     return <div>Loading...</div>;
@@ -59,12 +63,18 @@ const PostsPage = () => {
             <DropdownMenuLabel className="text-lg mb-1">
               Sort by
             </DropdownMenuLabel>
-            <DropdownMenuItem className="text-lg cursor-pointer hover:font-bold">
-              Best
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-lg cursor-pointer hover:font-bold">
-              New
-            </DropdownMenuItem>
+            {["Best", "New"].map((filter) => (
+              <DropdownMenuItem
+                key={filter}
+                className={cn(
+                  "text-lg cursor-pointer hover:font-bold",
+                  currentFilter === filter ? "font-bold" : ""
+                )}
+                onClick={() => handleFilterChange(filter)}
+              >
+                {filter}
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

@@ -88,7 +88,7 @@ export default function RedditPostCard({
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl">
       <CardHeader className="flex flex-row items-center space-x-4 p-4">
         <Link href={`/profile/${userId}`}>
           <Avatar className="transition-all duration-300 hover:scale-110">
@@ -102,7 +102,7 @@ export default function RedditPostCard({
               r/{subreddit}
             </p>
           </Link>
-          <Link href={`/user/${userId}`}>
+          <Link href={`/profile/${userId}/overview`}>
             <p className="text-xs text-muted-foreground hover:underline cursor-pointer">
               Posted by u/{username} • {format(timePosted, "MMM d, yyyy")}
             </p>

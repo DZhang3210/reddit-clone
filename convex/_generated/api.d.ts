@@ -18,6 +18,7 @@ import type {
 import type * as auth from "../auth.js";
 import type * as http from "../http.js";
 import type * as posts from "../posts.js";
+import type * as profile from "../profile.js";
 import type * as threads from "../threads.js";
 import type * as upload from "../upload.js";
 import type * as users from "../users.js";
@@ -34,6 +35,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   http: typeof http;
   posts: typeof posts;
+  profile: typeof profile;
   threads: typeof threads;
   upload: typeof upload;
   users: typeof users;

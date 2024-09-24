@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Loader, LogOut, Users } from "lucide-react";
+import { Bell, Loader, LogOut, Users } from "lucide-react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
 import { useRouter } from "next/navigation";
@@ -36,22 +36,34 @@ const UserButton = () => {
           <AvatarFallback>{avatarFallback}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="w-56 bg-black text-white">
         <DropdownMenuItem
+          className="cursor-pointer text-lg flex items-center"
           onClick={() => {
             signOut();
           }}
         >
-          <LogOut className="size-4 mr-2" />
+          <LogOut className="size-6 mr-2" />
           Log out
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer text-lg flex items-center"
+          asChild
+        >
           <Link href="/create/thread" className="flex">
-            <Users className="size-4 mr-2" />
+            <Users className="size-6 mr-2" />
             Create Thread
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer text-lg flex items-center"
+          asChild
+        >
+          <Link href={`/profile/${data._id}`} className="flex">
+            <Bell className="size-6 mr-2" />
+            User Profile
+          </Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
