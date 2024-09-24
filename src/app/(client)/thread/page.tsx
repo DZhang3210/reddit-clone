@@ -2,7 +2,6 @@
 import { useGetThreads } from "@/features/threads/api/use-get-threads";
 import React from "react";
 import RedditThreadBanner from "@/components/thread-banner";
-import { Doc, Id } from "../../../../convex/_generated/dataModel";
 
 const ThreadsPage = () => {
   const { results: threads, status, loadMore } = useGetThreads({ name: "" });

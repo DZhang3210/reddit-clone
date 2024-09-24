@@ -13,7 +13,6 @@ interface PostPageProps {
 
 const PostPage = ({ params: { postId } }: PostPageProps) => {
   const { data: post, isLoading } = useGetPost({ id: postId as Id<"posts"> });
-  console.log(post);
   if (isLoading || !post) return <div>Loading...</div>;
   if (!post.thread || !post.user) return null;
 

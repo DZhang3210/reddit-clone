@@ -16,6 +16,7 @@ export const likePost = mutation({
       .query("posts")
       .filter((q) => q.eq(q.field("_id"), args.postId))
       .unique();
+
     if (!post) {
       throw new Error("Post not found");
     }
@@ -29,35 +30,38 @@ export const likePost = mutation({
     }
 
     if (!user.likedPosts) {
-      await ctx.db.patch(user._id, {
-        likedPosts: [post._id],
-      });
-      await ctx.db.patch(post._id, {
-        likes: post.likes + 1,
-      });
+      const [_user, _post] = await Promise.all([
+        await ctx.db.patch(user._id, {
+          likedPosts: [post._id],
+        }),
+        await ctx.db.patch(post._id, {
+          likes: post.likes + 1,
+        }),
+      ]);
       return post._id;
     }
 
     if (user.likedPosts?.includes(post._id)) {
       const newLikePosts = user.likedPosts.filter((id) => id !== post._id);
-
-      await ctx.db.patch(user._id, {
-        likedPosts: newLikePosts,
-      });
-
-      await ctx.db.patch(post._id, {
-        likes: post.likes - 1,
-      });
+      const [_user, _post] = await Promise.all([
+        await ctx.db.patch(user._id, {
+          likedPosts: newLikePosts,
+        }),
+        await ctx.db.patch(post._id, {
+          likes: post.likes - 1,
+        }),
+      ]);
     } else {
       const newLikedPosts = [...user.likedPosts, post._id];
 
-      await ctx.db.patch(user._id, {
-        likedPosts: newLikedPosts,
-      });
-
-      await ctx.db.patch(post._id, {
-        likes: post.likes + 1,
-      });
+      const [_user, _post] = await Promise.all([
+        await ctx.db.patch(user._id, {
+          likedPosts: newLikedPosts,
+        }),
+        await ctx.db.patch(post._id, {
+          likes: post.likes + 1,
+        }),
+      ]);
     }
     return post._id;
   },
@@ -117,14 +121,16 @@ export const get = query({
 
     const page = await Promise.all(
       results.page.map(async (post) => {
-        const user = await ctx.db
-          .query("users")
-          .filter((q) => q.eq(q.field("_id"), post.author))
-          .unique();
-        const thread = await ctx.db
-          .query("threads")
-          .filter((q) => q.eq(q.field("_id"), post.thread))
-          .unique();
+        const [user, thread] = await Promise.all([
+          await ctx.db
+            .query("users")
+            .filter((q) => q.eq(q.field("_id"), post.author))
+            .unique(),
+          await ctx.db
+            .query("threads")
+            .filter((q) => q.eq(q.field("_id"), post.thread))
+            .unique(),
+        ]);
         const liked = user?.likedPosts?.includes(post?._id);
         const saved = user?.savedPosts?.includes(post?._id);
         if (post?.image) {
@@ -173,14 +179,20 @@ export const getById = query({
       return null;
     }
 
-    const user = await ctx.db
-      .query("users")
-      .filter((q) => q.eq(q.field("_id"), post?.author))
-      .unique();
-    const thread = await ctx.db
-      .query("threads")
-      .filter((q) => q.eq(q.field("_id"), post?.thread))
-      .unique();
+    const [user, thread] = await Promise.all([
+      await ctx.db
+        .query("users")
+        .filter((q) => q.eq(q.field("_id"), post?.author))
+        .unique(),
+      await ctx.db
+        .query("threads")
+        .filter((q) => q.eq(q.field("_id"), post?.thread))
+        .unique(),
+    ]);
+
+    if (!user || !thread) {
+      return null;
+    }
 
     const liked = user?.likedPosts?.includes(post?._id);
     const saved = user?.savedPosts?.includes(post?._id);

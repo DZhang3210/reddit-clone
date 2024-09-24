@@ -3,7 +3,6 @@ import { useGetUserPosts } from "@/features/profile/api/use-get-user-posts";
 import React from "react";
 import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import RedditPostCard from "@/components/reddit-post-card";
-import { useGetUserLiked } from "@/features/profile/api/use-get-user-liked";
 
 type Post = {
   image: string | null;
@@ -23,7 +22,6 @@ type Post = {
 
 const PostsProfile = () => {
   const { data: posts, isLoading: postsLoading } = useGetUserPosts();
-  console.log("DATA", posts);
 
   if (postsLoading || !posts) return <div>Loading...</div>;
 

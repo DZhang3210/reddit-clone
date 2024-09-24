@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "lucide-react";
 import { Id } from "../../convex/_generated/dataModel";
 import Link from "next/link";
@@ -27,16 +26,6 @@ export default function RedditThreadBanner({
   isFollowing = false,
 }: RedditThreadBannerProps) {
   const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
-  const [follow, setFollowing] = useState(isFollowing);
-  const [isJoined, setIsJoined] = useState(false);
-
-  const handleJoinClick = () => {
-    setIsJoined(!isJoined);
-  };
-
-  const getAvatarFallback = (name: string) => {
-    return name && name.length > 0 ? name.slice(0, 2).toUpperCase() : "TH";
-  };
 
   return (
     <Link

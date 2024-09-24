@@ -152,3 +152,76 @@ export const getUserUpvoted = query({
     return likedPosts;
   },
 });
+
+export const getUserThreads = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      return [];
+    }
+
+    const user = await ctx.db.get(userId);
+
+    if (!user) {
+      return [];
+    }
+
+    const threadIds = user.followingThreads;
+
+    if (!threadIds) {
+      return [];
+    }
+
+    const threads = (
+      await Promise.all(
+        threadIds.map(async (threadId) => {
+          const thread = await ctx.db.get(threadId);
+          if (!thread) return null;
+
+          const [bannerImage, logoImage] = await Promise.all([
+            ctx.storage.getUrl(thread.bannerImage),
+            ctx.storage.getUrl(thread.logoImage),
+          ]);
+          return {
+            ...thread,
+            following: true,
+            bannerImage,
+            logoImage,
+          };
+        })
+      )
+    ).filter((thread) => thread !== null);
+
+    return threads;
+  },
+});
+
+export const getUserStats = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) return null;
+
+    const user = await ctx.db.get(userId);
+    if (!user) {
+      return null;
+    }
+    const followingThreadsLength = user.followingThreads
+      ? user.followingThreads.length
+      : 0;
+    const savedPostsLength = user.savedPosts ? user.savedPosts.length : 0;
+    const upvotedPostsLength = user.likedPosts ? user.likedPosts.length : 0;
+    const posts = await ctx.db
+      .query("posts")
+      .withIndex("author", (q) => q.eq("author", user._id))
+      .collect();
+    const createdPostsLength = posts.length;
+    return {
+      followingThreadsLength,
+      savedPostsLength,
+      upvotedPostsLength,
+      createdPostsLength,
+    };
+  },
+});

@@ -12,14 +12,13 @@ export const toggleFollow = mutation({
       throw new Error("Not authenticated");
     }
 
-    const user = await ctx.db.get(userId);
-    if (!user) {
-      throw new Error("User not found");
-    }
+    const [user, thread] = await Promise.all([
+      await ctx.db.get(userId),
+      await ctx.db.get(args.threadId),
+    ]);
 
-    const thread = await ctx.db.get(args.threadId);
-    if (!thread) {
-      throw new Error("Thread not found");
+    if (!user || !thread) {
+      throw new Error("User or thread not found");
     }
 
     const isFollowing = user.followingThreads?.includes(thread._id);
@@ -65,15 +64,12 @@ export const getById = query({
     if (!results?.bannerImage || !results?.logoImage) {
       return null;
     }
-    const bannerImage = await ctx.storage.getUrl(results?.bannerImage);
-    const logoImage = await ctx.storage.getUrl(results?.logoImage);
-    const user = await ctx.db.get(userId);
-    if (!user)
-      return {
-        page: [],
-        isDone: true,
-        continueCursor: "",
-      };
+    const [bannerImage, logoImage, user] = await Promise.all([
+      await ctx.storage.getUrl(results?.bannerImage),
+      await ctx.storage.getUrl(results?.logoImage),
+      await ctx.db.get(userId),
+    ]);
+    if (!user) return null;
     const isFollowing = user?.followingThreads?.includes(args.id);
     return {
       ...results,
@@ -106,9 +102,11 @@ export const get = query({
 
     const page = await Promise.all(
       results.page.map(async (thread) => {
-        const bannerImage = await ctx.storage.getUrl(thread.bannerImage);
-        const logoImage = await ctx.storage.getUrl(thread.logoImage);
-        const user = await ctx.db.get(userId);
+        const [bannerImage, logoImage, user] = await Promise.all([
+          await ctx.storage.getUrl(thread.bannerImage),
+          await ctx.storage.getUrl(thread.logoImage),
+          await ctx.db.get(userId),
+        ]);
         if (!user)
           return {
             page: [],
@@ -149,8 +147,6 @@ export const create = mutation({
       .filter((q) => q.eq(q.field("title"), args.title))
       .unique();
 
-    console.log("TITLE", args.title, "EXISTING", existingThread);
-
     if (existingThread) {
       throw new Error("Name already taken");
     }
@@ -167,6 +163,10 @@ export const create = mutation({
     });
 
     const author = await ctx.db.get(userId);
+
+    if (!author) {
+      throw new Error("User not found");
+    }
 
     await ctx.db.insert("users", {
       followingThreads: author?.followingThreads

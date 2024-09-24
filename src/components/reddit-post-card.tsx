@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -8,13 +7,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import {
-  ArrowUpIcon,
-  ArrowDownIcon,
-  MessageSquare,
-  Share2,
-  BookmarkIcon,
-} from "lucide-react";
+import { ArrowUpIcon, MessageSquare, Share2, BookmarkIcon } from "lucide-react";
 import { format } from "date-fns";
 import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
@@ -66,7 +59,7 @@ export default function RedditPostCard({
         onSuccess: () => {
           toast.success("Post Saved");
         },
-        onError: (error) => {
+        onError: () => {
           toast.error("Error saving post");
         },
       }
@@ -80,7 +73,7 @@ export default function RedditPostCard({
         onSuccess: () => {
           toast.success("Post Liked");
         },
-        onError: (error) => {
+        onError: () => {
           toast.error("Error liking post");
         },
       }

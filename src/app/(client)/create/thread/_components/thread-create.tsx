@@ -27,8 +27,7 @@ const ThreadCreate = () => {
       toast.error("you to fill in all fields..");
       return;
     }
-    console.log("WHERE IS THIS");
-    const threadId = createThread(
+    createThread(
       {
         title: name,
         description: desc,
@@ -36,11 +35,11 @@ const ThreadCreate = () => {
         bannerImage,
       },
       {
-        onSuccess: (id) => {
+        onSuccess: () => {
           toast.success("Thread Created");
           router.push("/thread");
         },
-        onError: (id) => {
+        onError: () => {
           toast.error("Something went wrong");
         },
       }

@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,7 +7,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
@@ -21,7 +20,6 @@ import { FileText, Image, Upload, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 import { useGetAllThreads } from "@/features/threads/api/use-get-all";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { useCreatePost } from "@/features/posts/api/use-create-post";
@@ -29,7 +27,6 @@ import { Id } from "../../convex/_generated/dataModel";
 import dynamic from "next/dynamic";
 
 export default function RedditCreatePost() {
-  const router = useRouter();
   const [selectedCommunity, setSelectedCommunity] = useState("");
   const [title, setTitle] = useState("");
   const [textContent, setTextContent] = useState("");
@@ -41,11 +38,6 @@ export default function RedditCreatePost() {
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
   const [activeTab, setActiveTab] = useState("text");
 
-  useEffect(() => {}, []);
-
-  useEffect(() => {
-    console.log(activeTab);
-  }, [activeTab]);
   const { data: threads, isLoading: threadsLoading } = useGetAllThreads();
   const { mutate: createPost, isPending: creatingPost } = useCreatePost();
 
@@ -71,14 +63,14 @@ export default function RedditCreatePost() {
   });
 
   const handleSubmit = (type: "text" | "image") => {
-    const postData = {
-      community: selectedCommunity,
-      title: title,
-      content: textContent,
-      image: imageId,
-      imageTitle,
-      threadId: selectedCommunity,
-    };
+    // const postData = {
+    //   community: selectedCommunity,
+    //   title: title,
+    //   content: textContent,
+    //   image: imageId,
+    //   imageTitle,
+    //   threadId: selectedCommunity,
+    // };
     createPost({
       title,
       content: textContent,
@@ -91,7 +83,6 @@ export default function RedditCreatePost() {
     // threadId: Id<"threads">;
     // imageTitle: string;
     // image: Id<"_storage">;
-    console.log("Submitting post:", postData);
     toast.success("Post successfully created");
     // Here you would typically send this data to your backend
   };

@@ -1,5 +1,4 @@
 "use client";
-import { useGetUserPosts } from "@/features/profile/api/use-get-user-posts";
 import React from "react";
 import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import RedditPostCard from "@/components/reddit-post-card";
@@ -23,7 +22,6 @@ type Post = {
 
 const UpvotedProfile = () => {
   const { data: posts, isLoading: postsLoading } = useGetUserLiked();
-  console.log("DATA", posts);
 
   if (postsLoading || !posts) return <div>Loading...</div>;
 

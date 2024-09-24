@@ -2,8 +2,6 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
-import { useMutation } from "convex/react";
-import { api } from "../../../../../../convex/_generated/api";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 import { Id } from "../../../../../../convex/_generated/dataModel";
 
@@ -54,8 +52,6 @@ export function StepTwo({
 
           // Create a temporary URL for preview
           const previewUrl = URL.createObjectURL(file);
-
-          console.log("PREVIEW", previewUrl);
 
           if (type === "banner") {
             setPreviewBanner(previewUrl);
@@ -172,7 +168,7 @@ export function StepTwo({
             <h4 className="text-xl font-bold">Community Name</h4>
             <p className="text-sm text-gray-400 mt-2">r/communityname</p>
             <p className="text-sm text-gray-300 mt-4">
-              Welcome to our community! This is where you'll see a brief
+              Welcome to our community! This is where you&apos;ll see a brief
               description of what this community is all about. Join us to
               discuss, share, and connect with like-minded individuals.
             </p>

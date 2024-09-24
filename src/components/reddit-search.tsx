@@ -3,21 +3,15 @@ import { Search } from "lucide-react";
 import React, { useState } from "react";
 import { Input } from "./ui/input";
 // Import necessary components for dropdown
-import { Button } from "./ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 const RedditSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState("All");
-
   // Add filters array
-  const filters = ["All", "Posts", "Comments", "Communities", "People"];
+  // const filters = ["All", "Posts", "Comments", "Communities", "People"];
 
   // Handle search submission
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement search logic here
-    console.log(`Searching for: ${searchQuery} in ${filter}`);
   };
 
   return (
