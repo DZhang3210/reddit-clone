@@ -19,6 +19,9 @@ import { format } from "date-fns";
 import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
 import { Id } from "../../convex/_generated/dataModel";
+import { useLikePost } from "@/features/posts/api/use-like-post";
+import { toast } from "sonner";
+import { useSavePost } from "@/features/posts/api/use-save-post";
 
 interface RedditPostCardProps {
   username: string;
@@ -32,6 +35,9 @@ interface RedditPostCardProps {
   comments?: number;
   threadId: Id<"threads">;
   userId: Id<"users">;
+  postId: Id<"posts">;
+  liked: boolean;
+  saved: boolean;
 }
 
 export default function RedditPostCard({
@@ -46,25 +52,46 @@ export default function RedditPostCard({
   comments = 0,
   threadId,
   userId,
+  postId,
+  liked,
+  saved,
 }: RedditPostCardProps) {
-  const [voteCount, setVoteCount] = useState(upvotes);
-  const [userVote, setUserVote] = useState<"up" | "down" | null>(null);
+  const { mutate: likePost, isPending: isLikePending } = useLikePost();
+  const { mutate: savePost, isPending: isSavePending } = useSavePost();
 
-  const handleVote = (voteType: "up" | "down") => {
-    if (userVote === voteType) {
-      setVoteCount(upvotes);
-      setUserVote(null);
-    } else {
-      setVoteCount(upvotes + (voteType === "up" ? 1 : -1));
-      setUserVote(voteType);
-    }
+  const handleSave = () => {
+    savePost(
+      { postId },
+      {
+        onSuccess: () => {
+          toast.success("Post Saved");
+        },
+        onError: (error) => {
+          toast.error("Error saving post");
+        },
+      }
+    );
+  };
+
+  const handleVote = () => {
+    likePost(
+      { postId },
+      {
+        onSuccess: () => {
+          toast.success("Post Liked");
+        },
+        onError: (error) => {
+          toast.error("Error liking post");
+        },
+      }
+    );
   };
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader className="flex flex-row items-center space-x-4 p-4">
-        <Link href={`/user/${userId}`}>
-          <Avatar>
+        <Link href={`/profile/${userId}`}>
+          <Avatar className="transition-all duration-300 hover:scale-110">
             <AvatarImage src={userAvatar} alt={username} />
             <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
           </Avatar>
@@ -83,10 +110,12 @@ export default function RedditPostCard({
         </div>
       </CardHeader>
       <CardContent className="p-4 pt-0">
-        <h2 className="text-xl font-bold mb-2">{title}</h2>
-        <p className="text-sm mb-4 tiptap">
+        <Link href={`/post/${postId}`}>
+          <h2 className="text-xl font-bold mb-2 hover:underline">{title}</h2>
+        </Link>
+        <div className="mb-4">
           <ReadOnly content={content} />
-        </p>
+        </div>
         {image && (
           <div className="w-full aspect-[16/4] relative overflow-hidden rounded-md border-4 border-black">
             <Image
@@ -104,20 +133,12 @@ export default function RedditPostCard({
           <Button
             variant="ghost"
             size="sm"
-            className={`px-2 ${userVote === "up" ? "text-orange-500" : ""}`}
-            onClick={() => handleVote("up")}
+            className={`px-2 ${liked ? "text-orange-500" : ""}`}
+            onClick={handleVote}
+            disabled={isLikePending}
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />
-            <span className="text-xs font-medium">{voteCount}</span>
-            <ArrowDownIcon
-              className={`h-4 w-4 ml-1 ${
-                userVote === "down" ? "text-blue-500" : ""
-              }`}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleVote("down");
-              }}
-            />
+            <span className="text-xs font-medium">{upvotes}</span>
           </Button>
           <Button variant="ghost" size="sm" className="px-2">
             <MessageSquare className="h-4 w-4 mr-1" />
@@ -127,9 +148,17 @@ export default function RedditPostCard({
             <Share2 className="h-4 w-4 mr-1" />
             <span className="text-xs">Share</span>
           </Button>
-          <Button variant="ghost" size="sm" className="px-2">
-            <BookmarkIcon className="h-4 w-4 mr-1" />
-            <span className="text-xs">Save</span>
+          <Button
+            variant="ghost"
+            size="sm"
+            className={`px-2 ${saved ? "text-orange-500" : ""}`}
+            onClick={handleSave}
+            disabled={isSavePending}
+          >
+            <BookmarkIcon
+              className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
+            />
+            <span className="text-xs">{saved ? "Saved" : "Save"}</span>
           </Button>
         </div>
       </CardFooter>

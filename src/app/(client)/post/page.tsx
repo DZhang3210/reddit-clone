@@ -16,6 +16,8 @@ type Post = {
   likes: number;
   user: Doc<"users"> | null;
   thread: Doc<"threads"> | null;
+  liked: boolean | undefined;
+  saved: boolean | undefined;
 };
 
 const PostsPage = () => {
@@ -26,7 +28,7 @@ const PostsPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mt-4 mx-4">
       {posts.map((post: Post) => {
         if (!post.thread || !post.user) return null;
         return (
@@ -44,6 +46,9 @@ const PostsPage = () => {
             upvotes={post.likes}
             threadId={post.thread._id}
             userId={post.user._id}
+            postId={post._id}
+            liked={post.liked || false}
+            saved={post.saved || false}
           />
         );
       })}

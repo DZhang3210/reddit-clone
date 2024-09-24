@@ -4,6 +4,43 @@ import { auth } from "./auth";
 import { paginationOptsValidator } from "convex/server";
 import { threadId } from "worker_threads";
 
+export const toggleFollow = mutation({
+  args: { threadId: v.id("threads") },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db.get(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const thread = await ctx.db.get(args.threadId);
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    const isFollowing = user.followingThreads?.includes(thread._id);
+    if (isFollowing) {
+      user.followingThreads = user.followingThreads?.filter(
+        (id) => id !== thread._id
+      );
+    } else {
+      user.followingThreads = user.followingThreads
+        ? [...user.followingThreads, thread._id]
+        : [thread._id];
+    }
+
+    await ctx.db.patch(userId, {
+      followingThreads: user.followingThreads,
+    });
+
+    return isFollowing;
+  },
+});
+
 export const getAll = query({
   args: {},
   handler: async (ctx, args) => {

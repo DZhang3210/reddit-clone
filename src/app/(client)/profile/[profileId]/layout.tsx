@@ -7,6 +7,9 @@ import { usePathname } from "next/navigation";
 
 interface ProfileLayoutProps {
   children: ReactNode;
+  params: {
+    profileId: string;
+  };
   //   params: {
   //     overview: string | null;
   //     upvoted: string | null;
@@ -16,7 +19,10 @@ interface ProfileLayoutProps {
   //   };
 }
 
-export default function ProfileLayout({ children }: ProfileLayoutProps) {
+export default function ProfileLayout({
+  params: { profileId },
+  children,
+}: ProfileLayoutProps) {
   const pathname = usePathname();
   const currentTab = pathname.split("/").pop() || "overview";
 
@@ -35,75 +41,69 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
 
       <Tabs value={currentTab} className="w-full">
         <TabsList>
-          <Link href="/profile/overview" passHref>
-            <TabsTrigger value="overview" asChild>
-              <a
-                className={
-                  currentTab === "overview"
-                    ? "bg-primary text-primary-foreground"
-                    : ""
-                }
-              >
-                Overview
-              </a>
-            </TabsTrigger>
-          </Link>
-          <Link href="/profile/comments" passHref>
-            <TabsTrigger value="comments" asChild>
-              <a
-                className={
-                  currentTab === "comments"
-                    ? "bg-primary text-primary-foreground"
-                    : ""
-                }
-              >
-                Comments
-              </a>
-            </TabsTrigger>
-          </Link>
-          <Link href="/profile/posts" passHref>
-            <TabsTrigger value="posts" asChild>
-              <a
-                className={
-                  currentTab === "posts"
-                    ? "bg-primary text-primary-foreground"
-                    : ""
-                }
-              >
-                Posts
-              </a>
-            </TabsTrigger>
-          </Link>
-          <Link href="/profile/upvoted" passHref>
-            <TabsTrigger value="upvoted" asChild>
-              <a
-                className={
-                  currentTab === "upvoted"
-                    ? "bg-primary text-primary-foreground"
-                    : ""
-                }
-              >
-                Upvoted
-              </a>
-            </TabsTrigger>
-          </Link>
-          <Link href="/profile/downvoted" passHref>
-            <TabsTrigger value="downvoted" asChild>
-              <a
-                className={
-                  currentTab === "downvoted"
-                    ? "bg-primary text-primary-foreground"
-                    : ""
-                }
-              >
-                Downvoted
-              </a>
-            </TabsTrigger>
-          </Link>
+          <TabsTrigger value="overview" asChild>
+            <Link
+              href={`/profile/${profileId}/overview`}
+              className={
+                currentTab === "overview"
+                  ? "bg-primary text-primary-foreground"
+                  : ""
+              }
+            >
+              Overview
+            </Link>
+          </TabsTrigger>
+          <TabsTrigger value="comments" asChild>
+            <Link
+              href={`/profile/${profileId}/comments`}
+              className={
+                currentTab === "comments"
+                  ? "bg-primary text-primary-foreground"
+                  : ""
+              }
+            >
+              Comments
+            </Link>
+          </TabsTrigger>
+          <TabsTrigger value="posts" asChild>
+            <Link
+              href={`/profile/${profileId}/posts`}
+              className={
+                currentTab === "posts"
+                  ? "bg-primary text-primary-foreground"
+                  : ""
+              }
+            >
+              Posts
+            </Link>
+          </TabsTrigger>
+          <TabsTrigger value="upvoted" asChild>
+            <Link
+              href={`/profile/${profileId}/upvoted`}
+              className={
+                currentTab === "upvoted"
+                  ? "bg-primary text-primary-foreground"
+                  : ""
+              }
+            >
+              Upvoted
+            </Link>
+          </TabsTrigger>
+          <TabsTrigger value="downvoted" asChild>
+            <Link
+              href={`/profile/${profileId}/downvoted`}
+              className={
+                currentTab === "downvoted"
+                  ? "bg-primary text-primary-foreground"
+                  : ""
+              }
+            >
+              Downvoted
+            </Link>
+          </TabsTrigger>
         </TabsList>
       </Tabs>
-
-      {children}
+      <div className="w-full">{children}</div>
     </div>
   );
 }

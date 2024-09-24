@@ -5,10 +5,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User } from "lucide-react";
 import { Id } from "../../convex/_generated/dataModel";
 import Link from "next/link";
+import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
 
 interface RedditThreadBannerProps {
   backgroundImage?: string | null;
-  threadId: Id<"threads"> | undefined;
+  threadId: Id<"threads">;
   threadImage?: string | null;
   threadName?: string;
   threadDesc: string | undefined;
@@ -25,6 +26,7 @@ export default function RedditThreadBanner({
   memberCount = 1000,
   isFollowing = false,
 }: RedditThreadBannerProps) {
+  const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
   const [follow, setFollowing] = useState(isFollowing);
   const [isJoined, setIsJoined] = useState(false);
 
@@ -80,11 +82,19 @@ export default function RedditThreadBanner({
               <p className="text-gray-300 text-xs">{memberCount} members</p>
             </div>
             {isFollowing ? (
-              <Button className="py-1 px-4 bg-blue-800 hover:bg-blue-900">
+              <Button
+                className="py-1 px-4 bg-blue-600 hover:bg-blue-800"
+                onClick={() => toggleFollow({ threadId: threadId })}
+                disabled={isLoading}
+              >
                 Following
               </Button>
             ) : (
-              <Button className="py-1 px-4 bg-blue-600 hover:bg-blue-800">
+              <Button
+                className="py-1 px-4 bg-blue-600 hover:bg-blue-800"
+                onClick={() => toggleFollow({ threadId: threadId })}
+                disabled={isLoading}
+              >
                 Follow
               </Button>
             )}
