@@ -113,7 +113,7 @@ export const get = query({
           return {
             page: [],
             isDone: true,
-            continueCursor: "",
+            continueCursor: null,
           };
         const isFollowing = user?.followingThreads?.includes(thread._id);
         return {
