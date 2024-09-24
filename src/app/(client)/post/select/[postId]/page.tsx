@@ -2,7 +2,7 @@
 
 import { useGetPost } from "@/features/posts/api/use-get-post";
 import React from "react";
-import { Id } from "../../../../../convex/_generated/dataModel";
+import { Id } from "../../../../../../convex/_generated/dataModel";
 import RedditPostCard from "@/components/reddit-post-card";
 
 interface PostPageProps {

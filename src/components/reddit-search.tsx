@@ -32,7 +32,7 @@ const RedditSearch = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         {/* Add dropdown menu */}
-        <Popover>
+        {/* <Popover>
           <PopoverTrigger asChild>
             <Button variant="outline" className="ml-2 text-white">
               {filter}
@@ -52,7 +52,7 @@ const RedditSearch = () => {
               ))}
             </div>
           </PopoverContent>
-        </Popover>
+        </Popover> */}
       </form>
     </div>
   );
