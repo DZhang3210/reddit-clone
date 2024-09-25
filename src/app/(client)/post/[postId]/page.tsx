@@ -4,6 +4,7 @@ import { useGetPost } from "@/features/posts/api/use-get-post";
 import React from "react";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import RedditPostCard from "@/components/reddit-post-card";
+import RedditPostCardGhost from "@/components/reddit-post-card-ghost";
 
 interface PostPageProps {
   params: {
@@ -13,11 +14,16 @@ interface PostPageProps {
 
 const PostPage = ({ params: { postId } }: PostPageProps) => {
   const { data: post, isLoading } = useGetPost({ id: postId as Id<"posts"> });
-  if (isLoading || !post) return <div>Loading...</div>;
+  if (isLoading || !post)
+    return (
+      <div className="flex flex-col items-center gap-4 mt-4 mx-4">
+        <RedditPostCardGhost />
+      </div>
+    );
   if (!post.thread || !post.user) return null;
 
   return (
-    <div className="mx-4 mt-4">
+    <div className="flex flex-col items-center mx-4 mt-4">
       <RedditPostCard
         key={post._id}
         username={post.user?.name || "anonymous"}

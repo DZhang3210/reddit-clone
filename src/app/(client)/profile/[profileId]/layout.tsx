@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useCurrentUser } from "@/features/auth/api/use-current-user";
 
 interface ProfileLayoutProps {
   children: ReactNode;
@@ -26,17 +27,24 @@ export default function ProfileLayout({
 }: ProfileLayoutProps) {
   const pathname = usePathname();
   const currentTab = pathname.split("/").pop() || "overview";
+  const { data: user, isLoading } = useCurrentUser();
 
+  if (isLoading || !user) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex items-center space-x-4">
         <Avatar className="w-24 h-24">
-          <AvatarImage src="/placeholder.svg?height=96&width=96" alt="User" />
+          <AvatarImage
+            src={user.image || "/placeholder.svg?height=96&width=96"}
+            alt="User"
+          />
           <AvatarFallback>UN</AvatarFallback>
         </Avatar>
         <div>
-          <h1 className="text-2xl font-bold">User Name</h1>
-          <p className="text-gray-500">u/user_id</p>
+          <h1 className="text-2xl font-bold">{user.name || "User Name"}</h1>
+          <p className="text-gray-500">u/{user.name || "user_id"}</p>
         </div>
       </div>
 

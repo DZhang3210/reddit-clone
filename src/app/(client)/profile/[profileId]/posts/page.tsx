@@ -3,6 +3,7 @@ import { useGetUserPosts } from "@/features/profile/api/use-get-user-posts";
 import React from "react";
 import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import RedditPostCard from "@/components/reddit-post-card";
+import RedditPostCardGhost from "@/components/reddit-post-card-ghost";
 
 type Post = {
   image: string | null;
@@ -23,7 +24,13 @@ type Post = {
 const PostsProfile = () => {
   const { data: posts, isLoading: postsLoading } = useGetUserPosts();
 
-  if (postsLoading || !posts) return <div>Loading...</div>;
+  if (postsLoading || !posts) {
+    return (
+      <div>
+        <RedditPostCardGhost />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-4">
