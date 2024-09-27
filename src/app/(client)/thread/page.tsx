@@ -18,7 +18,7 @@ const ThreadsPage = () => {
   return (
     <div className="w-full flex flex-col justify-center items-center ">
       <h3 className="text-6xl">Threads</h3>
-      <div className="w-full flex justify-center">
+      <div className="w-full grid grid-cols-2 gap-4 px-6">
         {threads?.map((thread: any) => (
           <RedditThreadBanner
             key={thread._id}

@@ -4,7 +4,7 @@ import React from "react";
 
 const CreatePage = () => {
   return (
-    <div className="min-h-screen bg-black py-10">
+    <div className="min-h-screen py-10">
       <RedditCreatePost />
     </div>
   );

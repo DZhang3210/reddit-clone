@@ -30,7 +30,7 @@ export default function RedditThreadBanner({
   return (
     <Link
       href={`/thread/${threadId}`}
-      className="transition hover:scale-105 container"
+      className="transition hover:scale-[101%] container"
     >
       <div className="w-full cursor-pointer">
         <div className="relative">
@@ -52,14 +52,14 @@ export default function RedditThreadBanner({
               ) : (
                 <img
                   src={threadImage}
-                  alt="Banner preview"
-                  className="mt-2 max-h-40 w-full object-cover rounded"
+                  alt="Thread image"
+                  className="w-full h-full object-cover"
                 />
               )}
             </div>
           </div>
         </div>
-        <div className=" p-4 bg-red-500">
+        <div className=" p-4 bg-teal-800">
           <div className="flex justify-between">
             <div>
               <h4 className="text-xl font-bold text-white">

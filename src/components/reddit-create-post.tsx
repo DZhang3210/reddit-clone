@@ -140,7 +140,7 @@ export default function RedditCreatePost() {
           Create Your Amazing Post
         </CardHeader>
 
-        {communities ? (
+        {threadsLoading || communities ? (
           <Select onValueChange={setSelectedCommunity}>
             <SelectTrigger className="w-full mb-4 bg-gray-700 text-white border-gray-600">
               <SelectValue placeholder="Choose a community" />
@@ -180,7 +180,7 @@ export default function RedditCreatePost() {
           <TabsContent value="text" className="mt-0 space-y-4 w-full">
             <div>
               <Label htmlFor="title" className="text-white text-lg">
-                Title
+                Post Title
               </Label>
               <Input
                 id="title"
@@ -200,7 +200,7 @@ export default function RedditCreatePost() {
           <TabsContent value="image" className="mt-0 space-y-4 w-full">
             <div>
               <Label htmlFor="image-title" className="text-white">
-                Title
+                Image Title
               </Label>
               <Input
                 id="image-title"
