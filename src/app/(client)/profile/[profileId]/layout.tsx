@@ -48,8 +48,10 @@ export default function ProfileLayout({
             <AvatarFallback>UN</AvatarFallback>
           </Avatar>
           <div>
-            <h1 className="text-2xl font-bold">{user.name || "User Name"}</h1>
-            <p className="text-gray-500">u/{user.name || "user_id"}</p>
+            <h1 className="text-2xl text-gray-800 font-bold">
+              {user.name || "User Name"}
+            </h1>
+            <p className="text-gray-800">u/{user.name || "user_id"}</p>
           </div>
         </div>
       ) : (

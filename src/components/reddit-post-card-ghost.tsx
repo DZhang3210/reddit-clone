@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function RedditPostCardGhost() {
   return (
-    <Card className="w-full max-w-2xl border-2 border-gray-400">
+    <Card className="w-full max-w-4xl border-2 border-gray-400">
       <CardHeader className="flex flex-row items-center space-x-4 p-2">
         <Skeleton className="h-10 w-10 rounded-full" />
         <div className="space-y-2">

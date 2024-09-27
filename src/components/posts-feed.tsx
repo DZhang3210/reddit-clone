@@ -49,7 +49,7 @@ const PostsFeed = ({ posts }: PostsPageProps) => {
 
   return (
     <div className="flex flex-col gap-4 mt-4 mx-4 ">
-      <div className="max-w-2xl w-full mx-auto text-4xl flex justify-start">
+      <div className="max-w-4xl w-full mx-auto text-4xl flex justify-start">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

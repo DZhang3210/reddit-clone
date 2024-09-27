@@ -19,6 +19,7 @@ import { api } from "../../../../convex/_generated/api";
 import RedditPostCardGhost from "@/components/reddit-post-card-ghost";
 import { Skeleton } from "@/components/ui/skeleton";
 import PostsFeed from "@/components/posts-feed";
+import PostsFeedSkeleton from "@/components/posts-feed-skeleton";
 
 type Post = {
   image: string | null;
@@ -57,19 +58,7 @@ const PostsPage = () => {
   };
 
   if (status === "LoadingFirstPage") {
-    return (
-      <div className="flex flex-col gap-4 mt-4 mx-4 ">
-        <div className="max-w-2xl w-full mx-auto text-4xl flex-col justify-center space-y-4 items-center">
-          <Skeleton className="w-14 h-5" />
-        </div>
-        <div className="flex flex-col items-center gap-4">
-          <RedditPostCardGhost />
-          <RedditPostCardGhost />
-          <RedditPostCardGhost />
-          <RedditPostCardGhost />
-        </div>
-      </div>
-    );
+    return <PostsFeedSkeleton />;
   }
 
   return (

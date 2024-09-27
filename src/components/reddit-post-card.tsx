@@ -81,7 +81,7 @@ export default function RedditPostCard({
   };
 
   return (
-    <Card className="w-full max-w-2xl border-2 border-gray-400">
+    <Card className="w-full max-w-4xl border-2 border-gray-400">
       <CardHeader className="flex flex-row items-center space-x-4 p-2">
         <Link href={`/profile/${userId}`}>
           <Avatar className="transition-all duration-300 hover:scale-110">
@@ -110,7 +110,7 @@ export default function RedditPostCard({
           <ReadOnly content={content} />
         </div>
         {image && (
-          <div className="w-full aspect-[16/4] relative overflow-hidden rounded-md border-4 border-black mb-2">
+          <div className="w-full aspect-square relative overflow-hidden rounded-md border-4 border-black mb-2">
             <Image
               src={image}
               alt="Post content"
