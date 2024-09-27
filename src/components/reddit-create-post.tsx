@@ -25,8 +25,12 @@ import { toast } from "sonner";
 import { useCreatePost } from "@/features/posts/api/use-create-post";
 import { Id } from "../../convex/_generated/dataModel";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
+import { Separator } from "./ui/separator";
 
 export default function RedditCreatePost() {
+  const router = useRouter();
   const [selectedCommunity, setSelectedCommunity] = useState("");
   const [title, setTitle] = useState("");
   const [textContent, setTextContent] = useState("");
@@ -35,6 +39,7 @@ export default function RedditCreatePost() {
   const [imageId, setImageId] = useState<Id<"_storage"> | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
   const [activeTab, setActiveTab] = useState("text");
 
@@ -45,7 +50,7 @@ export default function RedditCreatePost() {
     () =>
       dynamic(() => import("./text-editor/rich-text-editor"), {
         ssr: false,
-        loading: () => <p>Loading editor...</p>,
+        loading: () => <Skeleton className="w-full mb-4 h-40 bg-gray-700" />,
       }),
     []
   );
@@ -63,28 +68,24 @@ export default function RedditCreatePost() {
   });
 
   const handleSubmit = (type: "text" | "image") => {
-    // const postData = {
-    //   community: selectedCommunity,
-    //   title: title,
-    //   content: textContent,
-    //   image: imageId,
-    //   imageTitle,
-    //   threadId: selectedCommunity,
-    // };
-    createPost({
-      title,
-      content: textContent,
-      image: imageId || undefined,
-      imageTitle,
-      threadId: selectedCommunity as Id<"threads">,
-    });
-    // title: string;
-    // content: string;
-    // threadId: Id<"threads">;
-    // imageTitle: string;
-    // image: Id<"_storage">;
-    toast.success("Post successfully created");
-    // Here you would typically send this data to your backend
+    createPost(
+      {
+        title,
+        content: textContent,
+        image: imageId || undefined,
+        imageTitle,
+        threadId: selectedCommunity as Id<"threads">,
+      },
+      {
+        onSuccess: (postId) => {
+          toast.success("Post successfully created");
+          router.push(`/post/${postId}`);
+        },
+        onError: (error) => {
+          toast.error("Error creating post");
+        },
+      }
+    );
   };
 
   const handleFileUpload = useCallback(
@@ -126,7 +127,6 @@ export default function RedditCreatePost() {
     },
     [handleFileUpload]
   );
-
   const handleRemoveImage = () => {
     setImageUrl(null);
     setImageId(null);
@@ -135,23 +135,30 @@ export default function RedditCreatePost() {
 
   return (
     <Card className="w-full max-w-2xl mx-auto bg-gray-800 text-white">
-      <CardContent className="p-6">
-        <CardHeader className="text-2xl font-semibold">
+      <CardContent className="p-6 mb-6">
+        <CardHeader className="text-2xl font-semibold ">
           Create Your Amazing Post
         </CardHeader>
-        <Select onValueChange={setSelectedCommunity}>
-          <SelectTrigger className="w-full mb-4 bg-gray-700 text-white border-gray-600">
-            <SelectValue placeholder="Choose a community" />
-          </SelectTrigger>
-          <SelectContent className="bg-gray-700 text-white border-gray-600">
-            {communities &&
-              communities.map((community) => (
-                <SelectItem key={community.label} value={community.id}>
-                  {community.label}
-                </SelectItem>
-              ))}
-          </SelectContent>
-        </Select>
+
+        {communities ? (
+          <Select onValueChange={setSelectedCommunity}>
+            <SelectTrigger className="w-full mb-4 bg-gray-700 text-white border-gray-600">
+              <SelectValue placeholder="Choose a community" />
+            </SelectTrigger>
+            <SelectContent className="bg-gray-700 text-white border-gray-600">
+              {communities &&
+                communities.map((community) => (
+                  <SelectItem key={community.label} value={community.id}>
+                    {community.label}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </Select>
+        ) : (
+          <div>
+            <Skeleton className="w-full mb-4 h-8 bg-gray-700" />
+          </div>
+        )}
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-4 bg-gray-700">
@@ -172,7 +179,7 @@ export default function RedditCreatePost() {
           </TabsList>
           <TabsContent value="text" className="mt-0 space-y-4 w-full">
             <div>
-              <Label htmlFor="title" className="text-white">
+              <Label htmlFor="title" className="text-white text-lg">
                 Title
               </Label>
               <Input
@@ -184,8 +191,8 @@ export default function RedditCreatePost() {
               />
             </div>
             <div>
-              <div className="container mx-auto p-4">
-                <h1 className="text-2xl font-bold mb-4">Rich Text Editor</h1>
+              <div className="container mx-auto">
+                <h1 className="text-lg mb-4">Rich Text Editor</h1>
                 {memoizedRichTextEditor}
               </div>
             </div>
@@ -257,13 +264,20 @@ export default function RedditCreatePost() {
         <Button
           variant="outline"
           className="border-gray-600 text-white hover:bg-gray-700"
+          onClick={() => router.push("/")}
         >
           Cancel
         </Button>
         <Button
           onClick={() => handleSubmit(activeTab === "text" ? "text" : "image")}
           className="bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={!title || !textContent || !selectedCommunity}
+          disabled={
+            !title ||
+            !textContent ||
+            !selectedCommunity ||
+            creatingPost ||
+            isUploading
+          }
         >
           Post
         </Button>

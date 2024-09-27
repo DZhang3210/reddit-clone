@@ -47,8 +47,8 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
   }
 
   return (
-    <div className="border rounded-md p-4">
-      <div className="flex gap-2 mb-2 border-2 *:mx-2 *:my-1 *:rounded-lg">
+    <div className="border-2 border-gray-500 bg-[#374151]">
+      <div className="flex gap-1 mb-2 rounded-xl bg-gray-600 py-1 pl-2 *:mx-0.5 *:my-1 *:rounded-lg *:border-gray-500 *:border-2">
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={cn(
@@ -89,7 +89,10 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
           onEmojiSelect={(emoji) => editor.commands.insertContent(emoji)}
         />
       </div>
-      <EditorContent editor={editor} className="prose max-w-none editContent" />
+      <EditorContent
+        editor={editor}
+        className="prose max-w-none editContent border-2 border-gray-500 "
+      />
     </div>
   );
 };

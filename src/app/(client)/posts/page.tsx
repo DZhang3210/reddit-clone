@@ -55,7 +55,7 @@ const PostsPage = () => {
     router.push(`?filter=${filter}`);
   };
 
-  if (status === "LoadingFirstPage" || !posts) {
+  if (status === "LoadingFirstPage") {
     return (
       <div className="flex flex-col gap-4 mt-4 mx-4 ">
         <div className="max-w-2xl w-full mx-auto text-4xl flex-col justify-center space-y-4 items-center">

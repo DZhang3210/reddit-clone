@@ -56,10 +56,7 @@ export const getById = query({
       return null;
     }
 
-    const results = await ctx.db
-      .query("threads")
-      .withIndex("by_id", (q) => q.eq("_id", args.id))
-      .unique();
+    const results = await ctx.db.get(args.id);
 
     if (!results?.bannerImage || !results?.logoImage) {
       return null;

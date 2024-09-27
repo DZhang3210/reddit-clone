@@ -25,10 +25,7 @@ export const getUserPosts = query({
 
     const finalAuthorPosts = await Promise.all(
       authorPosts.map(async (post) => {
-        const thread = await ctx.db
-          .query("threads")
-          .filter((q) => q.eq(q.field("_id"), post.thread))
-          .unique();
+        const thread = await ctx.db.get(post.thread);
         const liked = user?.likedPosts?.includes(post?._id);
         const saved = user?.savedPosts?.includes(post?._id);
         const image = post?.image ? await ctx.storage.getUrl(post?.image) : "";
@@ -75,10 +72,7 @@ export const getUserSaved = query({
           const post = await ctx.db.get(postId);
           if (!post) return null;
 
-          const thread = await ctx.db
-            .query("threads")
-            .filter((q) => q.eq(q.field("_id"), post.thread))
-            .unique();
+          const thread = await ctx.db.get(post.thread);
           const liked = user?.likedPosts?.includes(post?._id);
           const saved = user?.savedPosts?.includes(post?._id);
           const image = post?.image
@@ -128,10 +122,7 @@ export const getUserUpvoted = query({
           const post = await ctx.db.get(postId);
           if (!post) return null;
 
-          const thread = await ctx.db
-            .query("threads")
-            .filter((q) => q.eq(q.field("_id"), post.thread))
-            .unique();
+          const thread = await ctx.db.get(post.thread);
           const liked = user?.likedPosts?.includes(post?._id);
           const saved = user?.savedPosts?.includes(post?._id);
           const image = post?.image

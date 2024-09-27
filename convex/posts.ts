@@ -12,19 +12,13 @@ export const likePost = mutation({
     if (!userId) {
       throw new Error("Unauthorized");
     }
-    const post = await ctx.db
-      .query("posts")
-      .filter((q) => q.eq(q.field("_id"), args.postId))
-      .unique();
+    const post = await ctx.db.get(args.postId);
 
     if (!post) {
       throw new Error("Post not found");
     }
 
-    const user = await ctx.db
-      .query("users")
-      .filter((q) => q.eq(q.field("_id"), post.author))
-      .unique();
+    const user = await ctx.db.get(post.author);
     if (!user) {
       throw new Error("User not found");
     }
@@ -122,14 +116,8 @@ export const get = query({
     const page = await Promise.all(
       results.page.map(async (post) => {
         const [user, thread] = await Promise.all([
-          await ctx.db
-            .query("users")
-            .filter((q) => q.eq(q.field("_id"), post.author))
-            .unique(),
-          await ctx.db
-            .query("threads")
-            .filter((q) => q.eq(q.field("_id"), post.thread))
-            .unique(),
+          await ctx.db.get(post?.author),
+          await ctx.db.get(post?.thread),
         ]);
         const liked = user?.likedPosts?.includes(post?._id);
         const saved = user?.savedPosts?.includes(post?._id);
@@ -170,24 +158,15 @@ export const getById = query({
     if (!userId) {
       return null;
     }
-    const post = await ctx.db
-      .query("posts")
-      .filter((q) => q.eq(q.field("_id"), args.postId))
-      .unique();
+    const post = await ctx.db.get(args.postId);
 
     if (!post) {
       return null;
     }
 
     const [user, thread] = await Promise.all([
-      await ctx.db
-        .query("users")
-        .filter((q) => q.eq(q.field("_id"), post?.author))
-        .unique(),
-      await ctx.db
-        .query("threads")
-        .filter((q) => q.eq(q.field("_id"), post?.thread))
-        .unique(),
+      await ctx.db.get(post?.author),
+      await ctx.db.get(post?.thread),
     ]);
 
     if (!user || !thread) {
@@ -215,10 +194,7 @@ export const savePost = mutation({
       throw new Error("Unauthorized");
     }
 
-    const user = await ctx.db
-      .query("users")
-      .filter((q) => q.eq(q.field("_id"), userId))
-      .unique();
+    const user = await ctx.db.get(userId);
 
     if (!user) {
       throw new Error("User not found");

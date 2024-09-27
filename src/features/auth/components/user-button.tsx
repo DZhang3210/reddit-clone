@@ -58,7 +58,7 @@ const UserButton = () => {
           className="cursor-pointer text-lg flex items-center"
           asChild
         >
-          <Link href={`/profile/${data._id}`} className="flex">
+          <Link href={`/profile/${data._id}/overview`} className="flex">
             <Bell className="size-6 mr-2" />
             User Profile
           </Link>

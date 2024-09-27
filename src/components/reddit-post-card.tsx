@@ -115,7 +115,9 @@ export default function RedditPostCard({
               src={image}
               alt="Post content"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{ objectFit: "cover" }}
+              priority
               className="rounded-md"
             />
           </div>

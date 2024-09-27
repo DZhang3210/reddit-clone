@@ -91,12 +91,16 @@ body {
   }
 }
 
+.is-editor-empty {
+  @apply text-white;
+}
 .tiptap[contenteditable="true"] {
-  min-height: 100px;
+  min-height: 200px;
 }
 .tiptap {
   padding-left: 3px;
   caret-color: white;
+  @apply focus:outline-blue-600/80 focus:outline-2 focus:outline-none;
 }
 .tiptap {
   :first-child {
