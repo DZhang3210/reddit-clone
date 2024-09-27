@@ -18,6 +18,7 @@ import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
 import RedditPostCardGhost from "@/components/reddit-post-card-ghost";
 import { Skeleton } from "@/components/ui/skeleton";
+import PostsFeed from "@/components/posts-feed";
 
 type Post = {
   image: string | null;
@@ -73,61 +74,7 @@ const PostsPage = () => {
 
   return (
     <div className="flex flex-col gap-4 mt-4 mx-4 ">
-      <div className="max-w-2xl w-full mx-auto text-4xl flex justify-start">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              className="border-none text-black rounded-full text-base flex items-center transition-all duration-300 hover:bg-gray-300 gap-0"
-            >
-              {currentFilter}
-              <ChevronDownIcon className="w-7 h-7 ml-1" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[6rem] bg-black/90 text-white border-none text-lg p-0">
-            <DropdownMenuLabel className="text-lg mb-1">
-              Sort by
-            </DropdownMenuLabel>
-            {["Best", "New"].map((filter) => (
-              <DropdownMenuItem
-                key={filter}
-                className={cn(
-                  "text-lg cursor-pointer hover:font-bold",
-                  currentFilter === filter ? "bg-white text-black" : ""
-                )}
-                onClick={() => handleFilterChange(filter)}
-              >
-                {filter}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="flex flex-col items-center gap-4">
-        {posts.map((post: Post) => {
-          if (!post.thread || !post.user) return null;
-          return (
-            <RedditPostCard
-              key={post._id}
-              username={post.user?.name || "anonymous"}
-              userAvatar={
-                post.user?.image || "/placeholder.svg?height=40&width=40"
-              }
-              subreddit={post.thread.title}
-              timePosted={post._creationTime}
-              title={post.title}
-              content={post.content}
-              image={post.image || ""}
-              upvotes={post.likes}
-              threadId={post.thread._id}
-              userId={post.user._id}
-              postId={post._id}
-              liked={post.liked || false}
-              saved={post.saved || false}
-            />
-          );
-        })}
-      </div>
+      <PostsFeed posts={posts} />
     </div>
   );
 };

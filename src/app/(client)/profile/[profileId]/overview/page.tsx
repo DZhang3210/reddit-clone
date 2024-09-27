@@ -2,18 +2,22 @@
 import React from "react";
 import StatCard from "./_components/stat-card";
 import { useGetUserStats } from "@/features/profile/api/use-get-user-stats";
+import StatCardSkeleton from "./_components/stat-card-skeleton";
 
 const OverviewProfile = () => {
   const { data: stats, isLoading: statsLoading } = useGetUserStats();
 
-  if (statsLoading) {
-    return <div>Loading....</div>;
+  if (statsLoading || !stats) {
+    return (
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+      </div>
+    );
   }
-
-  if (!stats) {
-    return <div>No stats found</div>;
-  }
-
   const {
     followingThreadsLength,
     savedPostsLength,
