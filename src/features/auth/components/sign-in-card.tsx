@@ -48,8 +48,8 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
   return (
     <Card className="w-full h-full p-8 bg-[#181C1F] text-white">
       <CardHeader className="px-0 pt-0">
-        <CardTitle>Login to Continue</CardTitle>
-        <CardDescription className="text-gray-300">
+        <CardTitle className="text-2xl">Login to Continue</CardTitle>
+        <CardDescription className="text-gray-300 text-xl">
           Use your email or another serve to continue
         </CardDescription>
       </CardHeader>
@@ -60,13 +60,14 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
         </div>
       )}
       <CardContent className="space-y-5 px-0 pb-0">
-        <form className="space-y-2.5" onSubmit={onPasswordSignIn}>
+        <form className="space-y-2.5 " onSubmit={onPasswordSignIn}>
           <Input
             disabled={pending}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             type="email"
+            className="text-lg h-10"
             required
           />
           <Input
@@ -75,11 +76,12 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             type="password"
+            className="text-lg h-10"
             required
           />
           <Button
             type="submit"
-            className="w-full bg-white text-black hover:bg-gray-400"
+            className="w-full bg-white text-black hover:bg-gray-400 text-xl font-semibold"
             size="lg"
             disabled={pending}
           >
@@ -93,9 +95,9 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             onClick={() => handleProviderSignIn("google")}
             variant="outline"
             size="lg"
-            className="w-full relative"
+            className="w-full relative text-xl"
           >
-            <FaGoogle className="size-5 absolute top-3 left-2.5" />
+            <FaGoogle className="size-5 absolute top-2.5 left-2.5" />
             Continue with Google
           </Button>
           <Button
@@ -103,13 +105,13 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             onClick={() => handleProviderSignIn("github")}
             variant="outline"
             size="lg"
-            className="w-full relative"
+            className="w-full relative text-xl "
           >
-            <FaGithub className="size-5 absolute top-3 left-2.5" />
+            <FaGithub className="size-5 absolute top-2.5 left-2.5" />
             Continue with Github
           </Button>
         </div>
-        <p className="text-xs text-gray-300">
+        <p className="text-base text-gray-300">
           Don&apos;t have an account?{" "}
           <span
             className="text-sky-700 hover:underline cursor-pointer"

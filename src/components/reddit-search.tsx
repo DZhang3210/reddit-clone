@@ -15,38 +15,21 @@ const RedditSearch = () => {
   };
 
   return (
-    <div className="flex-1 max-w-xl mx-4">
-      <form onSubmit={handleSearch} className="relative flex items-center">
-        <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-400" />
+    <div className="flex-1 max-w-xl mx-4 rounded-full h-[40px]">
+      <form
+        onSubmit={handleSearch}
+        className="relative flex items-center justify-center border border-gray-700 rounded-full bg-gray-800"
+      >
+        <button className="absolute left-2 top-3.5 h-8 w-8 text-gray-400">
+          <Search size={30} />
+        </button>
         <Input
           type="text"
-          placeholder="Search Redditt"
-          className="pl-8 pr-4 py-2 w-full text-white"
+          placeholder="Search for your favorite threads!"
+          className="pl-12 pr-4 py-2 w-full text-white text-lg h-[60px] rounded-full placeholder:text-lg"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        {/* Add dropdown menu */}
-        {/* <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline" className="ml-2 text-white">
-              {filter}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-56">
-            <div className="space-y-2">
-              {filters.map((f) => (
-                <Button
-                  key={f}
-                  variant="ghost"
-                  className="w-full justify-start"
-                  onClick={() => setFilter(f)}
-                >
-                  {f}
-                </Button>
-              ))}
-            </div>
-          </PopoverContent>
-        </Popover> */}
       </form>
     </div>
   );

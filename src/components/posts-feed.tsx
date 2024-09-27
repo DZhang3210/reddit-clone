@@ -51,7 +51,10 @@ const PostsFeed = ({ posts }: PostsPageProps) => {
     <div className="flex flex-col gap-4 mt-4 mx-4 ">
       <div className="max-w-4xl w-full mx-auto text-4xl flex justify-start">
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger
+            asChild
+            className="border-none text-black rounded-full text-base flex items-center transition-all duration-300 hover:bg-gray-300 gap-0"
+          >
             <Button
               variant="outline"
               className="border-none text-black rounded-full text-base flex items-center transition-all duration-300 hover:bg-gray-300 gap-0"
@@ -60,7 +63,7 @@ const PostsFeed = ({ posts }: PostsPageProps) => {
               <ChevronDownIcon className="w-7 h-7 ml-1" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[6rem] bg-black/90 text-white border-none text-lg p-0">
+          <DropdownMenuContent className="w-[6rem] border-none text-lg p-0">
             <DropdownMenuLabel className="text-lg mb-1">
               Sort by
             </DropdownMenuLabel>

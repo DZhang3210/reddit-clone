@@ -53,8 +53,8 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
   return (
     <Card className="w-full h-full p-8 bg-[#181C1F] text-white">
       <CardHeader className="px-0 pt-0">
-        <CardTitle>Sign up to Continue</CardTitle>
-        <CardDescription className="text-gray-300">
+        <CardTitle className="text-2xl">Sign up to Continue</CardTitle>
+        <CardDescription className="text-gray-300 text-xl">
           Use your email or another serve to continue
         </CardDescription>
       </CardHeader>
@@ -72,7 +72,7 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             onChange={(e) => setName(e.target.value)}
             placeholder="Full Name"
             type="name"
-            className="h-[2rem]"
+            className="h-10 text-xl"
             required
           />
           <Input
@@ -81,7 +81,7 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             type="email"
-            className="h-[2rem]"
+            className="h-10 text-xl"
             required
           />
           <Input
@@ -90,7 +90,7 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             type="password"
-            className="h-[2rem]"
+            className="h-10 text-xl"
             required
           />
           <Input
@@ -99,12 +99,12 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm password"
             type="password"
-            className="h-[2rem]"
+            className="h-10 text-xl"
             required
           />
           <Button
             type="submit"
-            className="w-full bg-white text-black hover:bg-gray-400"
+            className="w-full bg-white text-black hover:bg-gray-400 text-xl font-semibold"
             size="lg"
             disabled={pending}
           >
@@ -118,9 +118,9 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             onClick={() => handleProviderSignUp("google")}
             variant="outline"
             size="lg"
-            className="w-full relative"
+            className="w-full relative text-xl"
           >
-            <FaGoogle className="size-5 absolute top-1.5 left-2.5" />
+            <FaGoogle className="size-5 absolute top-2.5 left-2.5" />
             Continue with Google
           </Button>
           <Button
@@ -128,13 +128,13 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             onClick={() => handleProviderSignUp("github")}
             variant="outline"
             size="lg"
-            className="w-full relative"
+            className="w-full relative text-xl"
           >
-            <FaGithub className="size-5 absolute top-1.5 left-2.5" />
+            <FaGithub className="size-5 absolute top-2.5 left-2.5" />
             Continue with Github
           </Button>
         </div>
-        <p className="text-xs text-gray-300">
+        <p className="text-base text-gray-300">
           Already have an account?{" "}
           <span
             className="text-sky-700 hover:underline cursor-pointer"
