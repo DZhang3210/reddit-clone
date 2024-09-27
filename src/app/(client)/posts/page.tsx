@@ -16,10 +16,10 @@ import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../../convex/_generated/api";
-import RedditPostCardGhost from "@/components/reddit-post-card-ghost";
+import RedditPostCardGhost from "@/components/skeletons/reddit-post-card-ghost";
 import { Skeleton } from "@/components/ui/skeleton";
 import PostsFeed from "@/components/posts-feed";
-import PostsFeedSkeleton from "@/components/posts-feed-skeleton";
+import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 
 type Post = {
   image: string | null;
@@ -63,6 +63,9 @@ const PostsPage = () => {
 
   return (
     <div className="flex flex-col gap-4 mt-4 mx-4 ">
+      <h3 className="text-5xl mt-5 mx-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600 ">
+        Home Feed
+      </h3>
       <PostsFeed posts={posts} />
     </div>
   );

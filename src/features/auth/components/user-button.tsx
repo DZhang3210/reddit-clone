@@ -58,15 +58,7 @@ const UserButton = () => {
             </div>
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          className="cursor-pointer text-xl flex items-center"
-          onClick={() => {
-            signOut();
-          }}
-        >
-          <LogOut className="size-8 mr-2" />
-          Log out
-        </DropdownMenuItem>
+
         <DropdownMenuItem
           className="cursor-pointer text-xl flex items-center"
           asChild
@@ -85,6 +77,15 @@ const UserButton = () => {
             <Plus className="size-8 mr-2" />
             Create Post
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer text-xl flex items-center"
+          onClick={() => {
+            signOut();
+          }}
+        >
+          <LogOut className="size-8 mr-2" />
+          Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

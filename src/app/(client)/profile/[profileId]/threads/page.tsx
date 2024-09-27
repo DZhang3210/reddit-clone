@@ -1,6 +1,6 @@
 "use client";
 import RedditThreadBanner from "@/components/thread-banner";
-import { ThreadBannerSkeleton } from "@/components/thread-banner-skeleton";
+import { ThreadBannerSkeleton } from "@/components/skeletons/thread-banner-skeleton";
 import { useGetUserThreads } from "@/features/profile/api/use-get-user-threads";
 import React from "react";
 
@@ -20,7 +20,7 @@ const ThreadsPage = () => {
     );
   }
   return (
-    <div className="w-full flex flex-col justify-center items-center ">
+    <div className="w-full flex flex-col">
       <h3 className="text-6xl">Threads</h3>
       <div className="w-full grid grid-cols-2">
         {threads?.map((thread: any) => (

@@ -1,4 +1,5 @@
 import RedditNavbar from "@/components/reddit-navbar";
+import Sidebar from "@/components/sidebar";
 
 export default function RootLayout({
   children,
@@ -8,7 +9,12 @@ export default function RootLayout({
   return (
     <div className="min-h-screen w-full bg-white">
       <RedditNavbar />
-      {children}
+      <div className="flex">
+        <Sidebar />
+        <div className="w-[calc(100vw-17rem)] h-[calc(100vh-120px)] overflow-y-auto">
+          {children}
+        </div>
+      </div>
     </div>
   );
 }

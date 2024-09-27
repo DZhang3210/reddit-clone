@@ -3,6 +3,7 @@ import RedditThreadBanner from "@/components/thread-banner";
 import { useGetThread } from "@/features/threads/api/use-get-thread";
 import React from "react";
 import { Id } from "../../../../../convex/_generated/dataModel";
+import { ThreadBannerSkeleton } from "@/components/skeletons/thread-banner-skeleton";
 
 interface ThreadPageProps {
   params: {
@@ -16,7 +17,7 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
   });
   console.log("DATA", thread);
   if (threadLoading) {
-    return <div>Loading...</div>;
+    return <ThreadBannerSkeleton />;
   }
 
   if (!thread) {

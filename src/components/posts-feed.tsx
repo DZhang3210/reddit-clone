@@ -13,9 +13,6 @@ import { Button } from "@/components/ui/button";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { fetchQuery } from "convex/nextjs";
-import RedditPostCardGhost from "@/components/reddit-post-card-ghost";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Doc, Id } from "../../convex/_generated/dataModel";
 
 type Post = {
@@ -82,7 +79,7 @@ const PostsFeed = ({ posts }: PostsPageProps) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-8">
         {posts.map((post: Post) => {
           if (!post.thread || !post.user) return null;
           return (

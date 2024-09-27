@@ -81,7 +81,7 @@ export default function RedditPostCard({
   };
 
   return (
-    <Card className="w-full max-w-4xl border-2 border-gray-400">
+    <Card className="w-full max-w-4xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition cursor-pointer">
       <CardHeader className="flex flex-row items-center space-x-4 p-2">
         <Link href={`/profile/${userId}`}>
           <Avatar className="transition-all duration-300 hover:scale-110">
@@ -104,13 +104,13 @@ export default function RedditPostCard({
       </CardHeader>
       <CardContent className="px-4 py-2">
         <Link href={`/post/${postId}`}>
-          <h2 className="text-xl font-bold mb-2 hover:underline">{title}</h2>
+          <h2 className="text-2xl font-bold mb-2 hover:underline">{title}</h2>
         </Link>
         <div className="mb-4">
           <ReadOnly content={content} />
         </div>
         {image && (
-          <div className="w-full aspect-square relative overflow-hidden rounded-md border-4 border-black mb-2">
+          <div className="w-full aspect-square relative overflow-hidden rounded-md border-2 border-black mb-2">
             <Image
               src={image}
               alt="Post content"
@@ -124,44 +124,44 @@ export default function RedditPostCard({
         )}
       </CardContent>
       <CardFooter className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 ">
           <Button
             variant="ghost"
             size="sm"
-            className={`px-2 border-2 border-gray-400 rounded-full ${liked ? "text-orange-500" : ""}`}
+            className={`px-2 border-2 py-2 border-gray-400 rounded-full ${liked ? "text-orange-500" : ""}`}
             onClick={handleVote}
             disabled={isLikePending}
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />
-            <span className="text-xs font-medium">{upvotes}</span>
+            <span className="text-lg font-medium">{upvotes}</span>
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="px-2 border-2 border-gray-400 rounded-full"
+            className="px-2 py-2 border-2 border-gray-400 rounded-full"
           >
             <MessageSquare className="h-4 w-4 mr-1" />
-            <span className="text-xs">{comments} Comments</span>
+            <span className="text-lg">{comments} Comments</span>
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className="px-2 border-2 border-gray-400 rounded-full"
+            className="px-2 py-2 border-2 border-gray-400 rounded-full"
           >
             <Share2 className="h-4 w-4 mr-1" />
-            <span className="text-xs">Share</span>
+            <span className="text-lg">Share</span>
           </Button>
           <Button
             variant="ghost"
             size="sm"
-            className={`px-2 border-2 border-gray-400 rounded-full ${saved ? "text-orange-500" : ""}`}
+            className={`px-2 py-2 border-2 border-gray-400 rounded-full ${saved ? "text-orange-500" : ""}`}
             onClick={handleSave}
             disabled={isSavePending}
           >
             <BookmarkIcon
               className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
             />
-            <span className="text-xs">{saved ? "Saved" : "Save"}</span>
+            <span className="text-lg">{saved ? "Saved" : "Save"}</span>
           </Button>
         </div>
       </CardFooter>

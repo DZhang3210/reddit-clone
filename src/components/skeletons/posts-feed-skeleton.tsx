@@ -1,6 +1,6 @@
 import React from "react";
 import RedditPostCardGhost from "./reddit-post-card-ghost";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 const PostsFeedSkeleton = () => {
   return (

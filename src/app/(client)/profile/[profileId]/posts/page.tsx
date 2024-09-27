@@ -3,9 +3,9 @@ import { useGetUserPosts } from "@/features/profile/api/use-get-user-posts";
 import React from "react";
 import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import RedditPostCard from "@/components/reddit-post-card";
-import RedditPostCardGhost from "@/components/reddit-post-card-ghost";
+import RedditPostCardGhost from "@/components/skeletons/reddit-post-card-ghost";
 import PostsFeed from "@/components/posts-feed";
-import PostsFeedSkeleton from "@/components/posts-feed-skeleton";
+import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 
 type Post = {
   image: string | null;

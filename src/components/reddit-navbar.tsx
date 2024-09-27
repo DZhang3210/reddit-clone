@@ -7,7 +7,7 @@ import UserButton from "@/features/auth/components/user-button";
 
 export default function RedditNavbar() {
   return (
-    <nav className="bg-gray-900 border-b-4 px-4 py-5 flex items-center justify-between sticky top-0 z-50 border-orange-500">
+    <nav className="bg-gray-900 border-b-4 h-[120px] flex items-center justify-between sticky top-0 z-50 border-orange-500">
       <Link href="/">
         <div className="flex items-center space-x-1 text-orange-500">
           {/* Reddit Logo */}

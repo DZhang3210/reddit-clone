@@ -94,6 +94,9 @@ body {
 .is-editor-empty {
   @apply text-white;
 }
+.tiptap[contenteditable="false"] {
+  @apply border-none;
+}
 .tiptap[contenteditable="true"] {
   min-height: 200px;
 }
