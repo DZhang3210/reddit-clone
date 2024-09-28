@@ -88,8 +88,9 @@ const Sidebar = () => {
               </Link>
               {threads ? (
                 threads.map((thread, i) => (
-                  <div
-                    key={i}
+                  <Link
+                    key={thread._id}
+                    href={`/thread/${thread._id}`}
                     className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
                   >
                     <Avatar>
@@ -97,7 +98,7 @@ const Sidebar = () => {
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <span className="text-lg text-white">r/{thread.title}</span>
-                  </div>
+                  </Link>
                 ))
               ) : (
                 <div className="flex flex-col">
