@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { StepOne } from "./thread-step-one";
 import { StepTwo } from "./thread-step-two";
 import { StepFour } from "./thread-step-four";
-import { useRouter } from "next/navigation";
 import { useCreateThread } from "@/features/threads/api/use-create-thread";
 import { toast } from "sonner";
 import { Id } from "../../../../../../convex/_generated/dataModel";
@@ -21,7 +20,7 @@ const ThreadCreate = () => {
   const toggleThread = useToggleThread();
   useEffect(() => {
     if (step < 0) toggleThread.setOff();
-  }, [step]);
+  }, [step, toggleThread]);
 
   const onSubmit = () => {
     if (!name || !desc || !profileImage || !bannerImage) {

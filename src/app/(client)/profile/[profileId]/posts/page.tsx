@@ -1,7 +1,7 @@
 "use client";
 import { useGetUserPosts } from "@/features/profile/api/use-get-user-posts";
 import React from "react";
-import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
+// import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import PostsFeed from "@/components/posts-feed";
 import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 

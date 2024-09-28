@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface StepFourProps {
   name: string | null;
   desc: string | null;
@@ -26,9 +28,11 @@ export function StepFour({
       <div className="w-full">
         <div className="relative">
           {previewBanner ? (
-            <img
+            <Image
               src={previewBanner}
               alt="Banner preview"
+              width={800}
+              height={128}
               className="w-full h-32 object-cover rounded-t-lg"
             />
           ) : (
@@ -38,9 +42,11 @@ export function StepFour({
           )}
           <div className="absolute -bottom-4 left-4">
             {logoImage ? (
-              <img
+              <Image
                 src={logoImage}
                 alt="Profile preview"
+                width={80}
+                height={80}
                 className="w-20 h-20 rounded-full border-4 border-gray-800 object-cover"
               />
             ) : (

@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { FileText, Image, Upload, X } from "lucide-react";
+import { FileText, Image as ImageIcon, Upload, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 import { useGetAllThreads } from "@/features/threads/api/use-get-all";
@@ -27,6 +27,7 @@ import { Id } from "../../convex/_generated/dataModel";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/skeleton";
+import Image from "next/image";
 
 export default function RedditCreatePost() {
   const router = useRouter();
@@ -56,7 +57,7 @@ export default function RedditCreatePost() {
 
   const memoizedRichTextEditor = useMemo(
     () => <RichTextEditor content={textContent} setContent={setTextContent} />,
-    [textContent, setTextContent]
+    [textContent, setTextContent, RichTextEditor]
   );
 
   const communities = threads?.map((thread) => {
@@ -66,7 +67,7 @@ export default function RedditCreatePost() {
     };
   });
 
-  const handleSubmit = (type: "text" | "image") => {
+  const handleSubmit = () => {
     createPost(
       {
         title,
@@ -172,7 +173,7 @@ export default function RedditCreatePost() {
               value="image"
               className="data-[state=active]:bg-blue-600 data-[state=active]:text-white"
             >
-              <Image className="w-4 h-4 mr-2" />
+              <ImageIcon className="w-4 h-4 mr-2" />
               Image
             </TabsTrigger>
           </TabsList>
@@ -216,20 +217,27 @@ export default function RedditCreatePost() {
             >
               {imageUrl ? (
                 <div className="w-full h-full relative">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt="post image"
-                    className="w-full h-full object-cover"
+                    layout="fill"
+                    objectFit="cover"
                   />
                   <button
                     onClick={handleRemoveImage}
-                    className="absolute top-2 right-2 bg-gray-800 rounded-full p-5 hover:bg-gray-700"
+                    className="absolute top-2 right-2 bg-gray-800 rounded-full p-5 hover:bg-gray-700 z-10"
                   >
-                    <X className=" text-white" size={40} />
+                    <X className="text-white" size={40} />
                   </button>
                 </div>
               ) : (
-                <Image className="w-12 h-12 mb-4 text-gray-400" />
+                <Image
+                  src="/placeholder-image.png" // Replace with your placeholder image path
+                  alt="Upload placeholder"
+                  width={48}
+                  height={48}
+                  className="mb-4 text-gray-400"
+                />
               )}
               <p>
                 {imageFile
@@ -268,7 +276,7 @@ export default function RedditCreatePost() {
           Cancel
         </Button>
         <Button
-          onClick={() => handleSubmit(activeTab === "text" ? "text" : "image")}
+          onClick={() => handleSubmit()}
           className="bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={
             !title ||

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import { useGetUserLiked } from "@/features/profile/api/use-get-user-liked";
 import PostsFeed from "@/components/posts-feed";
 import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";

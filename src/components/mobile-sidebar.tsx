@@ -104,7 +104,7 @@ const MobileSidebar = () => {
                     </span>
                   </div>
                   {threads ? (
-                    threads.map((thread, i) => (
+                    threads.map((thread) => (
                       <Link
                         key={thread._id}
                         href={`/thread/${thread._id}`}

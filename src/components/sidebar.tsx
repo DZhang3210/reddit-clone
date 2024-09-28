@@ -19,7 +19,7 @@ import { Skeleton } from "./ui/skeleton";
 import useToggleThread from "@/hooks/create-thread-hook";
 
 const Sidebar = () => {
-  const { data: threads, isLoading: threadsLoading } = useGetUserThreads();
+  const { data: threads } = useGetUserThreads();
   const pathname = usePathname();
   const [communitiesTab, setCommunitiesTab] = useState(true);
   const threadModal = useToggleThread();
@@ -93,7 +93,7 @@ const Sidebar = () => {
                 </span>
               </div>
               {threads ? (
-                threads.map((thread, i) => (
+                threads.map((thread) => (
                   <Link
                     key={thread._id}
                     href={`/thread/${thread._id}`}

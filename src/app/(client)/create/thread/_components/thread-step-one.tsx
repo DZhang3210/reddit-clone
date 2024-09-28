@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -41,22 +42,29 @@ export function StepOne({
               {!previewBanner ? (
                 <span className="text-gray-500">Banner Image</span>
               ) : (
-                <img
+                <Image
                   src={previewBanner}
                   alt="Banner preview"
-                  className="mt-2 max-h-32 w-full object-cover rounded"
+                  className="mt-2 object-cover rounded"
+                  fill
+                  sizes="100vw"
+                  style={{
+                    objectFit: "cover",
+                  }}
                 />
               )}
             </div>
             <div className="absolute -bottom-4 left-4">
-              <div className="w-20 h-20 rounded-full bg-gray-600 border-4 border-gray-800 flex items-center justify-center">
+              <div className="w-20 h-20 rounded-full bg-gray-600 border-4 border-gray-800 flex items-center justify-center overflow-hidden">
                 {!logoImage ? (
                   <User className="text-gray-500 w-10 h-10" />
                 ) : (
-                  <img
+                  <Image
                     src={logoImage}
-                    alt="Banner preview"
-                    className="mt-2 max-h-32 w-full object-cover rounded"
+                    alt="Logo preview"
+                    width={80}
+                    height={80}
+                    className="object-cover"
                   />
                 )}
               </div>

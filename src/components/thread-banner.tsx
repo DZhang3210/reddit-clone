@@ -5,6 +5,7 @@ import { Id } from "../../convex/_generated/dataModel";
 import Link from "next/link";
 import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
 import { MouseEvent } from "react";
+import Image from "next/image";
 
 interface RedditThreadBannerProps {
   backgroundImage?: string | null;
@@ -46,10 +47,12 @@ export default function RedditThreadBanner({
                 <span className="text-gray-500">Banner Image</span>
               </div>
             ) : (
-              <img
+              <Image
                 src={backgroundImage}
                 alt="Banner preview"
-                className="w-full h-full object-cover object-center"
+                className="object-cover object-center"
+                fill
+                sizes="100vw"
               />
             )}
           </div>
@@ -58,10 +61,12 @@ export default function RedditThreadBanner({
               {!threadImage ? (
                 <User className="text-gray-500 w-10 h-10" />
               ) : (
-                <img
+                <Image
                   src={threadImage}
                   alt="Thread image"
-                  className="w-full h-full object-cover"
+                  className="object-cover"
+                  fill
+                  sizes="80px"
                 />
               )}
             </div>

@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
@@ -67,7 +68,13 @@ export function StepTwo({
         }
       }
     },
-    [generateUploadUrl, setBannerImage, setProfileImage]
+    [
+      generateUploadUrl,
+      setBannerImage,
+      setProfileImage,
+      setLogoImage,
+      setPreviewBanner,
+    ]
   );
 
   const isNextButtonDisabled = !profileImage || !bannerImage;
@@ -100,11 +107,14 @@ export function StepTwo({
               />
             </div>
             {previewBanner && (
-              <img
-                src={previewBanner}
-                alt="Banner preview"
-                className="mt-2 max-h-32 w-full object-cover rounded"
-              />
+              <div className="mt-2 max-h-32 w-full relative aspect-[3/1]">
+                <Image
+                  src={previewBanner}
+                  alt="Banner preview"
+                  fill
+                  className="object-cover rounded"
+                />
+              </div>
             )}
           </div>
           <div>
@@ -128,11 +138,14 @@ export function StepTwo({
               />
             </div>
             {logoImage && (
-              <img
-                src={logoImage}
-                alt="Icon preview"
-                className="mt-2 w-20 h-20 object-cover rounded-full"
-              />
+              <div className="mt-2 w-20 h-20 relative">
+                <Image
+                  src={logoImage}
+                  alt="Icon preview"
+                  fill
+                  className="object-cover rounded-full"
+                />
+              </div>
             )}
           </div>
         </div>
@@ -140,11 +153,14 @@ export function StepTwo({
           <h3 className="text-lg font-semibold mb-4">Preview</h3>
           <div className="relative">
             {previewBanner ? (
-              <img
-                src={previewBanner}
-                alt="Banner preview"
-                className="w-full h-32 object-cover rounded-t-lg"
-              />
+              <div className="w-full h-32 relative">
+                <Image
+                  src={previewBanner}
+                  alt="Banner preview"
+                  fill
+                  className="object-cover rounded-t-lg"
+                />
+              </div>
             ) : (
               <div className="w-full h-32 bg-gray-700 flex items-center justify-center rounded-t-lg">
                 <span className="text-gray-500">Banner Image</span>
@@ -152,11 +168,14 @@ export function StepTwo({
             )}
             <div className="absolute -bottom-4 left-4">
               {logoImage ? (
-                <img
-                  src={logoImage}
-                  alt="Profile preview"
-                  className="w-20 h-20 rounded-full border-4 border-gray-800 object-cover"
-                />
+                <div className="w-20 h-20 relative">
+                  <Image
+                    src={logoImage}
+                    alt="Profile preview"
+                    fill
+                    className="rounded-full border-4 border-gray-800 object-cover"
+                  />
+                </div>
               ) : (
                 <div className="w-20 h-20 rounded-full bg-gray-600 border-4 border-gray-800 flex items-center justify-center">
                   <span className="text-gray-500 text-xs">Profile</span>
