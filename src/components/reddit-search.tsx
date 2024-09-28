@@ -15,18 +15,18 @@ const RedditSearch = () => {
   };
 
   return (
-    <div className="flex-1 max-w-xl mx-4 rounded-full h-[40px]">
+    <div className="sm:flex-1 max-w-xl mx-4 h-1/2 border rounded-full">
       <form
         onSubmit={handleSearch}
-        className="relative flex items-center justify-center border border-gray-700 rounded-full bg-gray-800"
+        className="relative rounded-full h-full flex gap-1 px-4"
       >
-        <button className="absolute left-2 top-3.5 h-8 w-8 text-gray-400">
+        <button className=" text-gray-400">
           <Search size={30} />
         </button>
         <Input
           type="text"
           placeholder="Search for your favorite threads!"
-          className="pl-12 pr-4 py-2 w-full text-white text-lg h-[60px] rounded-full placeholder:text-lg"
+          className="w-full h-full text-white text-lg rounded-full placeholder:text-lg border-0 outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 hidden sm:block"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

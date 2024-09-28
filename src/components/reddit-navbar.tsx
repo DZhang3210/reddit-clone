@@ -7,12 +7,13 @@ import Link from "next/link";
 import UserButton from "@/features/auth/components/user-button";
 import { useCreatePost } from "@/features/posts/api/use-create-post";
 import useTogglePost from "@/hooks/create-post-hook";
+import MobileSidebar from "./mobile-sidebar";
 
 export default function RedditNavbar() {
   const postModal = useTogglePost();
   return (
     <nav className="bg-gray-900 border-b-4 h-[120px] flex items-center justify-between sticky top-0 z-50 border-orange-500 px-5">
-      <Link href="/">
+      <Link href="/" className="hidden md:block">
         <div className="flex items-center space-x-1 text-orange-500">
           {/* Reddit Logo */}
           <FaReddit size={50} />
@@ -21,7 +22,9 @@ export default function RedditNavbar() {
           </h1>
         </div>
       </Link>
-
+      <div className="block md:hidden">
+        <MobileSidebar />
+      </div>
       <RedditSearch />
 
       {/* Right side buttons */}
