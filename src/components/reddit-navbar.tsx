@@ -28,20 +28,19 @@ export default function RedditNavbar() {
 
       {/* Right side buttons */}
       <div className="flex items-center space-x-8">
-        <div
+        <Button
           onClick={() => postModal.setOn()}
-          // href="/create/post"
-          className="flex items-center"
+          className="items-center bg-gray-800 text-gray-200 rounded-full hover:bg-gray-700 text-2xl py-4 px-3 cursor-pointer hidden lg:flex"
+          aria-label="Create Post"
         >
-          <div className="items-center bg-gray-800 text-gray-200 rounded-full hover:bg-gray-700 text-2xl py-4 px-3 cursor-pointer hidden lg:flex">
-            <Plus className="h-8 w-8 mr-1" />
-            Create
-          </div>
-        </div>
+          <Plus className="h-8 w-8 mr-1" />
+          Create
+        </Button>
         <Button
           variant="ghost"
           size="icon"
           className="hidden lg:block text-gray-200 hover:bg-gray-800"
+          aria-label="Notifications"
         >
           <Bell className="h-8 w-8" />
         </Button>

@@ -82,15 +82,10 @@ const Sidebar = () => {
             >
               <div
                 className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
-                // href="/create/thread"
+                onClick={() => threadModal.setOn()}
               >
                 <Plus size={40} />
-                <span
-                  className="text-lg text-white"
-                  onClick={() => threadModal.setOn()}
-                >
-                  Create a Thread
-                </span>
+                <span className="text-lg text-white">Create a Thread</span>
               </div>
               {threads ? (
                 threads.map((thread) => (
