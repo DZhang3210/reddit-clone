@@ -16,7 +16,9 @@ export default function RedditNavbar() {
         <div className="flex items-center space-x-1 text-orange-500">
           {/* Reddit Logo */}
           <FaReddit size={50} />
-          <h1 className="text-3xl font-bold text-white">reddit</h1>
+          <h1 className="text-3xl font-bold text-white hidden md:block">
+            reddit
+          </h1>
         </div>
       </Link>
 
@@ -29,7 +31,7 @@ export default function RedditNavbar() {
           // href="/create/post"
           className="flex items-center"
         >
-          <div className="flex items-center bg-gray-800 text-gray-200 rounded-full hover:bg-gray-700 text-2xl py-4 px-3 cursor-pointer">
+          <div className="items-center bg-gray-800 text-gray-200 rounded-full hover:bg-gray-700 text-2xl py-4 px-3 cursor-pointer hidden lg:flex">
             <Plus className="h-8 w-8 mr-1" />
             Create
           </div>
@@ -37,7 +39,7 @@ export default function RedditNavbar() {
         <Button
           variant="ghost"
           size="icon"
-          className="text-gray-200 hover:bg-gray-800"
+          className="hidden lg:block text-gray-200 hover:bg-gray-800"
         >
           <Bell className="h-8 w-8" />
         </Button>
