@@ -64,7 +64,7 @@ export default function RedditThreadBanner({
                 <Image
                   src={threadImage}
                   alt="Thread image"
-                  className="object-cover"
+                  className="object-cover rounded-full"
                   fill
                   sizes="80px"
                 />
