@@ -84,19 +84,19 @@ export default function RedditPostCard({
     <Card className="w-full max-w-4xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition cursor-pointer">
       <CardHeader className="flex flex-row items-center space-x-4 p-2">
         <Link href={`/profile/${userId}`}>
-          <Avatar className="transition-all duration-300 hover:scale-110">
-            <AvatarImage src={userAvatar} alt={username} />
+          <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">
+            <AvatarImage src={userAvatar} alt={username} sizes="" />
             <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Link>
         <div>
           <Link href={`/thread/${threadId}`}>
-            <p className="text-sm font-medium hover:underline cursor-pointer">
+            <p className="text-lg font-medium hover:underline cursor-pointer">
               r/{subreddit}
             </p>
           </Link>
           <Link href={`/profile/${userId}/overview`}>
-            <p className="text-xs text-muted-foreground hover:underline cursor-pointer">
+            <p className="text-base text-muted-foreground hover:underline cursor-pointer">
               Posted by u/{username} • {format(timePosted, "MMM d, yyyy")}
             </p>
           </Link>
