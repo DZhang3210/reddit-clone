@@ -28,6 +28,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/skeleton";
 import Image from "next/image";
+import useTogglePost from "@/hooks/create-post-hook";
 
 export default function RedditCreatePost() {
   const router = useRouter();
@@ -45,6 +46,7 @@ export default function RedditCreatePost() {
 
   const { data: threads, isLoading: threadsLoading } = useGetAllThreads();
   const { mutate: createPost, isPending: creatingPost } = useCreatePost();
+  const postModal = useTogglePost();
 
   const RichTextEditor = useMemo(
     () =>
@@ -271,7 +273,7 @@ export default function RedditCreatePost() {
         <Button
           variant="outline"
           className="border-gray-600 text-white hover:bg-gray-700"
-          onClick={() => router.push("/")}
+          onClick={() => postModal.setOff()}
         >
           Cancel
         </Button>
