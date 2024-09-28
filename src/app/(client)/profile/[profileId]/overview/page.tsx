@@ -2,7 +2,6 @@
 import React from "react";
 import StatCard from "./_components/stat-card";
 import { useGetUserStats } from "@/features/profile/api/use-get-user-stats";
-import StatCardSkeleton from "./_components/stat-card-skeleton";
 import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 
 const OverviewProfile = () => {

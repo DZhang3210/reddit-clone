@@ -1,6 +1,5 @@
 "use client";
 import RedditPostCard from "@/components/reddit-post-card";
-import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import React from "react";
 import {
   DropdownMenu,

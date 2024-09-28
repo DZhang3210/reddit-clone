@@ -1,14 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import Sidebar from "./sidebar";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useGetUserThreads } from "@/features/profile/api/use-get-user-threads";
 import { usePathname } from "next/navigation";
 import useToggleThread from "@/hooks/create-thread-hook";

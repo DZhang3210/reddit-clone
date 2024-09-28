@@ -3,8 +3,6 @@ import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import "./globals.css";
 import { ConvexClientProvider } from "../components/ConvexClientProvider";
 import { Toaster } from "sonner";
-import ThreadModal from "@/modals/create-thread-modal";
-import PostModal from "@/modals/create-post-modal";
 import Modals from "@/components/modals";
 
 export const metadata: Metadata = {

@@ -5,7 +5,6 @@ import RedditSearch from "./reddit-search";
 import { FaReddit } from "react-icons/fa";
 import Link from "next/link";
 import UserButton from "@/features/auth/components/user-button";
-import { useCreatePost } from "@/features/posts/api/use-create-post";
 import useTogglePost from "@/hooks/create-post-hook";
 import MobileSidebar from "./mobile-sidebar";
 

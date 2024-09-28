@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
-import RedditPostCard from "@/components/reddit-post-card";
 import { useGetUserSaved } from "@/features/profile/api/use-get-user-saved";
 import PostsFeed from "@/components/posts-feed";
 

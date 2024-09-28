@@ -6,11 +6,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Bell, Loader, LogOut, Plus, Users } from "lucide-react";
+import { Loader, LogOut, Plus, Users } from "lucide-react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useToggleThread from "@/hooks/create-thread-hook";
 import useTogglePost from "@/hooks/create-post-hook";

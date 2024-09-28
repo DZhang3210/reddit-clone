@@ -1,10 +1,8 @@
 "use client";
 import { ReactNode } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
 
 interface ProfileLayoutProps {

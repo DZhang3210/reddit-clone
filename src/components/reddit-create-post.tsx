@@ -27,7 +27,6 @@ import { Id } from "../../convex/_generated/dataModel";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/skeleton";
-import { Separator } from "./ui/separator";
 
 export default function RedditCreatePost() {
   const router = useRouter();

@@ -10,7 +10,6 @@ import { Id } from "../../../../../../convex/_generated/dataModel";
 import useToggleThread from "@/hooks/create-thread-hook";
 
 const ThreadCreate = () => {
-  const router = useRouter();
   const [step, setStep] = useState(0);
   const [name, setName] = useState<string | null>(null);
   const [desc, setDesc] = useState<string | null>(null);

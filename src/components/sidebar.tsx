@@ -8,7 +8,6 @@ import {
   Users,
 } from "lucide-react";
 import React, { useState } from "react";
-import { Separator } from "./ui/separator";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import Link from "next/link";

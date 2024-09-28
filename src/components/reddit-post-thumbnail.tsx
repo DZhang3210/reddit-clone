@@ -33,7 +33,7 @@ interface RedditPostThumbnailProps {
 }
 
 export default function RedditPostThumbnail({
-  thread_id = "default123",
+  thread_id,
   thread_name = "defaultsubreddit",
   thread_image = "/placeholder.svg?height=24&width=24",
   title = "Default post title that might be quite long and need truncation after two lines",
