@@ -5,6 +5,7 @@ import { User } from "lucide-react";
 import { Id } from "../../convex/_generated/dataModel";
 import Link from "next/link";
 import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
+import { MouseEvent } from "react";
 
 interface RedditThreadBannerProps {
   backgroundImage?: string | null;
@@ -26,6 +27,12 @@ export default function RedditThreadBanner({
   isFollowing = false,
 }: RedditThreadBannerProps) {
   const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
+
+  const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFollow({ threadId });
+  };
 
   return (
     <Link
@@ -78,7 +85,7 @@ export default function RedditThreadBanner({
             {isFollowing ? (
               <Button
                 className="py-1 px-4 bg-blue-600 hover:bg-blue-800"
-                onClick={() => toggleFollow({ threadId: threadId })}
+                onClick={handleButtonClick}
                 disabled={isLoading}
               >
                 Following
@@ -86,7 +93,7 @@ export default function RedditThreadBanner({
             ) : (
               <Button
                 className="py-1 px-4 bg-blue-600 hover:bg-blue-800"
-                onClick={() => toggleFollow({ threadId: threadId })}
+                onClick={handleButtonClick}
                 disabled={isLoading}
               >
                 Follow

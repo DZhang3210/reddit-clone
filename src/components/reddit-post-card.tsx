@@ -141,7 +141,7 @@ export default function RedditPostCard({
             className="px-2 py-2 border-2 border-gray-400 rounded-full"
           >
             <MessageSquare className="h-4 w-4 mr-1" />
-            <span className="text-lg">{comments} Comments</span>
+            <span className="text-lg hidden sm:block">{comments} Comments</span>
           </Button>
           <Button
             variant="ghost"
@@ -149,7 +149,7 @@ export default function RedditPostCard({
             className="px-2 py-2 border-2 border-gray-400 rounded-full"
           >
             <Share2 className="h-4 w-4 mr-1" />
-            <span className="text-lg">Share</span>
+            <span className="text-lg hidden sm:block">Share</span>
           </Button>
           <Button
             variant="ghost"
@@ -161,7 +161,7 @@ export default function RedditPostCard({
             <BookmarkIcon
               className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
             />
-            <span className="text-lg">{saved ? "Saved" : "Save"}</span>
+            <span className="text-lg ">{saved ? "Saved" : "Save"}</span>
           </Button>
         </div>
       </CardFooter>
