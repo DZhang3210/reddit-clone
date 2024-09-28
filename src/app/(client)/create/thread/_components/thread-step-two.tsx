@@ -73,7 +73,7 @@ export function StepTwo({
   const isNextButtonDisabled = !profileImage || !bannerImage;
 
   return (
-    <div className="space-y-4 bg-gray-800 p-3 sm:p-5 rounded-xl w-full  text-gray-300 max-w-4xl">
+    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full  text-gray-300 max-w-4xl">
       <div className="flex flex-col sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0">
         <div className="w-full sm:w-1/2 space-y-4">
           <div>

@@ -34,14 +34,16 @@ export default function RedditThreadBanner({
     >
       <div className="w-full cursor-pointer">
         <div className="relative">
-          <div className="w-full h-[10rem] bg-gray-700 flex items-center justify-center ">
+          <div className="w-full h-[10rem] bg-gray-700 overflow-hidden">
             {!backgroundImage ? (
-              <span className="text-gray-500">Banner Image</span>
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-gray-500">Banner Image</span>
+              </div>
             ) : (
               <img
                 src={backgroundImage}
                 alt="Banner preview"
-                className="max-h-[10rem] w-full object-cover "
+                className="w-full h-full object-cover object-center"
               />
             )}
           </div>

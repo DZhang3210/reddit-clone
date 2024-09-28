@@ -12,11 +12,15 @@ import { useCurrentUser } from "@/features/auth/api/use-current-user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import useToggleThread from "@/hooks/create-thread-hook";
+import useTogglePost from "@/hooks/create-post-hook";
 
 const UserButton = () => {
   const router = useRouter();
   const { signOut } = useAuthActions();
   const { data, isLoading } = useCurrentUser();
+  const threadOn = useToggleThread((state) => state.setOn);
+  const postOn = useTogglePost((state) => state.setOn);
   // console.log("USER", data?.image);
   if (isLoading) {
     return <Loader className="size-4 animate-spin text-muted-foreground" />;
@@ -26,8 +30,8 @@ const UserButton = () => {
   }
 
   const { name, image, email } = data;
-
   const avatarFallback = name!.charAt(0).toUpperCase();
+
   // const router = useRouter();
   return (
     <DropdownMenu modal={false}>
@@ -63,20 +67,28 @@ const UserButton = () => {
           className="cursor-pointer text-xl flex items-center"
           asChild
         >
-          <Link href="/create/thread" className="flex">
+          <div
+            // href="/create/thread"
+            onClick={threadOn}
+            className="flex"
+          >
             <Users className="size-8 mr-2" />
             Create Thread
-          </Link>
+          </div>
         </DropdownMenuItem>
 
         <DropdownMenuItem
           className="cursor-pointer text-xl flex items-center"
           asChild
         >
-          <Link href="/create/post" className="flex">
+          <div
+            onClick={postOn}
+            // href="/create/post"
+            className="flex"
+          >
             <Plus className="size-8 mr-2" />
             Create Post
-          </Link>
+          </div>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer text-xl flex items-center"

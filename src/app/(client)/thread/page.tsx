@@ -22,13 +22,13 @@ const ThreadsPage = () => {
 
   return (
     <div className="w-full flex flex-col">
-      <h3 className="text-5xl mt-5 mx-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600">
+      <h3 className="text-5xl mt-5 mL-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600 indent-4">
         Explore Threads
       </h3>
       <div className="ml-8 my-5 font-semibold text-gray-700 text-2xl">
         Recommended for you
       </div>
-      <div className="w-full grid grid-cols-5 gap-4 px-12">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-4 px-12">
         {threads?.map((thread: any) => (
           <RedditThreadBanner
             key={thread._id}

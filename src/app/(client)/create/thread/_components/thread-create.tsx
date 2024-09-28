@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useCreateThread } from "@/features/threads/api/use-create-thread";
 import { toast } from "sonner";
 import { Id } from "../../../../../../convex/_generated/dataModel";
+import useToggleThread from "@/hooks/create-thread-hook";
 
 const ThreadCreate = () => {
   const router = useRouter();
@@ -18,8 +19,9 @@ const ThreadCreate = () => {
   const [profileImage, setProfileImage] = useState<Id<"_storage"> | null>(null);
   const [bannerImage, setBannerImage] = useState<Id<"_storage"> | null>(null);
   const { mutate: createThread, isPending: creatingThread } = useCreateThread();
+  const toggleThread = useToggleThread();
   useEffect(() => {
-    if (step < 0) router.push("/");
+    if (step < 0) toggleThread.setOff();
   }, [step]);
 
   const onSubmit = () => {
@@ -37,7 +39,7 @@ const ThreadCreate = () => {
       {
         onSuccess: () => {
           toast.success("Thread Created");
-          router.push("/thread");
+          toggleThread.setOff();
         },
         onError: () => {
           toast.error("Something went wrong");
@@ -47,7 +49,7 @@ const ThreadCreate = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full mt-5">
+    <div className="flex justify-center items-center w-full">
       {step === 0 && (
         <StepOne
           name={name}

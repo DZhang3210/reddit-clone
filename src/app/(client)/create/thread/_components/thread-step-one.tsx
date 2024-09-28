@@ -31,7 +31,7 @@ export function StepOne({
   };
 
   return (
-    <div className="space-y-4 bg-gray-800 p-3 sm:p-5 rounded-xl w-full sm:w-4/5 text-gray-300 max-w-4xl">
+    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full sm:w-4/5 text-gray-300 max-w-4xl">
       <div className="flex flex-col space-y-4 ">
         {/* Preview section */}
         <div className="w-full ">

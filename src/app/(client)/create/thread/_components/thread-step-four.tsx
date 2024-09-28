@@ -18,7 +18,7 @@ export function StepFour({
   logoImage,
 }: StepFourProps) {
   return (
-    <div className="space-y-4 bg-gray-800 p-5 rounded-xl w-full max-w-4xl text-gray-300">
+    <div className="space-y-4 bg-gray-800/80 p-5 rounded-xl w-full max-w-4xl text-gray-300">
       <h3 className="text-lg font-semibold capitalize">
         This is what your thread will look like
       </h3>

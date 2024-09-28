@@ -17,11 +17,13 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGetUserThreads } from "@/features/profile/api/use-get-user-threads";
 import { Skeleton } from "./ui/skeleton";
+import useToggleThread from "@/hooks/create-thread-hook";
 
 const Sidebar = () => {
   const { data: threads, isLoading: threadsLoading } = useGetUserThreads();
   const pathname = usePathname();
   const [communitiesTab, setCommunitiesTab] = useState(true);
+  const threadModal = useToggleThread();
 
   const NavLink = ({
     href,
@@ -79,13 +81,18 @@ const Sidebar = () => {
               transition={{ duration: 0.2 }}
               className="ml-1 flex flex-col gap-2 w-full overflow-hidden"
             >
-              <Link
+              <div
                 className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
-                href="/create/thread"
+                // href="/create/thread"
               >
                 <Plus size={40} />
-                <span className="text-lg text-white">Create a Thread</span>
-              </Link>
+                <span
+                  className="text-lg text-white"
+                  onClick={() => threadModal.setOn()}
+                >
+                  Create a Thread
+                </span>
+              </div>
               {threads ? (
                 threads.map((thread, i) => (
                   <Link

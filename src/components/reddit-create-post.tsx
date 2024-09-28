@@ -134,7 +134,7 @@ export default function RedditCreatePost() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto bg-gray-800 text-white">
+    <Card className="w-full max-w-4xl mx-auto bg-gray-800 text-white border-transparent">
       <CardContent className="p-6 mb-6">
         <CardHeader className="text-2xl font-semibold ">
           Create Your Amazing Post
@@ -211,7 +211,7 @@ export default function RedditCreatePost() {
               />
             </div>
             <div
-              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[200px] w-full flex flex-col items-center justify-center bg-gray-700 text-white relative"
+              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[310px] w-full flex flex-col items-center justify-center bg-gray-700 text-white relative"
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleImageDrop}
             >
