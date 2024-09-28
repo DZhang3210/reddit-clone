@@ -32,7 +32,7 @@ type Post = {
 };
 
 const PostsPage = () => {
-  const { results: posts, status, loadMore } = useGetPosts({ name: "" });
+  const { results: posts, status } = useGetPosts({ name: "" });
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentFilter = searchParams.get("filter") || "Best";

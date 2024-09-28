@@ -21,7 +21,7 @@ import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 // };
 
 const PostsPage = () => {
-  const { results: posts, status, loadMore } = useGetPosts({ name: "" });
+  const { results: posts, status } = useGetPosts({ name: "" });
 
   // const posts = await fetchQuery(api.posts.get, {
   //   name: "",

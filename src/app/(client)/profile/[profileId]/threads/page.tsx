@@ -23,18 +23,22 @@ const ThreadsPage = () => {
     <div className="w-full flex flex-col">
       <h3 className="text-6xl">Threads</h3>
       <div className="w-full grid grid-cols-2">
-        {threads?.map((thread: any) => (
-          <RedditThreadBanner
-            key={thread._id}
-            threadId={thread._id}
-            backgroundImage={thread.bannerImage}
-            threadImage={thread.logoImage}
-            threadName={thread.title}
-            threadDesc={thread.description}
-            memberCount={thread.totalMembers}
-            isFollowing={thread.isFollowing}
-          />
-        ))}
+        {threads?.map(
+          (
+            thread: any // eslint-disable-line @typescript-eslint/no-explicit-any
+          ) => (
+            <RedditThreadBanner
+              key={thread._id}
+              threadId={thread._id}
+              backgroundImage={thread.bannerImage}
+              threadImage={thread.logoImage}
+              threadName={thread.title}
+              threadDesc={thread.description}
+              memberCount={thread.totalMembers}
+              isFollowing={thread.isFollowing}
+            />
+          )
+        )}
       </div>
     </div>
   );
