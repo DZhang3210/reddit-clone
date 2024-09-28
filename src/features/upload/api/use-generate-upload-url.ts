@@ -3,7 +3,7 @@ import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useCallback, useMemo, useState } from "react";
 
-type RequestType = {};
+type RequestType = Record<string, never>;
 type ResponseType = string | null;
 
 type Options = {

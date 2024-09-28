@@ -21,7 +21,7 @@ import { Skeleton } from "./ui/skeleton";
 import { motion } from "framer-motion";
 
 const MobileSidebar = () => {
-  const { data: threads, isLoading: threadsLoading } = useGetUserThreads();
+  const { data: threads } = useGetUserThreads();
   const pathname = usePathname();
   const [communitiesTab, setCommunitiesTab] = useState(true);
   const threadModal = useToggleThread();

@@ -81,7 +81,7 @@ export default function RedditCreatePost() {
           toast.success("Post successfully created");
           router.push(`/post/${postId}`);
         },
-        onError: (error) => {
+        onError: () => {
           toast.error("Error creating post");
         },
       }
