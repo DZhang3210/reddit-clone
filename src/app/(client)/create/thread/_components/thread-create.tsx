@@ -47,7 +47,7 @@ const ThreadCreate = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full">
+    <div className="flex justify-center items-center w-full h-3/4 py-5">
       {step === 0 && (
         <StepOne
           name={name}
