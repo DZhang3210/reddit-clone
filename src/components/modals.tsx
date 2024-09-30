@@ -1,6 +1,6 @@
 "use client";
-// import PostModal from "@/modals/create-post-modal";
-// import ThreadModal from "@/modals/create-thread-modal";
+import PostModal from "@/modals/create-post-modal";
+import ThreadModal from "@/modals/create-thread-modal";
 import { useEffect, useState } from "react";
 import React from "react";
 
@@ -12,8 +12,8 @@ const Modals = () => {
   if (!mounted) return "";
   return (
     <div>
-      {/* <PostModal />
-      <ThreadModal /> */}
+      <PostModal />
+      <ThreadModal />
     </div>
   );
 };

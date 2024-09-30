@@ -216,3 +216,41 @@ export const getUserStats = query({
     };
   },
 });
+
+export const getUserComments = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) return null;
+
+    const user = await ctx.db.get(userId);
+    if (!user) return null;
+
+    const comments = await ctx.db
+      .query("comments")
+      .withIndex("authorId", (q) => q.eq("authorId", user._id))
+      .collect();
+
+    const populatedComments = (
+      await Promise.all(
+        comments.map(async (comment) => {
+          const author = await ctx.db.get(comment.authorId);
+          if (!author) return null;
+          const post = await ctx.db.get(comment.postId);
+          if (!post) return null;
+          const thread = await ctx.db.get(post.thread);
+          if (!thread) return null;
+          return {
+            ...comment,
+            author,
+            post,
+            thread,
+            isLiked: user.likedComments?.includes(comment._id) ?? false,
+          };
+        })
+      )
+    ).filter((comment) => comment !== null);
+
+    return populatedComments;
+  },
+});
