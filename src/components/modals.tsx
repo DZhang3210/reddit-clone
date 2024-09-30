@@ -1,6 +1,6 @@
 "use client";
-import PostModal from "@/modals/create-post-modal";
-import ThreadModal from "@/modals/create-thread-modal";
+// import PostModal from "@/modals/create-post-modal";
+// import ThreadModal from "@/modals/create-thread-modal";
 import { useEffect, useState } from "react";
 import React from "react";
 
