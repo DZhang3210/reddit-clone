@@ -1,7 +1,7 @@
 "use client";
 
 import { useGetPost } from "@/features/posts/api/use-get-post";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import RedditPostCard from "@/components/reddit-post-card";
 import RedditPostCardGhost from "@/components/skeletons/reddit-post-card-ghost";
@@ -20,10 +20,10 @@ interface PostPageProps {
 
 const PostPage = ({ params: { postId } }: PostPageProps) => {
   const { data: post, isLoading } = useGetPost({ id: postId as Id<"posts"> });
-  const { data: comments, isLoading: isLoadingComments } =
-    useGetCommentsByPostId({ postId: postId as Id<"posts"> });
-  const { mutate: createComment, isPending: isCreatingComment } =
-    useCreateComment();
+  const { data: comments } = useGetCommentsByPostId({
+    postId: postId as Id<"posts">,
+  });
+  const { mutate: createComment } = useCreateComment();
   const [content, setContent] = useState("");
   const [editor, setEditor] = useState("");
 

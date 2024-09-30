@@ -11,7 +11,6 @@ import {
 import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
 import CommentEditor from "./text-editor/comment-editor";
-import { Id } from "../../convex/_generated/dataModel";
 import { useCreateComment } from "@/features/comments/api/use-create-comment";
 import { Comment } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
@@ -34,11 +33,10 @@ export default function RedditComment({
   setShowComments,
 }: RedditCommentProps) {
   const [replyContent, setReplyContent] = useState("");
-  const { mutate: createComment, isPending: isCreatingComment } =
-    useCreateComment();
-  const { mutate: likeComment, isPending: isLikingComment } = useLikeComment();
+  const { mutate: createComment } = useCreateComment();
+  const { mutate: likeComment } = useLikeComment();
 
-  const handleVote = (voteType: "up" | "down") => {
+  const handleVote = () => {
     likeComment(
       { commentId: comment._id },
       {
@@ -49,7 +47,7 @@ export default function RedditComment({
     );
   };
 
-  const handleSubmit = (parentCommentId?: Id<"comments"> | null) => {
+  const handleSubmit = () => {
     if (replyContent.trim() === "") return;
     createComment(
       {
@@ -104,7 +102,7 @@ export default function RedditComment({
             variant="ghost"
             size="sm"
             className={`px-2 ${comment.isLiked ? "text-orange-500" : ""}`}
-            onClick={() => handleVote("up")}
+            onClick={() => handleVote()}
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />
             <span className="text-xs font-medium">{comment.likes}</span>
@@ -139,7 +137,7 @@ export default function RedditComment({
         <CommentEditor
           content={replyContent}
           setContent={setReplyContent}
-          onSubmit={() => handleSubmit(comment.parentCommentId)}
+          onSubmit={() => handleSubmit()}
           onCancel={() => setEditor("")}
         />
       )}
