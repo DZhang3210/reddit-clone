@@ -16,6 +16,7 @@ import { useCreateComment } from "@/features/comments/api/use-create-comment";
 import { Comment } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
 import { toast } from "sonner";
+import { useLikeComment } from "@/features/comments/api/use-like-comment";
 
 interface RedditCommentProps {
   comment: Comment;
@@ -32,20 +33,20 @@ export default function RedditComment({
   showComments,
   setShowComments,
 }: RedditCommentProps) {
-  const [voteCount, setVoteCount] = useState(comment.likes);
   const [replyContent, setReplyContent] = useState("");
-  const [userVote, setUserVote] = useState<"up" | "down" | null>(null);
   const { mutate: createComment, isPending: isCreatingComment } =
     useCreateComment();
+  const { mutate: likeComment, isPending: isLikingComment } = useLikeComment();
 
   const handleVote = (voteType: "up" | "down") => {
-    if (userVote === voteType) {
-      setVoteCount(comment.likes);
-      setUserVote(null);
-    } else {
-      setVoteCount(comment.likes + (voteType === "up" ? 1 : -1));
-      setUserVote(voteType);
-    }
+    likeComment(
+      { commentId: comment._id },
+      {
+        onSuccess: () => {
+          toast.success("Comment liked successfully");
+        },
+      }
+    );
   };
 
   const handleSubmit = (parentCommentId?: Id<"comments"> | null) => {
@@ -102,11 +103,11 @@ export default function RedditComment({
           <Button
             variant="ghost"
             size="sm"
-            className={`px-2 ${userVote === "up" ? "text-orange-500" : ""}`}
+            className={`px-2 ${comment.isLiked ? "text-orange-500" : ""}`}
             onClick={() => handleVote("up")}
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />
-            <span className="text-xs font-medium">{voteCount}</span>
+            <span className="text-xs font-medium">{comment.likes}</span>
           </Button>
           <Button
             variant="ghost"
