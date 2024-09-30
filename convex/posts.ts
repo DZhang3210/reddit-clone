@@ -18,7 +18,7 @@ export const likePost = mutation({
       throw new Error("Post not found");
     }
 
-    const user = await ctx.db.get(post.author);
+    const user = await ctx.db.get(userId);
     if (!user) {
       throw new Error("User not found");
     }
@@ -113,14 +113,15 @@ export const get = query({
       .order("desc")
       .paginate(args.paginationOpts);
 
+    const currentUser = await ctx.db.get(userId);
     const page = await Promise.all(
       results.page.map(async (post) => {
         const [user, thread] = await Promise.all([
           await ctx.db.get(post?.author),
           await ctx.db.get(post?.thread),
         ]);
-        const liked = user?.likedPosts?.includes(post?._id);
-        const saved = user?.savedPosts?.includes(post?._id);
+        const liked = currentUser?.likedPosts?.includes(post?._id);
+        const saved = currentUser?.savedPosts?.includes(post?._id);
         if (post?.image) {
           return {
             ...post,
@@ -164,6 +165,7 @@ export const getById = query({
       return null;
     }
 
+    const currentUser = await ctx.db.get(userId);
     const [user, thread] = await Promise.all([
       await ctx.db.get(post?.author),
       await ctx.db.get(post?.thread),
@@ -173,8 +175,8 @@ export const getById = query({
       return null;
     }
 
-    const liked = user?.likedPosts?.includes(post?._id);
-    const saved = user?.savedPosts?.includes(post?._id);
+    const liked = currentUser?.likedPosts?.includes(post?._id);
+    const saved = currentUser?.savedPosts?.includes(post?._id);
     if (post?.image) {
       const image = await ctx.storage.getUrl(post?.image);
       return { ...post, user, thread, liked, saved, image };

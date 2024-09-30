@@ -65,7 +65,7 @@ const Sidebar = () => {
 
         {/* Communities */}
         <div
-          className="flex justify-between w-full px-2 items-center mt-[10rem] transition-all duration-300 hover:bg-gray-700 cursor-pointer py-4 rounded-lg"
+          className="flex justify-between w-full px-2 items-center mt-[10rem] transition-all duration-300 hover:bg-gray-700 cursor-pointer py-4 rounded-lg text-white"
           onClick={() => setCommunitiesTab((prev) => !prev)}
         >
           <span className="text-lg text-foreground uppercase">Threads</span>

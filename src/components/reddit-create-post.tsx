@@ -213,7 +213,7 @@ export default function RedditCreatePost() {
               />
             </div>
             <div
-              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[310px] w-full flex flex-col items-center justify-center bg-gray-700 text-white relative"
+              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[100px] w-full flex flex-col items-center justify-center bg-gray-700 text-white relative"
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleImageDrop}
             >

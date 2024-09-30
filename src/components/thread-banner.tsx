@@ -75,10 +75,10 @@ export default function RedditThreadBanner({
         <div className=" p-4 bg-teal-800">
           <div className="flex justify-between">
             <div>
-              <h4 className="text-xl font-bold text-white">
+              <h4 className="text-xl font-bold text-white truncate">
                 {threadName || "Community Name"}
               </h4>
-              <p className="text-sm text-gray-400 mt-2">
+              <p className="text-sm text-gray-400 mt-2 truncate">
                 r/
                 {threadName
                   ? threadName.toLowerCase().replace(/\s+/g, "")
@@ -104,7 +104,7 @@ export default function RedditThreadBanner({
               </Button>
             )}
           </div>
-          <p className="text-sm text-gray-300 mt-4">
+          <p className="text-sm text-gray-300 mt-4 truncate">
             {threadDesc || "Community description will appear here."}
           </p>
         </div>

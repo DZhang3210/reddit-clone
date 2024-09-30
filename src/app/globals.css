@@ -98,7 +98,7 @@ body {
   @apply border-none;
 }
 .tiptap[contenteditable="true"] {
-  min-height: 200px;
+  min-height: 100px;
 }
 .tiptap {
   padding-left: 3px;
