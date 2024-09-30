@@ -45,6 +45,20 @@ const schema = defineSchema({
     .index("updatedAt", ["updatedAt"])
     .index("author", ["author"])
     .index("thread", ["thread"]),
+  comments: defineTable({
+    content: v.string(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+    authorId: v.id("users"),
+    postId: v.id("posts"),
+    likes: v.number(),
+    parentCommentId: v.optional(v.union(v.id("comments"), v.null())),
+    replies: v.array(v.id("comments")),
+  })
+    .index("createdAt", ["createdAt"])
+    .index("updatedAt", ["updatedAt"])
+    .index("authorId", ["authorId"])
+    .index("postId", ["postId"]),
 });
 
 export default schema;

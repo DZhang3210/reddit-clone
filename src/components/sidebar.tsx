@@ -49,7 +49,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="hidden md:block left-0 bottom-0 h-[calc(100vh-120px)] bg-black w-[17rem]">
+    <div className="hidden md:block left-0 bottom-0 h-[calc(100vh-120px)] bg-black md:w-[12rem] lg:w-[17rem]">
       <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-2">
         <NavLink href="/posts" icon={Home}>
           Home
