@@ -19,50 +19,50 @@ interface PostPageProps {
 }
 
 const PostPage = ({ params: { postId } }: PostPageProps) => {
-  const { data: post, isLoading } = useGetPost({ id: postId as Id<"posts"> });
-  const { data: comments } = useGetCommentsByPostId({
-    postId: postId as Id<"posts">,
-  });
-  const { mutate: createComment } = useCreateComment();
-  const [content, setContent] = useState("");
-  const [editor, setEditor] = useState("");
+  // const { data: post, isLoading } = useGetPost({ id: postId as Id<"posts"> });
+  // const { data: comments } = useGetCommentsByPostId({
+  //   postId: postId as Id<"posts">,
+  // });
+  // const { mutate: createComment } = useCreateComment();
+  // const [content, setContent] = useState("");
+  // const [editor, setEditor] = useState("");
 
-  console.log("COMMENTS");
-  console.log(comments);
+  // console.log("COMMENTS");
+  // console.log(comments);
 
-  if (isLoading || !post || !comments)
-    return (
-      <div className="flex flex-col items-center gap-4 mt-4 mx-4">
-        <RedditPostCardGhost />
-      </div>
-    );
-  if (!post.thread || !post.user) return null;
+  // if (isLoading || !post || !comments)
+  //   return (
+  //     <div className="flex flex-col items-center gap-4 mt-4 mx-4">
+  //       <RedditPostCardGhost />
+  //     </div>
+  //   );
+  // if (!post.thread || !post.user) return null;
 
-  const handleSubmit = (parentCommentId?: Id<"comments"> | null) => {
-    if (content.trim() === "") return;
-    createComment(
-      {
-        content,
-        postId: post._id,
-        authorId: post.user._id,
-        parentCommentId: parentCommentId || null,
-      },
-      {
-        onSuccess: () => {
-          setContent("");
-          toast.success("Comment created successfully");
-        },
-        onError: (error) => {
-          toast.error("Error creating comment");
-          console.error(error);
-        },
-      }
-    );
-  };
+  // const handleSubmit = (parentCommentId?: Id<"comments"> | null) => {
+  //   if (content.trim() === "") return;
+  //   createComment(
+  //     {
+  //       content,
+  //       postId: post._id,
+  //       authorId: post.user._id,
+  //       parentCommentId: parentCommentId || null,
+  //     },
+  //     {
+  //       onSuccess: () => {
+  //         setContent("");
+  //         toast.success("Comment created successfully");
+  //       },
+  //       onError: (error) => {
+  //         toast.error("Error creating comment");
+  //         console.error(error);
+  //       },
+  //     }
+  //   );
+  // };
 
   return (
     <div className="flex flex-col items-center mx-4 mt-4 gap-2 mb-20">
-      <RedditPostCard
+      {/* <RedditPostCard
         key={post._id}
         username={post.user?.name || "anonymous"}
         userAvatar={post.user?.image || "/placeholder.svg?height=40&width=40"}
@@ -92,7 +92,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
           <Button className="w-full">Reply</Button>
         </div>
       )}
-      <CommentChain comments={comments} editor={editor} setEditor={setEditor} />
+      <CommentChain comments={comments} editor={editor} setEditor={setEditor} /> */}
     </div>
   );
 };
