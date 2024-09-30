@@ -12,8 +12,8 @@ const Modals = () => {
   if (!mounted) return "";
   return (
     <div>
-      <PostModal />
-      <ThreadModal />
+      {/* <PostModal />
+      <ThreadModal /> */}
     </div>
   );
 };
