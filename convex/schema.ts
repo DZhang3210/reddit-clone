@@ -16,6 +16,8 @@ const schema = defineSchema({
     likedPosts: v.optional(v.array(v.id("posts"))),
     followingThreads: v.optional(v.array(v.id("threads"))),
     savedPosts: v.optional(v.array(v.id("posts"))),
+    comments: v.optional(v.array(v.id("comments"))),
+    likedComments: v.optional(v.array(v.id("comments"))),
     // other "users" fields...
   }).index("email", ["email"]),
   threads: defineTable({
@@ -58,7 +60,8 @@ const schema = defineSchema({
     .index("createdAt", ["createdAt"])
     .index("updatedAt", ["updatedAt"])
     .index("authorId", ["authorId"])
-    .index("postId", ["postId"]),
+    .index("postId", ["postId"])
+    .index("post_id_parent_id", ["postId", "parentCommentId"]),
 });
 
 export default schema;

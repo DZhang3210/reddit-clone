@@ -13,13 +13,21 @@ import ListItem from "@tiptap/extension-list-item";
 import { BoldIcon, ItalicIcon, UnderlineIcon, ListIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction } from "react";
+import { Button } from "../ui/button";
 
-interface RichTextEditorProps {
+interface CommentEditorProps {
   content: string;
   setContent: Dispatch<SetStateAction<string>>;
+  onSubmit: () => void;
+  onCancel: () => void;
 }
 
-const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
+const CommentEditor = ({
+  content,
+  setContent,
+  onSubmit,
+  onCancel,
+}: CommentEditorProps) => {
   const editor = useEditor({
     extensions: [
       Document,
@@ -47,7 +55,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
   }
 
   return (
-    <div className="border-2 border-black bg-[#374151] rounded-xl mb-0">
+    <div className="border-2 border-black bg-[#374151] rounded-xl mb-0 max-w-sm">
       <div className="flex gap-1 mb-1 bg-gray-600 pl-2 rounded-t-xl">
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -95,10 +103,24 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
           <EmojiPicker
             onEmojiSelect={(emoji) => editor.commands.insertContent(emoji)}
           />
+          <div className="flex gap-2">
+            <Button
+              className="rounded-full bg-black text-white px-4 text-xs"
+              onClick={onCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="rounded-full bg-blue-600 text-white px-4 text-xs"
+              onClick={onSubmit}
+            >
+              Submit
+            </Button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default RichTextEditor;
+export default CommentEditor;
