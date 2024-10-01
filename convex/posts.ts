@@ -97,6 +97,7 @@ export const create = mutation({
 export const get = query({
   args: {
     name: v.optional(v.string()),
+    threadId: v.optional(v.id("threads")),
     paginationOpts: paginationOptsValidator,
   },
   handler: async (ctx, args) => {
@@ -111,6 +112,9 @@ export const get = query({
 
     const results = await ctx.db
       .query("posts")
+      .withIndex("thread", (q) =>
+        args.threadId ? q.eq("thread", args.threadId) : q
+      )
       .order("desc")
       .paginate(args.paginationOpts);
 
