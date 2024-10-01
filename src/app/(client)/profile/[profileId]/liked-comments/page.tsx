@@ -1,9 +1,6 @@
 "use client";
 
 import AloneRedditComment from "@/components/alone-reddit-comment";
-import RedditComment from "@/components/reddit-comment";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useGetUserComments } from "@/features/profile/api/use-get-user-comments";
 import { useGetUserLikedComments } from "@/features/profile/api/use-get-user-liked-comments";
 import React from "react";
 

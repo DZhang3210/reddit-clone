@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
-import { formatDistanceToNow } from "date-fns";
 import { toast } from "sonner";
 import { useLikeComment } from "@/features/comments/api/use-like-comment";
 import { Doc } from "../../convex/_generated/dataModel";

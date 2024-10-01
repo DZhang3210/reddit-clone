@@ -1,10 +1,7 @@
 "use client";
 
 import AloneRedditComment from "@/components/alone-reddit-comment";
-import RedditComment from "@/components/reddit-comment";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useGetUserComments } from "@/features/profile/api/use-get-user-comments";
-import { AvatarFallback } from "@radix-ui/react-avatar";
 import React from "react";
 
 const CommentsProfile = () => {

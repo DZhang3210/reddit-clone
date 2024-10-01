@@ -13,8 +13,6 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Doc, Id } from "../../convex/_generated/dataModel";
-import RedditComment from "./reddit-comment";
-import AloneRedditComment from "./alone-reddit-comment";
 
 type Post = {
   image: string | null;
@@ -31,7 +29,7 @@ type Post = {
   liked: boolean | undefined;
   saved: boolean | undefined;
   numComments: number;
-  firstComment: Doc<"comments"> | null;
+  firstComment?: Doc<"comments"> | null;
 };
 
 interface PostsPageProps {
