@@ -57,7 +57,14 @@ export default function ProfileLayout({
       )}
 
       <div className="flex items-center justify-center space-x-4 w-full">
-        {["overview", "upvoted", "comments", "posts", "saved"].map((tab) => (
+        {[
+          "overview",
+          "upvoted",
+          "comments",
+          "posts",
+          "saved",
+          "liked-comments",
+        ].map((tab) => (
           <Link key={tab} href={`/profile/${profileId}/${tab}`}>
             <div className="text-xl font-bold text-gray-700 capitalize">
               {tab}
@@ -66,7 +73,9 @@ export default function ProfileLayout({
           </Link>
         ))}
       </div>
-      <div className="w-full">{children}</div>
+      <div className="w-full flex items-center justify-center">
+        <div className="max-w-3xl w-full">{children}</div>
+      </div>
     </div>
   );
 }

@@ -13,6 +13,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Doc, Id } from "../../convex/_generated/dataModel";
+import RedditComment from "./reddit-comment";
+import AloneRedditComment from "./alone-reddit-comment";
 
 type Post = {
   image: string | null;
@@ -28,6 +30,8 @@ type Post = {
   thread: Doc<"threads"> | null;
   liked: boolean | undefined;
   saved: boolean | undefined;
+  numComments: number;
+  firstComment: Doc<"comments"> | null;
 };
 
 interface PostsPageProps {
@@ -82,24 +86,34 @@ const PostsFeed = ({ posts }: PostsPageProps) => {
         {posts.map((post: Post) => {
           if (!post.thread || !post.user) return null;
           return (
-            <RedditPostCard
+            <div
               key={post._id}
-              username={post.user?.name || "anonymous"}
-              userAvatar={
-                post.user?.image || "/placeholder.svg?height=40&width=40"
-              }
-              subreddit={post.thread.title}
-              timePosted={post._creationTime}
-              title={post.title}
-              content={post.content}
-              image={post.image || ""}
-              upvotes={post.likes}
-              threadId={post.thread._id}
-              userId={post.user._id}
-              postId={post._id}
-              liked={post.liked || false}
-              saved={post.saved || false}
-            />
+              className="w-full flex flex-col gap-4 items-center"
+            >
+              <RedditPostCard
+                username={post.user?.name || "anonymous"}
+                userAvatar={
+                  post.user?.image || "/placeholder.svg?height=40&width=40"
+                }
+                subreddit={post.thread.title}
+                timePosted={post._creationTime}
+                title={post.title}
+                content={post.content}
+                image={post.image || ""}
+                upvotes={post.likes}
+                threadId={post.thread._id}
+                userId={post.user._id}
+                postId={post._id}
+                liked={post.liked || false}
+                saved={post.saved || false}
+                comments={post.numComments}
+              />
+              {/* {post.firstComment && (
+                <div className="max-w-sm">
+                  {JSON.stringify(post.firstComment)}
+                </div>
+              )} */}
+            </div>
           );
         })}
       </div>

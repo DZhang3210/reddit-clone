@@ -55,7 +55,7 @@ const CommentEditor = ({
   }
 
   return (
-    <div className="border-2 border-black bg-[#374151] rounded-xl mb-0 max-w-sm">
+    <div className="border-2 border-black bg-[#374151] rounded-xl mb-0 w-full">
       <div className="flex gap-1 mb-1 bg-gray-600 pl-2 rounded-t-xl">
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}

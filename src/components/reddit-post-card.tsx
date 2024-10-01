@@ -81,7 +81,7 @@ export default function RedditPostCard({
   };
 
   return (
-    <Card className="w-full max-w-4xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition cursor-pointer">
+    <Card className="w-full max-w-4xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition">
       <CardHeader className="flex flex-row items-center space-x-4 p-2">
         <Link href={`/profile/${userId}`}>
           <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">
@@ -124,45 +124,59 @@ export default function RedditPostCard({
         )}
       </CardContent>
       <CardFooter className="flex items-center justify-between">
-        <div className="flex items-center space-x-4 ">
-          <Button
-            variant="ghost"
-            size="sm"
-            className={`px-2 border-2 py-2 border-gray-400 rounded-full ${liked ? "text-orange-500" : ""}`}
-            onClick={handleVote}
-            disabled={isLikePending}
-          >
-            <ArrowUpIcon className="h-4 w-4 mr-1" />
-            <span className="text-lg font-medium">{upvotes}</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="px-2 py-2 border-2 border-gray-400 rounded-full"
-          >
-            <MessageSquare className="h-4 w-4 mr-1" />
-            <span className="text-lg hidden sm:block">{comments} Comments</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="px-2 py-2 border-2 border-gray-400 rounded-full"
-          >
-            <Share2 className="h-4 w-4 mr-1" />
-            <span className="text-lg hidden sm:block">Share</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className={`px-2 py-2 border-2 border-gray-400 rounded-full ${saved ? "text-orange-500" : ""}`}
-            onClick={handleSave}
-            disabled={isSavePending}
-          >
-            <BookmarkIcon
-              className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
-            />
-            <span className="text-lg ">{saved ? "Saved" : "Save"}</span>
-          </Button>
+        <div className="flex items-center space-x-4">
+          <div className="z-10">
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`px-2 border-2 py-2 border-gray-400 rounded-full hover:bg-gray-200 transition ${
+                liked ? "text-orange-500" : ""
+              }`}
+              onClick={handleVote}
+              disabled={isLikePending}
+            >
+              <ArrowUpIcon className="h-4 w-4 mr-1" />
+              <span className="text-lg font-medium">{upvotes}</span>
+            </Button>
+          </div>
+          <Link href={`/post/${postId}`} className="z-10">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+            >
+              <MessageSquare className="h-4 w-4 mr-1" />
+              <span className="text-lg hidden sm:block">
+                {comments} Comments
+              </span>
+            </Button>
+          </Link>
+          <div className="z-10">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+            >
+              <Share2 className="h-4 w-4 mr-1" />
+              <span className="text-lg hidden sm:block">Share</span>
+            </Button>
+          </div>
+          <div className="z-10">
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition ${
+                saved ? "text-orange-500" : ""
+              }`}
+              onClick={handleSave}
+              disabled={isSavePending}
+            >
+              <BookmarkIcon
+                className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
+              />
+              <span className="text-lg ">{saved ? "Saved" : "Save"}</span>
+            </Button>
+          </div>
         </div>
       </CardFooter>
     </Card>

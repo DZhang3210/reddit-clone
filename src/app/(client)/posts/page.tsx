@@ -22,7 +22,7 @@ import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 
 const PostsPage = () => {
   const { results: posts, status } = useGetPosts({ name: "" });
-
+  console.log("POSTS", posts);
   // const posts = await fetchQuery(api.posts.get, {
   //   name: "",
   //   paginationOpts: { numItems: 10, cursor: null },

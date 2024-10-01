@@ -45,6 +45,10 @@ export const create = mutation({
       });
     }
 
+    await ctx.db.patch(args.postId, {
+      numComments: post.numComments + 1,
+    });
+
     if (!user.comments) {
       await ctx.db.patch(userId, {
         comments: [commentId],

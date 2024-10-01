@@ -87,6 +87,7 @@ export const create = mutation({
       imageTitle,
       image,
       likes: 0,
+      numComments: 0,
     });
 
     return postId;
@@ -116,9 +117,13 @@ export const get = query({
     const currentUser = await ctx.db.get(userId);
     const page = await Promise.all(
       results.page.map(async (post) => {
-        const [user, thread] = await Promise.all([
+        const [user, thread, firstComment] = await Promise.all([
           await ctx.db.get(post?.author),
           await ctx.db.get(post?.thread),
+          await ctx.db
+            .query("comments")
+            .withIndex("postId", (q) => q.eq("postId", post?._id))
+            .first(),
         ]);
         const liked = currentUser?.likedPosts?.includes(post?._id);
         const saved = currentUser?.savedPosts?.includes(post?._id);
@@ -130,6 +135,7 @@ export const get = query({
             thread: thread,
             liked: liked,
             saved: saved,
+            firstComment: firstComment,
           };
         } else {
           return {
@@ -139,6 +145,7 @@ export const get = query({
             thread: thread,
             liked: liked,
             saved: saved,
+            firstComment: firstComment,
           };
         }
       })

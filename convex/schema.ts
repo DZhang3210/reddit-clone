@@ -40,6 +40,7 @@ const schema = defineSchema({
     author: v.id("users"),
     thread: v.id("threads"),
     imageTitle: v.string(),
+    numComments: v.number(),
     image: v.optional(v.id("_storage")),
     likes: v.number(),
   })

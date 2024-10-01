@@ -15,6 +15,7 @@ interface AloneRedditCommentProps {
     post: Doc<"posts">;
     thread: Doc<"threads">;
     isLiked: boolean;
+    image: string | null;
   };
 }
 
@@ -36,32 +37,37 @@ export default function AloneRedditComment({
 
   return (
     <>
-      <Card className="max-w-sm border-none">
+      <Card className="shadow-none border-0 border-l-4 border-l-black rounded-none">
         <CardContent className="p-4">
           <div className="flex items-start space-x-1">
-            <Link href={`/profile/${comment.author._id}`}>
-              <Avatar className="w-8 h-8">
-                <AvatarImage
-                  src={comment.author.image}
-                  alt={comment.author.name}
-                />
-                <AvatarFallback>
-                  {comment.author?.name?.[0].toUpperCase() || "U"}
-                </AvatarFallback>
-              </Avatar>
-            </Link>
-
-            <div className="flex-1 ">
-              <Link href={`/profile/${comment.author._id}`}>
-                <div className="flex items-center space-x-1 hover:underline">
-                  <p className="text-sm font-medium ">
-                    u/{comment.author.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    • {formatDistanceToNow(comment.createdAt)}
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-2">
+                <Link href={`/thread/${comment.thread._id}`}>
+                  <Avatar>
+                    <AvatarImage src={comment.image || ""} />
+                    <AvatarFallback>
+                      {comment.thread?.title?.[0].toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </Link>
+                <div className="flex flex-col">
+                  <Link
+                    className="text-sm font-bold text-black hover:underline"
+                    href={`/thread/${comment.thread._id}`}
+                  >
+                    r/{comment.thread?.title}
+                  </Link>
+                  <p className="text-sm text-gray-500">
+                    <Link
+                      href={`/profile/${comment.authorId}/overview`}
+                      className="hover:underline"
+                    >
+                      u/{comment.author?.name}
+                    </Link>{" "}
+                    commented on this post
                   </p>
                 </div>
-              </Link>
+              </div>
               <ReadOnly content={comment.content} />
             </div>
           </div>

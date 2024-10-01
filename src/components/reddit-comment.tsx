@@ -59,6 +59,7 @@ export default function RedditComment({
       {
         onSuccess: () => {
           setReplyContent("");
+          setEditor("");
           toast.success("Comment created successfully");
         },
       }
@@ -67,7 +68,7 @@ export default function RedditComment({
 
   return (
     <>
-      <Card className="max-w-sm border-none">
+      <Card className="max-w-sm border-0 rounded-none shadow-none border-l-4 border-black">
         <CardContent className="p-4">
           <div className="flex items-start space-x-1">
             <Link href={`/profile/${comment.author._id}`}>

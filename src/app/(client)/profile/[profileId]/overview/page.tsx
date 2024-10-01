@@ -15,15 +15,18 @@ const OverviewProfile = () => {
     savedPostsLength,
     upvotedPostsLength,
     createdPostsLength,
+    commentsLength,
+    likedCommentsLength,
   } = stats;
 
   return (
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <StatCard stat="Threads" number={followingThreadsLength} />
-      <StatCard stat="Comments" number={100} />
+      <StatCard stat="Comments" number={commentsLength} />
       <StatCard stat="Posts" number={createdPostsLength} />
       <StatCard stat="Upvoted Posts" number={upvotedPostsLength} />
       <StatCard stat="Saved Posts" number={savedPostsLength} />
+      <StatCard stat="Liked Comments" number={likedCommentsLength} />
     </div>
   );
 };

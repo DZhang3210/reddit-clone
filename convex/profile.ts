@@ -207,12 +207,19 @@ export const getUserStats = query({
       .query("posts")
       .withIndex("author", (q) => q.eq("author", user._id))
       .collect();
+    const commentsLength = user.comments ? user.comments.length : 0;
+    const likedCommentsLength = user.likedComments
+      ? user.likedComments.length
+      : 0;
+
     const createdPostsLength = posts.length;
     return {
       followingThreadsLength,
       savedPostsLength,
       upvotedPostsLength,
       createdPostsLength,
+      commentsLength,
+      likedCommentsLength,
     };
   },
 });
@@ -240,11 +247,15 @@ export const getUserComments = query({
           if (!post) return null;
           const thread = await ctx.db.get(post.thread);
           if (!thread) return null;
+          const image = thread?.logoImage
+            ? await ctx.storage.getUrl(thread?.logoImage)
+            : "";
           return {
             ...comment,
             author,
             post,
             thread,
+            image,
             isLiked: user.likedComments?.includes(comment._id) ?? false,
           };
         })
@@ -252,5 +263,47 @@ export const getUserComments = query({
     ).filter((comment) => comment !== null);
 
     return populatedComments;
+  },
+});
+
+export const getUserLikedComments = query({
+  args: {},
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) return null;
+
+    const user = await ctx.db.get(userId);
+    if (!user) return null;
+
+    const likedCommentsIds = user.likedComments || [];
+
+    const likedComments = (
+      await Promise.all(
+        likedCommentsIds.map(async (commentId) => {
+          const comment = await ctx.db.get(commentId);
+          if (!comment) return null;
+          const [author, post] = await Promise.all([
+            ctx.db.get(comment.authorId),
+            ctx.db.get(comment.postId),
+          ]);
+          if (!author || !post) return null;
+          const thread = await ctx.db.get(post.thread);
+          if (!thread) return null;
+          const image = thread?.logoImage
+            ? await ctx.storage.getUrl(thread?.logoImage)
+            : "";
+          return {
+            ...comment,
+            author,
+            post,
+            thread,
+            image,
+            isLiked: user.likedComments?.includes(comment._id) ?? false,
+          };
+        })
+      )
+    ).filter((comment) => comment !== null);
+
+    return likedComments;
   },
 });
