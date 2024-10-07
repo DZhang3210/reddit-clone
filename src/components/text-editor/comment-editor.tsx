@@ -99,11 +99,11 @@ const CommentEditor = ({
           editor={editor}
           className="prose max-w-none editContent border-b-2 border-gray-500 border-b-xl text-black"
         />
-        <div className="flex justify-between m-0 bg-gray-300">
+        <div className="flex justify-between items-center m-0 bg-gray-300">
           <EmojiPicker
             onEmojiSelect={(emoji) => editor.commands.insertContent(emoji)}
           />
-          <div className="flex gap-2">
+          <div className="flex gap-2 p-2">
             <Button
               className="rounded-full bg-black text-white px-4 text-xs"
               onClick={onCancel}

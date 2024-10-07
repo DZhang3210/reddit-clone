@@ -15,6 +15,7 @@ import { Id } from "../../convex/_generated/dataModel";
 import { useLikePost } from "@/features/posts/api/use-like-post";
 import { toast } from "sonner";
 import { useSavePost } from "@/features/posts/api/use-save-post";
+import useToggleSharePost from "@/hooks/share-post-hook";
 
 interface RedditPostCardProps {
   username: string;
@@ -51,6 +52,7 @@ export default function RedditPostCard({
 }: RedditPostCardProps) {
   const { mutate: likePost, isPending: isLikePending } = useLikePost();
   const { mutate: savePost, isPending: isSavePending } = useSavePost();
+  const sharePostModal = useToggleSharePost();
 
   const handleSave = () => {
     savePost(
@@ -156,6 +158,7 @@ export default function RedditPostCard({
               variant="ghost"
               size="sm"
               className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+              onClick={() => sharePostModal.setPostLink(postId.toString())}
             >
               <Share2 className="h-4 w-4 mr-1" />
               <span className="text-lg hidden sm:block">Share</span>
