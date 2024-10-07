@@ -21,7 +21,7 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
     id: threadId as Id<"threads">,
   });
 
-  const { results: posts, status: postsStatus } = useGetPosts({
+  const { results: posts } = useGetPosts({
     threadId: threadId as Id<"threads">,
   });
   console.log("DATA", posts);

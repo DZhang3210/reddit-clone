@@ -9,7 +9,6 @@ import React, { useRef, useState } from "react";
 const SharePostModal = () => {
   const sharePostModal = useToggleSharePost();
   const [isCopied, setIsCopied] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const copyToClipboard = () => {

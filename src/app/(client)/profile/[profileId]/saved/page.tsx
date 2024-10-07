@@ -25,7 +25,7 @@ const DownvotedProfile = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <PostsFeed posts={posts} />
+      <PostsFeed posts={posts} currentFilter="saved" />
     </div>
   );
 };
