@@ -47,7 +47,8 @@ const schema = defineSchema({
     .index("createdAt", ["createdAt"])
     .index("updatedAt", ["updatedAt"])
     .index("author", ["author"])
-    .index("thread", ["thread"]),
+    .index("thread", ["thread"])
+    .index("likes", ["likes"]),
   comments: defineTable({
     content: v.string(),
     createdAt: v.number(),

@@ -88,7 +88,7 @@ export default function RedditThreadBanner({
             </div>
             {isFollowing ? (
               <Button
-                className="py-1 px-4 bg-blue-600 hover:bg-blue-800"
+                className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
                 onClick={handleButtonClick}
                 disabled={isLoading}
               >
@@ -96,7 +96,7 @@ export default function RedditThreadBanner({
               </Button>
             ) : (
               <Button
-                className="py-1 px-4 bg-blue-600 hover:bg-blue-800"
+                className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
                 onClick={handleButtonClick}
                 disabled={isLoading}
               >

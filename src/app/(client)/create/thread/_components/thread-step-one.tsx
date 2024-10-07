@@ -32,10 +32,34 @@ export function StepOne({
   };
 
   return (
-    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full sm:w-4/5 text-gray-300 max-w-4xl ">
-      <div className="flex space-y-4 ">
+    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full  text-gray-300 max-w-4xl ">
+      <div className="flex space-y-4 gap-4 flex-col md:flex-row">
         {/* Preview section */}
-        <div className="w-full ">
+
+        <div className="w-full space-y-4 order-2 md:order-1">
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Input</h3>
+            <Label htmlFor="name">Community Name</Label>
+            <Input
+              id="name"
+              value={name || ""}
+              onChange={(e) => setName(e.target.value)}
+              className="mt-2 rounded-xl bg-gray-600 outline-none border-transparent"
+              placeholder="Enter community name"
+            />
+          </div>
+          <div>
+            <Label htmlFor="description">Community Description</Label>
+            <Textarea
+              id="description"
+              value={desc || ""}
+              onChange={(e) => setDesc(e.target.value)}
+              className="mt-2 rounded-xl bg-gray-600 outline-none border-transparent"
+              placeholder="Describe your community"
+            />
+          </div>
+        </div>
+        <div className="w-full order-1 md:order-2">
           <h3 className="text-lg font-semibold mb-4">Preview</h3>
           <div className="relative">
             <div className="w-full h-32 bg-gray-700 flex items-center justify-center rounded-t-lg">
@@ -79,30 +103,6 @@ export function StepOne({
             <p className="text-sm text-gray-300 mt-4">
               {desc || "Community description will appear here."}
             </p>
-          </div>
-        </div>
-
-        <div className="w-full space-y-4">
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Input</h3>
-            <Label htmlFor="name">Community Name</Label>
-            <Input
-              id="name"
-              value={name || ""}
-              onChange={(e) => setName(e.target.value)}
-              className="mt-2 rounded-xl bg-gray-600 outline-none border-transparent"
-              placeholder="Enter community name"
-            />
-          </div>
-          <div>
-            <Label htmlFor="description">Community Description</Label>
-            <Textarea
-              id="description"
-              value={desc || ""}
-              onChange={(e) => setDesc(e.target.value)}
-              className="mt-2 rounded-xl bg-gray-600 outline-none border-transparent"
-              placeholder="Describe your community"
-            />
           </div>
         </div>
       </div>

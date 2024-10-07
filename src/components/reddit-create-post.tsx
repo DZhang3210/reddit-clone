@@ -81,10 +81,12 @@ export default function RedditCreatePost() {
       {
         onSuccess: (postId) => {
           toast.success("Post successfully created");
+          postModal.setOff();
           router.push(`/post/${postId}`);
         },
         onError: () => {
           toast.error("Error creating post");
+          postModal.setOff();
         },
       }
     );
@@ -136,7 +138,7 @@ export default function RedditCreatePost() {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto bg-gray-800 text-white border-transparent">
+    <Card className="w-full mx-auto bg-gray-800 text-white border-transparent">
       <CardContent className="p-6 mb-6">
         <CardHeader className="text-2xl font-semibold ">
           Create Your Amazing Post

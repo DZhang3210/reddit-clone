@@ -2,8 +2,11 @@
 import RedditThreadBanner from "@/components/thread-banner";
 import { useGetThread } from "@/features/threads/api/use-get-thread";
 import React from "react";
+import { useSearchParams } from "next/navigation";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { ThreadBannerSkeleton } from "@/components/skeletons/thread-banner-skeleton";
+import PostsFeed from "@/components/posts-feed";
+import { useGetPosts } from "@/features/posts/api/use-get-posts";
 
 interface ThreadPageProps {
   params: {
@@ -12,10 +15,16 @@ interface ThreadPageProps {
 }
 
 const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
+  const searchParams = useSearchParams();
+  const currentFilter = searchParams.get("filter") || "Best";
   const { data: thread, isLoading: threadLoading } = useGetThread({
     id: threadId as Id<"threads">,
   });
-  console.log("DATA", thread);
+
+  const { results: posts, status: postsStatus } = useGetPosts({
+    threadId: threadId as Id<"threads">,
+  });
+  console.log("DATA", posts);
   if (threadLoading) {
     return <ThreadBannerSkeleton />;
   }
@@ -32,8 +41,9 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
         threadDesc={thread.description}
         memberCount={thread.totalMembers}
         isFollowing={thread.isFollowing}
+        threadName={thread.title}
       />
-      <div>Thread</div>
+      <PostsFeed posts={posts} currentFilter={currentFilter} />
     </div>
   );
 };

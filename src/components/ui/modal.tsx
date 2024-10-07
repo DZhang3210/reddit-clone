@@ -23,7 +23,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     <Dialog open={isOpen} onOpenChange={onChange}>
       <DialogTitle></DialogTitle>
       <DialogDescription></DialogDescription>
-      <DialogContent className="p-20 m-0 bg-gray-800/80">
+      <DialogContent className="py-20 m-0 bg-gray-800/80">
         {children}
       </DialogContent>
     </Dialog>

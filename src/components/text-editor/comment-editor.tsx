@@ -55,13 +55,13 @@ const CommentEditor = ({
   }
 
   return (
-    <div className="border-2 border-black bg-[#374151] rounded-xl mb-0 w-full">
-      <div className="flex gap-1 mb-1 bg-gray-600 pl-2 rounded-t-xl">
+    <div className="border-2 border-black bg-gray-200 rounded-xl mb-0 w-full">
+      <div className="flex gap-1 bg-gray-300 rounded-t-xl">
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={cn(
-            "p-1 my-1 transition hover:bg-gray-500 rounded-lg",
-            editor.isActive("bold") && "bg-gray-500"
+            "p-1 my-1 transition hover:bg-gray-500 rounded-lg text-black",
+            editor.isActive("bold") && "bg-gray-400"
           )}
         >
           <BoldIcon />
@@ -69,8 +69,8 @@ const CommentEditor = ({
         <button
           onClick={() => editor.chain().focus().toggleItalic().run()}
           className={cn(
-            "p-1 my-1 transition hover:bg-gray-500 rounded-lg",
-            editor.isActive("italic") && "bg-gray-500"
+            "p-1 my-1 transition hover:bg-gray-500 rounded-lg text-black",
+            editor.isActive("italic") && "bg-gray-400"
           )}
         >
           <ItalicIcon />
@@ -78,8 +78,8 @@ const CommentEditor = ({
         <button
           onClick={() => editor.chain().focus().toggleUnderline().run()}
           className={cn(
-            "p-1 my-1 transition hover:bg-gray-500 rounded-lg",
-            editor.isActive("underline") && "bg-gray-500"
+            "p-1 my-1 transition hover:bg-gray-500 rounded-lg text-black",
+            editor.isActive("underline") && "bg-gray-400"
           )}
         >
           <UnderlineIcon />
@@ -87,19 +87,19 @@ const CommentEditor = ({
         <button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
           className={cn(
-            "p-1 my-1 transition hover:bg-gray-500 rounded-lg",
-            editor.isActive("bulletList") && "bg-gray-500"
+            "p-1 my-1 transition hover:bg-gray-500 rounded-lg text-black",
+            editor.isActive("bulletList") && "bg-gray-400"
           )}
         >
           <ListIcon />
         </button>
       </div>
-      <div className="p-2 border-2 border-gray-500 rounded-b-xl space-y-1">
+      <div className="border-2 border-gray-500 rounded-b-xl">
         <EditorContent
           editor={editor}
-          className="prose max-w-none editContent border-b-2 border-gray-500 border-b-xl"
+          className="prose max-w-none editContent border-b-2 border-gray-500 border-b-xl text-black"
         />
-        <div className="flex justify-between m-0">
+        <div className="flex justify-between m-0 bg-gray-300">
           <EmojiPicker
             onEmojiSelect={(emoji) => editor.commands.insertContent(emoji)}
           />

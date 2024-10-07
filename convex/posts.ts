@@ -115,7 +115,7 @@ export const get = query({
       .withIndex("thread", (q) =>
         args.threadId ? q.eq("thread", args.threadId) : q
       )
-      .order("desc")
+      .order("desc") // Add this line to order by likes
       .paginate(args.paginationOpts);
 
     const currentUser = await ctx.db.get(userId);

@@ -3,6 +3,7 @@ import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import React from "react";
 import PostsFeed from "@/components/posts-feed";
 import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
+import { useSearchParams } from "next/navigation";
 
 // type Post = {
 //   image: string | null;
@@ -21,6 +22,8 @@ import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 // };
 
 const PostsPage = () => {
+  const searchParams = useSearchParams();
+  const currentFilter = searchParams.get("filter") || "Best";
   const { results: posts, status } = useGetPosts({ name: "" });
   console.log("POSTS", posts);
   // const posts = await fetchQuery(api.posts.get, {
@@ -42,7 +45,7 @@ const PostsPage = () => {
       <h3 className="text-5xl mt-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600 ">
         Home Feed
       </h3>
-      <PostsFeed posts={posts} />
+      <PostsFeed posts={posts} currentFilter={currentFilter} />
     </div>
   );
 };

@@ -2,7 +2,17 @@
 import { Search } from "lucide-react";
 import React, { useState } from "react";
 import { Input } from "./ui/input";
-// Import necessary components for dropdown
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@/components/ui/command";
 
 const RedditSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");

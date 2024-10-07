@@ -20,7 +20,7 @@ const ThreadCreate = () => {
   const toggleThread = useToggleThread();
   useEffect(() => {
     if (step < 0) toggleThread.setOff();
-  }, [step, toggleThread]);
+  }, [step]);
 
   const onSubmit = () => {
     if (!name || !desc || !profileImage || !bannerImage) {
@@ -47,7 +47,7 @@ const ThreadCreate = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full h-3/4 py-5">
+    <div className="flex justify-center items-center w-full py-5 overflow-auto">
       {step === 0 && (
         <StepOne
           name={name}

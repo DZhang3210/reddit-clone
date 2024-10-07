@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Doc, Id } from "../../convex/_generated/dataModel";
@@ -33,13 +33,12 @@ type Post = {
 };
 
 interface PostsPageProps {
+  currentFilter: string;
   posts: Post[];
 }
 
-const PostsFeed = ({ posts }: PostsPageProps) => {
-  const searchParams = useSearchParams();
+const PostsFeed = ({ posts, currentFilter }: PostsPageProps) => {
   const router = useRouter();
-  const currentFilter = searchParams.get("filter") || "Best";
 
   const handleFilterChange = (filter: string) => {
     router.push(`?filter=${filter}`);

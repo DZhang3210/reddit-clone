@@ -165,7 +165,7 @@ export const create = mutation({
       throw new Error("User not found");
     }
 
-    await ctx.db.insert("users", {
+    await ctx.db.patch(author._id, {
       followingThreads: author?.followingThreads
         ? [...author.followingThreads, newThread]
         : [newThread],
