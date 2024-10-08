@@ -25,7 +25,7 @@ type Post = {
   imageTitle: string;
   likes: number;
   user: Doc<"users"> | null;
-  thread: Doc<"threads"> | null;
+  thread: (Doc<"threads"> & { image: string | null }) | null;
   liked: boolean | undefined;
   saved: boolean | undefined;
 };
@@ -73,9 +73,6 @@ const PostsPage = () => {
           <RedditPostCard
             key={post._id}
             username={post.user?.name || "anonymous"}
-            userAvatar={
-              post.user?.image || "/placeholder.svg?height=40&width=40"
-            }
             subreddit={post.thread.title}
             timePosted={post._creationTime}
             title={post.title}
@@ -87,6 +84,7 @@ const PostsPage = () => {
             postId={post._id}
             liked={post.liked || false}
             saved={post.saved || false}
+            threadImage={post?.thread?.image || ""}
           />
         );
       })}

@@ -31,7 +31,10 @@ const schema = defineSchema({
     moderators: v.array(v.id("users")),
   })
     .index("title", ["title"])
-    .index("createdAt", ["createdAt"]),
+    .index("createdAt", ["createdAt"])
+    .searchIndex("search", {
+      searchField: "title",
+    }),
   posts: defineTable({
     title: v.string(),
     content: v.string(),
@@ -48,7 +51,10 @@ const schema = defineSchema({
     .index("updatedAt", ["updatedAt"])
     .index("author", ["author"])
     .index("thread", ["thread"])
-    .index("likes", ["likes"]),
+    .index("likes", ["likes"])
+    .searchIndex("search", {
+      searchField: "title",
+    }),
   comments: defineTable({
     content: v.string(),
     createdAt: v.number(),

@@ -19,7 +19,6 @@ import useToggleSharePost from "@/hooks/share-post-hook";
 
 interface RedditPostCardProps {
   username: string;
-  userAvatar: string;
   subreddit: string;
   timePosted: number;
   title: string;
@@ -32,11 +31,11 @@ interface RedditPostCardProps {
   postId: Id<"posts">;
   liked: boolean;
   saved: boolean;
+  threadImage: string;
 }
 
 export default function RedditPostCard({
   username,
-  userAvatar,
   subreddit,
   timePosted,
   title,
@@ -49,6 +48,7 @@ export default function RedditPostCard({
   postId,
   liked,
   saved,
+  threadImage,
 }: RedditPostCardProps) {
   const { mutate: likePost, isPending: isLikePending } = useLikePost();
   const { mutate: savePost, isPending: isSavePending } = useSavePost();
@@ -83,12 +83,12 @@ export default function RedditPostCard({
   };
 
   return (
-    <Card className="w-full max-w-4xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition">
+    <Card className="w-full max-w-3xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition">
       <CardHeader className="flex flex-row items-center space-x-4 p-2">
-        <Link href={`/profile/${userId}`}>
+        <Link href={`/thread/${threadId}`}>
           <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">
-            <AvatarImage src={userAvatar} alt={username} sizes="" />
-            <AvatarFallback>{username[0].toUpperCase()}</AvatarFallback>
+            <AvatarImage src={threadImage} alt={subreddit} sizes="" />
+            <AvatarFallback>{subreddit[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Link>
         <div>

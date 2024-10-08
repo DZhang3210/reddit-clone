@@ -115,45 +115,51 @@ export const get = query({
       .withIndex("thread", (q) =>
         args.threadId ? q.eq("thread", args.threadId) : q
       )
-      .order("desc") // Add this line to order by likes
+      .order("desc")
       .paginate(args.paginationOpts);
 
     const currentUser = await ctx.db.get(userId);
-    const page = await Promise.all(
-      results.page.map(async (post) => {
-        const [user, thread, firstComment] = await Promise.all([
-          await ctx.db.get(post?.author),
-          await ctx.db.get(post?.thread),
-          await ctx.db
-            .query("comments")
-            .withIndex("postId", (q) => q.eq("postId", post?._id))
-            .first(),
-        ]);
-        const liked = currentUser?.likedPosts?.includes(post?._id);
-        const saved = currentUser?.savedPosts?.includes(post?._id);
-        if (post?.image) {
-          return {
-            ...post,
-            image: await ctx.storage.getUrl(post?.image),
-            user: user,
-            thread: thread,
-            liked: liked,
-            saved: saved,
-            firstComment: firstComment,
-          };
-        } else {
-          return {
-            ...post,
-            image: "",
-            user: user,
-            thread: thread,
-            liked: liked,
-            saved: saved,
-            firstComment: firstComment,
-          };
-        }
-      })
-    );
+    const page = (
+      await Promise.all(
+        results.page.map(async (post) => {
+          const [user, thread, firstComment] = await Promise.all([
+            await ctx.db.get(post?.author),
+            await ctx.db.get(post?.thread),
+            await ctx.db
+              .query("comments")
+              .withIndex("postId", (q) => q.eq("postId", post?._id))
+              .first(),
+          ]);
+          if (!thread || !user) {
+            return null;
+          }
+          const threadImage = await ctx.storage.getUrl(thread?.logoImage);
+          const liked = currentUser?.likedPosts?.includes(post?._id);
+          const saved = currentUser?.savedPosts?.includes(post?._id);
+          if (post?.image) {
+            return {
+              ...post,
+              image: await ctx.storage.getUrl(post?.image),
+              user: user,
+              thread: { ...thread, image: threadImage },
+              liked: liked,
+              saved: saved,
+              firstComment: firstComment,
+            };
+          } else {
+            return {
+              ...post,
+              image: "",
+              user: user,
+              thread: { ...thread, image: threadImage },
+              liked: liked,
+              saved: saved,
+              firstComment: firstComment,
+            };
+          }
+        })
+      )
+    ).filter((res) => res !== null);
     return {
       ...results,
       page,
@@ -188,11 +194,25 @@ export const getById = query({
 
     const liked = currentUser?.likedPosts?.includes(post?._id);
     const saved = currentUser?.savedPosts?.includes(post?._id);
+    const threadImage = await ctx.storage.getUrl(thread?.logoImage);
     if (post?.image) {
       const image = await ctx.storage.getUrl(post?.image);
-      return { ...post, user, thread, liked, saved, image };
+      return {
+        ...post,
+        user,
+        thread: { ...thread, image: threadImage },
+        liked,
+        saved,
+        image,
+      };
     } else {
-      return { ...post, user, thread, liked, saved };
+      return {
+        ...post,
+        user,
+        thread: { ...thread, image: threadImage },
+        liked,
+        saved,
+      };
     }
   },
 });

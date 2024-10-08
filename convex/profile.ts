@@ -23,22 +23,30 @@ export const getUserPosts = query({
       .withIndex("author", (q) => q.eq("author", user._id))
       .collect();
 
-    const finalAuthorPosts = await Promise.all(
-      authorPosts.map(async (post) => {
-        const thread = await ctx.db.get(post.thread);
-        const liked = user?.likedPosts?.includes(post?._id);
-        const saved = user?.savedPosts?.includes(post?._id);
-        const image = post?.image ? await ctx.storage.getUrl(post?.image) : "";
-        return {
-          ...post,
-          thread,
-          liked,
-          saved,
-          image,
-          user: user,
-        };
-      })
-    );
+    const finalAuthorPosts = (
+      await Promise.all(
+        authorPosts.map(async (post) => {
+          const thread = await ctx.db.get(post.thread);
+          const liked = user?.likedPosts?.includes(post?._id);
+          const saved = user?.savedPosts?.includes(post?._id);
+          const image = post?.image
+            ? await ctx.storage.getUrl(post?.image)
+            : "";
+          if (!thread) {
+            return null;
+          }
+          const threadImage = await ctx.storage.getUrl(thread?.logoImage);
+          return {
+            ...post,
+            thread: { ...thread, image: threadImage },
+            liked,
+            saved,
+            image,
+            user: user,
+          };
+        })
+      )
+    ).filter((post) => post !== null);
 
     return finalAuthorPosts;
   },
@@ -78,13 +86,17 @@ export const getUserSaved = query({
           const image = post?.image
             ? await ctx.storage.getUrl(post?.image)
             : "";
+          if (!thread) {
+            return null;
+          }
+          const threadImage = await ctx.storage.getUrl(thread?.logoImage);
           return {
             ...post,
             liked,
             saved,
             image: image,
             user: user,
-            thread: thread,
+            thread: { ...thread, image: threadImage },
           };
         })
       )
@@ -128,13 +140,17 @@ export const getUserUpvoted = query({
           const image = post?.image
             ? await ctx.storage.getUrl(post?.image)
             : "";
+          if (!thread) {
+            return null;
+          }
+          const threadImage = await ctx.storage.getUrl(thread?.logoImage);
           return {
             ...post,
             liked,
             saved,
             image: image,
             user: user,
-            thread: thread,
+            thread: { ...thread, image: threadImage },
           };
         })
       )

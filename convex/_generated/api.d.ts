@@ -20,6 +20,7 @@ import type * as comments from "../comments.js";
 import type * as http from "../http.js";
 import type * as posts from "../posts.js";
 import type * as profile from "../profile.js";
+import type * as search from "../search.js";
 import type * as threads from "../threads.js";
 import type * as upload from "../upload.js";
 import type * as users from "../users.js";
@@ -38,6 +39,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   posts: typeof posts;
   profile: typeof profile;
+  search: typeof search;
   threads: typeof threads;
   upload: typeof upload;
   users: typeof users;

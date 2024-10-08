@@ -25,7 +25,7 @@ type Post = {
   imageTitle: string;
   likes: number;
   user: Doc<"users"> | null;
-  thread: Doc<"threads"> | null;
+  thread: (Doc<"threads"> & { image: string | null }) | null;
   liked: boolean | undefined;
   saved: boolean | undefined;
   numComments: number;
@@ -45,8 +45,8 @@ const PostsFeed = ({ posts, currentFilter }: PostsPageProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 mt-4 mx-4 ">
-      <div className="max-w-4xl w-full mx-auto text-4xl flex justify-start">
+    <div className="flex flex-col gap-4 mt-4 mb-20 mx-4 ">
+      <div className="max-w-3xl w-full mx-auto text-4xl flex justify-start">
         <DropdownMenu>
           <DropdownMenuTrigger
             asChild
@@ -89,9 +89,6 @@ const PostsFeed = ({ posts, currentFilter }: PostsPageProps) => {
             >
               <RedditPostCard
                 username={post.user?.name || "anonymous"}
-                userAvatar={
-                  post.user?.image || "/placeholder.svg?height=40&width=40"
-                }
                 subreddit={post.thread.title}
                 timePosted={post._creationTime}
                 title={post.title}
@@ -104,6 +101,7 @@ const PostsFeed = ({ posts, currentFilter }: PostsPageProps) => {
                 liked={post.liked || false}
                 saved={post.saved || false}
                 comments={post.numComments}
+                threadImage={post.thread.image || ""}
               />
               {/* {post.firstComment && (
                 <div className="max-w-sm">

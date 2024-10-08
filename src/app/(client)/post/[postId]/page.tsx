@@ -67,7 +67,6 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
         <RedditPostCard
           key={post._id}
           username={post.user?.name || "anonymous"}
-          userAvatar={post.user?.image || "/placeholder.svg?height=40&width=40"}
           subreddit={post.thread.title}
           timePosted={post._creationTime || 0}
           title={post.title || ""}
@@ -80,6 +79,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
           liked={post.liked || false}
           saved={post.saved || false}
           comments={post.numComments || 0}
+          threadImage={post.thread.image || ""}
         />
         {editor === "reply" ? (
           <div className="w-full">
