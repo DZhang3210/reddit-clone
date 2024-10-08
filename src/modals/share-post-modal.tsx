@@ -27,6 +27,7 @@ const SharePostModal = () => {
       //   light={true}
     >
       <div className="flex items-center space-x-2 mx-10">
+        <div>Share your post with your friends</div>
         <Input
           ref={inputRef}
           readOnly
