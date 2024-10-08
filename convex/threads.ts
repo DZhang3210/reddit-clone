@@ -43,6 +43,10 @@ export const toggleFollow = mutation({
 export const getAll = query({
   args: {},
   handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      return [];
+    }
     const results = await ctx.db.query("threads").collect();
     return results;
   },
@@ -68,11 +72,15 @@ export const getById = query({
     ]);
     if (!user) return null;
     const isFollowing = user?.followingThreads?.includes(args.id);
+    const isAdmin = results.moderators
+      ? results.moderators.includes(userId)
+      : false;
     return {
       ...results,
       bannerImage,
       logoImage,
       isFollowing,
+      isAdmin,
     };
   },
 });
@@ -111,11 +119,15 @@ export const get = query({
             continueCursor: null,
           };
         const isFollowing = user?.followingThreads?.includes(thread._id);
+        const isAdmin = thread.moderators
+          ? thread.moderators.includes(userId)
+          : false;
         return {
           ...thread,
           bannerImage,
           logoImage,
           isFollowing,
+          isAdmin,
         };
       })
     );
@@ -130,6 +142,7 @@ export const create = mutation({
   args: {
     title: v.string(),
     description: v.string(),
+    bannerColor: v.string(),
     bannerImage: v.id("_storage"),
     logoImage: v.id("_storage"),
   },
@@ -153,6 +166,7 @@ export const create = mutation({
       description: args.description,
       bannerImage: args.bannerImage,
       logoImage: args.logoImage,
+      bannerColor: args.bannerColor,
       totalMembers: 1,
       createdAt: Date.now(),
       updatedAt: Date.now(),
@@ -172,5 +186,37 @@ export const create = mutation({
     });
 
     return newThread;
+  },
+});
+
+export const update = mutation({
+  args: {
+    id: v.id("threads"),
+    title: v.string(),
+    description: v.string(),
+    bannerColor: v.string(),
+    bannerImage: v.union(v.id("_storage"), v.null()),
+    logoImage: v.union(v.id("_storage"), v.null()),
+  },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const thread = await ctx.db.get(args.id);
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    const updatedThread = await ctx.db.patch(args.id, {
+      title: args.title,
+      description: args.description,
+      bannerColor: args.bannerColor,
+      bannerImage: args.bannerImage ? args.bannerImage : thread.bannerImage,
+      logoImage: args.logoImage ? args.logoImage : thread.logoImage,
+    });
+
+    return updatedThread;
   },
 });

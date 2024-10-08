@@ -8,6 +8,7 @@ interface StepFourProps {
   loading: boolean;
   previewBanner: string;
   logoImage: string;
+  bannerColor: string;
 }
 
 export function StepFour({
@@ -18,6 +19,7 @@ export function StepFour({
   onSubmit,
   previewBanner,
   logoImage,
+  bannerColor,
 }: StepFourProps) {
   return (
     <div className="space-y-4 bg-gray-800/80 p-5 rounded-xl w-full max-w-4xl text-gray-300">
@@ -56,7 +58,10 @@ export function StepFour({
             )}
           </div>
         </div>
-        <div className="mt-8 p-4 bg-gray-900 rounded-b-lg">
+        <div
+          className="mt-8 p-4 bg-gray-900 rounded-b-lg"
+          style={{ backgroundColor: bannerColor }}
+        >
           <h4 className="text-xl font-bold">{name || "Community Name"}</h4>
           <p className="text-sm text-gray-400 mt-2">
             r/{name?.toLowerCase().replace(/\s+/g, "") || "communityname"}

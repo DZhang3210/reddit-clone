@@ -16,6 +16,8 @@ import { useLikePost } from "@/features/posts/api/use-like-post";
 import { toast } from "sonner";
 import { useSavePost } from "@/features/posts/api/use-save-post";
 import useToggleSharePost from "@/hooks/share-post-hook";
+import { useRemovePost } from "@/features/posts/api/use-remove-post";
+import useTogglePost from "@/hooks/create-post-hook";
 
 interface RedditPostCardProps {
   username: string;
@@ -32,6 +34,8 @@ interface RedditPostCardProps {
   liked: boolean;
   saved: boolean;
   threadImage: string;
+  isAdmin?: boolean;
+  isOwner?: boolean;
 }
 
 export default function RedditPostCard({
@@ -49,11 +53,14 @@ export default function RedditPostCard({
   liked,
   saved,
   threadImage,
+  isAdmin,
+  isOwner,
 }: RedditPostCardProps) {
   const { mutate: likePost, isPending: isLikePending } = useLikePost();
   const { mutate: savePost, isPending: isSavePending } = useSavePost();
   const sharePostModal = useToggleSharePost();
-
+  const editPost = useTogglePost();
+  const { mutate: removePost, isPending: isRemovePending } = useRemovePost();
   const handleSave = () => {
     savePost(
       { postId },
@@ -67,7 +74,19 @@ export default function RedditPostCard({
       }
     );
   };
-
+  const handleRemove = () => {
+    removePost(
+      { postId },
+      {
+        onSuccess: () => {
+          toast.success("Post Removed");
+        },
+        onError: () => {
+          toast.error("Error removing post");
+        },
+      }
+    );
+  };
   const handleVote = () => {
     likePost(
       { postId },
@@ -81,6 +100,17 @@ export default function RedditPostCard({
       }
     );
   };
+  const handleEdit = () => {
+    editPost.setMany({
+      isOn: true,
+      editMode: true,
+      id: postId as string,
+      title,
+      content,
+      threadId,
+      image,
+    });
+  };
 
   return (
     <Card className="w-full max-w-3xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition">
@@ -91,17 +121,43 @@ export default function RedditPostCard({
             <AvatarFallback>{subreddit[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Link>
-        <div>
-          <Link href={`/thread/${threadId}`}>
-            <p className="text-lg font-medium hover:underline cursor-pointer">
-              r/{subreddit}
-            </p>
-          </Link>
-          <Link href={`/profile/${userId}/overview`}>
-            <p className="text-base text-muted-foreground hover:underline cursor-pointer">
-              Posted by u/{username} • {format(timePosted, "MMM d, yyyy")}
-            </p>
-          </Link>
+        <div className="flex w-full justify-between items-center">
+          <div>
+            <Link href={`/thread/${threadId}`}>
+              <p className="text-lg font-medium hover:underline cursor-pointer">
+                r/{subreddit}
+              </p>
+            </Link>
+            <Link href={`/profile/${userId}/overview`}>
+              <p className="text-base text-muted-foreground hover:underline cursor-pointer">
+                Posted by u/{username} • {format(timePosted, "MMM d, yyyy")}
+              </p>
+            </Link>
+          </div>
+          <div className="flex gap-2">
+            {isOwner && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="px-4 py-3 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+                onClick={handleEdit}
+                disabled={isRemovePending}
+              >
+                Edit
+              </Button>
+            )}
+            {(isAdmin || isOwner) && (
+              <Button
+                variant="destructive"
+                size="sm"
+                className="px-4 py-3 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+                onClick={handleRemove}
+                disabled={isRemovePending}
+              >
+                Remove
+              </Button>
+            )}
+          </div>
         </div>
       </CardHeader>
       <CardContent className="px-4 py-2">

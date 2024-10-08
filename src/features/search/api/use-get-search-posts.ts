@@ -7,7 +7,7 @@ interface UseGetSearchPostsProps {
   query: string;
 }
 
-const BATCH_SIZE = 3;
+const BATCH_SIZE = 5;
 
 export const useGetSearchPosts = ({ query }: UseGetSearchPostsProps) => {
   const { results, status, loadMore } = usePaginatedQuery(

@@ -36,6 +36,8 @@ export const getUserPosts = query({
             return null;
           }
           const threadImage = await ctx.storage.getUrl(thread?.logoImage);
+          const isAdmin = thread.moderators.includes(user?._id);
+          const isCreator = post.author === user?._id;
           return {
             ...post,
             thread: { ...thread, image: threadImage },
@@ -43,6 +45,8 @@ export const getUserPosts = query({
             saved,
             image,
             user: user,
+            isAdmin,
+            isCreator,
           };
         })
       )
@@ -90,6 +94,8 @@ export const getUserSaved = query({
             return null;
           }
           const threadImage = await ctx.storage.getUrl(thread?.logoImage);
+          const isAdmin = thread.moderators.includes(user?._id);
+          const isCreator = post.author === user?._id;
           return {
             ...post,
             liked,
@@ -97,6 +103,8 @@ export const getUserSaved = query({
             image: image,
             user: user,
             thread: { ...thread, image: threadImage },
+            isAdmin,
+            isCreator,
           };
         })
       )
@@ -144,6 +152,8 @@ export const getUserUpvoted = query({
             return null;
           }
           const threadImage = await ctx.storage.getUrl(thread?.logoImage);
+          const isAdmin = thread.moderators.includes(user?._id);
+          const isCreator = post.author === user?._id;
           return {
             ...post,
             liked,
@@ -151,6 +161,8 @@ export const getUserUpvoted = query({
             image: image,
             user: user,
             thread: { ...thread, image: threadImage },
+            isAdmin,
+            isCreator,
           };
         })
       )

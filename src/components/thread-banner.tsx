@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
 import { MouseEvent } from "react";
 import Image from "next/image";
+import useToggleThread from "@/hooks/create-thread-hook";
 
 interface RedditThreadBannerProps {
   backgroundImage?: string | null;
@@ -15,6 +16,8 @@ interface RedditThreadBannerProps {
   threadDesc: string | undefined;
   memberCount?: number;
   isFollowing?: boolean | null;
+  bannerColor: string;
+  isAdmin?: boolean;
 }
 
 export default function RedditThreadBanner({
@@ -23,15 +26,33 @@ export default function RedditThreadBanner({
   threadImage = "/placeholder.svg?height=80&width=80",
   threadName = "DefaultSubreddit",
   threadDesc,
+  bannerColor,
   memberCount = 1000,
   isFollowing = false,
+  isAdmin = false,
 }: RedditThreadBannerProps) {
   const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
+  const { setMany, setOn } = useToggleThread();
 
   const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
     toggleFollow({ threadId });
+  };
+
+  const handleEditClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setMany({
+      title: threadName,
+      editMode: true,
+      description: threadDesc || "",
+      logoImage: threadImage || "",
+      bannerImage: backgroundImage || "",
+      bannerColor,
+      id: threadId,
+    });
+    setOn();
   };
 
   return (
@@ -72,12 +93,21 @@ export default function RedditThreadBanner({
             </div>
           </div>
         </div>
-        <div className=" p-4 bg-teal-800">
+        <div className=" p-4" style={{ backgroundColor: bannerColor }}>
           <div className="flex justify-between">
             <div>
               <h4 className="text-xl font-bold text-white truncate">
                 {threadName || "Community Name"}
               </h4>
+
+              {isAdmin && (
+                <button
+                  className="text-sm text-white mt-2 rounded-full px-4 py-1 bg-blue-800 hover:bg-blue-900 transition"
+                  onClick={handleEditClick}
+                >
+                  Edit
+                </button>
+              )}
               <p className="text-sm text-gray-400 mt-2 truncate">
                 r/
                 {threadName

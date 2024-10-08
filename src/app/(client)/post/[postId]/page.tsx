@@ -62,7 +62,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center mx-4 mt-4 gap-2 mb-20 w-full">
+    <div className="flex flex-col items-center mt-4 gap-2 mb-20 w-full">
       <div className="w-full max-w-3xl">
         <RedditPostCard
           key={post._id}
@@ -80,6 +80,8 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
           saved={post.saved || false}
           comments={post.numComments || 0}
           threadImage={post.thread.image || ""}
+          isAdmin={post.isAdmin}
+          isOwner={post.isCreator}
         />
         {editor === "reply" ? (
           <div className="w-full">

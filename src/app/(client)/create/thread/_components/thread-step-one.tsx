@@ -12,6 +12,7 @@ interface StepOneProps {
   nextStep: React.Dispatch<React.SetStateAction<number>>;
   previewBanner: string;
   logoImage: string;
+  bannerColor: string;
 }
 
 export function StepOne({
@@ -22,6 +23,7 @@ export function StepOne({
   nextStep,
   previewBanner,
   logoImage,
+  bannerColor,
 }: StepOneProps) {
   const isFormValid = name && desc;
 
@@ -94,7 +96,10 @@ export function StepOne({
               </div>
             </div>
           </div>
-          <div className="mt-8 p-4 bg-gray-900 rounded-b-lg">
+          <div
+            className="mt-8 p-4 bg-gray-900 rounded-b-lg"
+            style={{ backgroundColor: bannerColor }}
+          >
             <h4 className="text-xl font-bold">{name || "Community Name"}</h4>
             <p className="text-sm text-gray-400 mt-2">
               r/

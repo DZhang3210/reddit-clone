@@ -36,6 +36,8 @@ const ThreadsPage = () => {
               threadDesc={thread.description}
               memberCount={thread.totalMembers}
               isFollowing={thread.isFollowing}
+              bannerColor={thread.bannerColor}
+              isAdmin={thread.isAdmin}
             />
           )
         )}

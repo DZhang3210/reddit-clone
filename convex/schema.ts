@@ -29,6 +29,7 @@ const schema = defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
     moderators: v.array(v.id("users")),
+    bannerColor: v.string(),
   })
     .index("title", ["title"])
     .index("createdAt", ["createdAt"])

@@ -3,15 +3,17 @@ import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useCallback, useMemo, useState } from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
+import { Thread } from "@/components/results/thread-results";
 
 type RequestType = {
+  id: Id<"threads">;
   title: string;
   description: string;
-  bannerImage: Id<"_storage">;
-  logoImage: Id<"_storage">;
   bannerColor: string;
+  bannerImage: Id<"_storage"> | null;
+  logoImage: Id<"_storage"> | null;
 };
-type ResponseType = Id<"threads"> | null;
+type ResponseType = Thread | undefined | null;
 
 type Options = {
   onSuccess?: (data: ResponseType) => void;
@@ -20,7 +22,7 @@ type Options = {
   throwError?: boolean;
 };
 
-export const useCreateThread = () => {
+export const useUpdateThread = () => {
   const [data, setData] = useState<ResponseType>(null);
   const [error, setError] = useState<Error | null>(null);
   const [status, setStatus] = useState<
@@ -32,7 +34,7 @@ export const useCreateThread = () => {
   const isError = useMemo(() => status === "error", [status]);
   const isSettled = useMemo(() => status === "settled", [status]);
 
-  const mutation = useMutation(api.threads.create);
+  const mutation = useMutation(api.threads.update);
 
   const mutate = useCallback(
     async (values: RequestType, options?: Options) => {

@@ -42,6 +42,8 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
         memberCount={thread.totalMembers}
         isFollowing={thread.isFollowing}
         threadName={thread.title}
+        bannerColor={thread.bannerColor}
+        isAdmin={thread.isAdmin}
       />
       <PostsFeed posts={posts} currentFilter={currentFilter} />
     </div>

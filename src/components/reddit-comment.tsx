@@ -2,12 +2,7 @@ import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import {
-  ArrowUpIcon,
-  MessageSquare,
-  Share2,
-  MoreHorizontal,
-} from "lucide-react";
+import { ArrowUpIcon, MessageSquare } from "lucide-react";
 import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
 import CommentEditor from "./text-editor/comment-editor";
@@ -68,8 +63,8 @@ export default function RedditComment({
 
   return (
     <>
-      <Card className="max-w-sm border-0 rounded-none shadow-none border-l-4 border-black">
-        <CardContent className="p-4">
+      <Card className="max-w-sm border-0 rounded-none shadow-none ">
+        <CardContent className="pl-4 pb-0">
           <div className="flex items-start space-x-1">
             <Link href={`/profile/${comment.author._id}`}>
               <Avatar className="w-8 h-8">
@@ -116,13 +111,6 @@ export default function RedditComment({
           >
             <MessageSquare className="h-4 w-4 mr-1" />
             <span className="text-xs">Reply</span>
-          </Button>
-          <Button variant="ghost" size="sm" className="px-2">
-            <Share2 className="h-4 w-4 mr-1" />
-            <span className="text-xs">Share</span>
-          </Button>
-          <Button variant="ghost" size="sm" className="px-2">
-            <MoreHorizontal className="h-4 w-4" />
           </Button>
           {comment.replies.length > 0 && (
             <span

@@ -30,6 +30,8 @@ type Post = {
   saved: boolean | undefined;
   numComments: number;
   firstComment?: Doc<"comments"> | null;
+  isAdmin: boolean;
+  isCreator: boolean;
 };
 
 interface PostsPageProps {
@@ -102,6 +104,8 @@ const PostsFeed = ({ posts, currentFilter }: PostsPageProps) => {
                 saved={post.saved || false}
                 comments={post.numComments}
                 threadImage={post.thread.image || ""}
+                isAdmin={post.isAdmin}
+                isOwner={post.isCreator}
               />
               {/* {post.firstComment && (
                 <div className="max-w-sm">

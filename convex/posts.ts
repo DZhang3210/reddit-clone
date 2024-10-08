@@ -136,6 +136,8 @@ export const get = query({
           const threadImage = await ctx.storage.getUrl(thread?.logoImage);
           const liked = currentUser?.likedPosts?.includes(post?._id);
           const saved = currentUser?.savedPosts?.includes(post?._id);
+          const isAdmin = thread.moderators.includes(userId);
+          const isCreator = post?.author === userId;
           if (post?.image) {
             return {
               ...post,
@@ -145,6 +147,8 @@ export const get = query({
               liked: liked,
               saved: saved,
               firstComment: firstComment,
+              isAdmin,
+              isCreator,
             };
           } else {
             return {
@@ -155,6 +159,8 @@ export const get = query({
               liked: liked,
               saved: saved,
               firstComment: firstComment,
+              isAdmin,
+              isCreator,
             };
           }
         })
@@ -194,6 +200,8 @@ export const getById = query({
 
     const liked = currentUser?.likedPosts?.includes(post?._id);
     const saved = currentUser?.savedPosts?.includes(post?._id);
+    const isCreator = post?.author === userId;
+    const isAdmin = thread.moderators.includes(userId);
     const threadImage = await ctx.storage.getUrl(thread?.logoImage);
     if (post?.image) {
       const image = await ctx.storage.getUrl(post?.image);
@@ -204,6 +212,8 @@ export const getById = query({
         liked,
         saved,
         image,
+        isCreator,
+        isAdmin,
       };
     } else {
       return {
@@ -212,6 +222,8 @@ export const getById = query({
         thread: { ...thread, image: threadImage },
         liked,
         saved,
+        isCreator,
+        isAdmin,
       };
     }
   },
@@ -250,6 +262,80 @@ export const savePost = mutation({
         savedPosts: [args.postId],
       });
     }
+    return args.postId;
+  },
+});
+
+export const removePost = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const user = await ctx.db.get(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    const thread = await ctx.db.get(post.thread);
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+
+    const isAdmin = thread.moderators.includes(userId);
+
+    if (!isAdmin) {
+      throw new Error("User is not an admin");
+    }
+
+    await ctx.db.delete(args.postId);
+    return args.postId;
+  },
+});
+
+export const editPost = mutation({
+  args: {
+    postId: v.id("posts"),
+    title: v.string(),
+    content: v.string(),
+    imageTitle: v.string(),
+    threadId: v.id("threads"),
+    image: v.union(v.id("_storage"), v.null()),
+  },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const post = await ctx.db.get(args.postId);
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    const isCreator = post.author === userId;
+
+    if (!isCreator) {
+      throw new Error("User is not an admin");
+    }
+
+    await ctx.db.patch(args.postId, {
+      title: args.title,
+      content: args.content,
+      imageTitle: args.imageTitle,
+      image: args.image ? args.image : post.image,
+      thread: args.threadId,
+      updatedAt: Date.now(),
+    });
     return args.postId;
   },
 });

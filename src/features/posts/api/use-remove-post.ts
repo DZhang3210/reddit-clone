@@ -5,13 +5,9 @@ import { useCallback, useMemo, useState } from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
 
 type RequestType = {
-  title: string;
-  description: string;
-  bannerImage: Id<"_storage">;
-  logoImage: Id<"_storage">;
-  bannerColor: string;
+  postId: Id<"posts">;
 };
-type ResponseType = Id<"threads"> | null;
+type ResponseType = Id<"posts"> | null;
 
 type Options = {
   onSuccess?: (data: ResponseType) => void;
@@ -20,7 +16,7 @@ type Options = {
   throwError?: boolean;
 };
 
-export const useCreateThread = () => {
+export const useRemovePost = () => {
   const [data, setData] = useState<ResponseType>(null);
   const [error, setError] = useState<Error | null>(null);
   const [status, setStatus] = useState<
@@ -32,7 +28,7 @@ export const useCreateThread = () => {
   const isError = useMemo(() => status === "error", [status]);
   const isSettled = useMemo(() => status === "settled", [status]);
 
-  const mutation = useMutation(api.threads.create);
+  const mutation = useMutation(api.posts.removePost);
 
   const mutate = useCallback(
     async (values: RequestType, options?: Options) => {

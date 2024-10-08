@@ -5,29 +5,30 @@ import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 import { Id } from "../../../../../../convex/_generated/dataModel";
+import { Input } from "@/components/ui/input";
 
 interface StepTwoProps {
-  profileImage: string | null;
   setProfileImage: React.Dispatch<React.SetStateAction<Id<"_storage"> | null>>;
-  bannerImage: string | null;
   setBannerImage: React.Dispatch<React.SetStateAction<Id<"_storage"> | null>>;
   nextStep: React.Dispatch<React.SetStateAction<number>>;
   previewBanner: string;
   setPreviewBanner: React.Dispatch<React.SetStateAction<string>>;
   logoImage: string;
   setLogoImage: React.Dispatch<React.SetStateAction<string>>;
+  bannerColor: string;
+  setBannerColor: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function StepTwo({
-  profileImage,
   setProfileImage,
-  bannerImage,
   setBannerImage,
   nextStep,
   previewBanner,
   setPreviewBanner,
   logoImage,
   setLogoImage,
+  bannerColor,
+  setBannerColor,
 }: StepTwoProps) {
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
   const [isUploading, setIsUploading] = useState(false);
@@ -77,7 +78,20 @@ export function StepTwo({
     ]
   );
 
-  const isNextButtonDisabled = !profileImage || !bannerImage;
+  const handleBannerColorChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const input = e.target.value;
+      const hexPattern = /^#?[0-9A-Fa-f]{0,6}$/;
+
+      if (hexPattern.test(input)) {
+        const colorValue = input.startsWith("#") ? input : `#${input}`;
+        setBannerColor(colorValue);
+      }
+    },
+    [setBannerColor]
+  );
+
+  const isNextButtonDisabled = !logoImage || !previewBanner;
 
   return (
     <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full  text-gray-300 max-w-4xl">
@@ -148,6 +162,23 @@ export function StepTwo({
               </div>
             )}
           </div>
+          <div>
+            <Label htmlFor="icon">Banner Color</Label>
+            <div className="mt-2 flex items-center space-x-2">
+              <div
+                className="w-10 h-10 rounded-full"
+                style={{ backgroundColor: bannerColor }}
+              ></div>
+              <Input
+                id="bannerColor"
+                type="text"
+                className="rounded-full grow-1 w-full md:w-3/4"
+                value={bannerColor}
+                onChange={handleBannerColorChange}
+                maxLength={7}
+              />
+            </div>
+          </div>
         </div>
         <div className="w-full sm:w-1/2">
           <h3 className="text-lg font-semibold mb-4">Preview</h3>
@@ -183,7 +214,10 @@ export function StepTwo({
               )}
             </div>
           </div>
-          <div className="mt-8 p-4 bg-gray-900 rounded-b-lg">
+          <div
+            className="mt-8 p-4 bg-gray-900 rounded-b-lg"
+            style={{ backgroundColor: bannerColor }}
+          >
             <h4 className="text-xl font-bold">Community Name</h4>
             <p className="text-sm text-gray-400 mt-2">r/communityname</p>
             <p className="text-sm text-gray-300 mt-4">

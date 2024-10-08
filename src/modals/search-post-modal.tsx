@@ -47,19 +47,21 @@ const ThreadModal = () => {
           </Button>
         )}
       </div>
-      <div className="flex flex-col gap-4 h-[500px] overflow-y-auto border-white border-2 pt-5">
-        {searchPost.searchQuery !== "" &&
-          (threadsStatus !== "LoadingFirstPage" ? (
-            <ThreadResults results={threads as Thread[]} />
-          ) : (
-            <ThreadResultsSkeleton />
-          ))}
-        {searchPost.searchQuery !== "" &&
-          (postsStatus !== "LoadingFirstPage" ? (
-            <PostResults results={posts} />
-          ) : (
-            <PostResultsSkeleton />
-          ))}
+      <div className="h-[600px] w-full overflow-y-auto border-white border-2 pt-5">
+        <div className="flex flex-col gap-4 flex-grow">
+          {searchPost.searchQuery !== "" &&
+            (threadsStatus !== "LoadingFirstPage" ? (
+              <ThreadResults results={threads as Thread[]} />
+            ) : (
+              <ThreadResultsSkeleton />
+            ))}
+          {searchPost.searchQuery !== "" &&
+            (postsStatus !== "LoadingFirstPage" ? (
+              <PostResults results={posts} />
+            ) : (
+              <PostResultsSkeleton />
+            ))}
+        </div>
       </div>
       <Button
         className="text-sm text-center flex justify-center mx-4"
