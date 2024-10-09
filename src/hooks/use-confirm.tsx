@@ -45,18 +45,18 @@ export const useConfirm = (
             {message}
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="flex gap-2">
           <Button
             onClick={handleCancel}
             variant="outline"
-            className="text-white border-2 border-white hover:bg-white "
+            className="text-white border-2 border-white hover:bg-white order-2 sm:order-1"
           >
             Cancel
           </Button>
           <Button
             onClick={handleConfirm}
             variant="outline"
-            className="text-white border-2 bg-black border-white hover:bg-white "
+            className="text-white border-2 bg-black border-white hover:bg-white index-1 sm:order-2"
           >
             Confirm
           </Button>

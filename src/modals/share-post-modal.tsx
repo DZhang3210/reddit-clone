@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Modal } from "@/components/ui/modal";
 import useToggleSharePost from "@/hooks/share-post-hook";
 import { Check, Copy } from "lucide-react";
@@ -26,10 +27,11 @@ const SharePostModal = () => {
       onClose={sharePostModal.setOff}
       //   light={true}
     >
-      <div className="flex flex-col items-center justify-center space-y-2 px-12">
-        <div className="text-lg font-semibold">
+      <div className="flex flex-col space-y-2 px-8">
+        <div className="text-lg font-semibold mb-4">
           Share your post with your friends
         </div>
+        <Label className="">Web Link</Label>
         <div className="flex items-center space-x-2 px-10 w-full">
           <Input
             ref={inputRef}

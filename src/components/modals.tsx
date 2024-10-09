@@ -1,6 +1,7 @@
 "use client";
 import PostModal from "@/modals/create-post-modal";
 import ThreadModal from "@/modals/create-thread-modal";
+import FocusImageModal from "@/modals/focus-image-modal";
 import SearchPostModal from "@/modals/search-post-modal";
 import SharePostModal from "@/modals/share-post-modal";
 import { useEffect, useState } from "react";
@@ -18,6 +19,7 @@ const Modals = () => {
       <ThreadModal />
       <SharePostModal />
       <SearchPostModal />
+      <FocusImageModal />
     </div>
   );
 };

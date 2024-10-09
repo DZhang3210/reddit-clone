@@ -19,6 +19,7 @@ import useToggleSharePost from "@/hooks/share-post-hook";
 import { useRemovePost } from "@/features/posts/api/use-remove-post";
 import useTogglePost from "@/hooks/create-post-hook";
 import { useConfirm } from "@/hooks/use-confirm";
+import useFocusImage from "@/hooks/focus-image-hook";
 
 interface RedditPostCardProps {
   username: string;
@@ -66,7 +67,13 @@ export default function RedditPostCard({
     "Are you sure?",
     "This will permanently remove the post."
   );
+  const focusImage = useFocusImage();
 
+  const handleFocusImage = () => {
+    if (image) {
+      focusImage.setImageLink(image);
+    }
+  };
   const handleSave = () => {
     savePost(
       { postId },
@@ -175,11 +182,12 @@ export default function RedditPostCard({
           <Link href={`/post/${postId}`}>
             <h2 className="text-2xl font-bold mb-2 hover:underline">{title}</h2>
           </Link>
-          <div className="mb-4">
-            <ReadOnly content={content} />
-          </div>
+
           {image && (
-            <div className="w-full aspect-square relative overflow-hidden rounded-md border-2 border-black mb-2">
+            <button
+              className="w-full aspect-square relative overflow-hidden rounded-md border-2 border-black mb-2"
+              onClick={handleFocusImage}
+            >
               <Image
                 src={image}
                 alt="Post content"
@@ -189,8 +197,11 @@ export default function RedditPostCard({
                 priority
                 className="rounded-md"
               />
-            </div>
+            </button>
           )}
+          <div className="mb-4">
+            <ReadOnly content={content} />
+          </div>
         </CardContent>
         <CardFooter className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -205,9 +216,7 @@ export default function RedditPostCard({
                 disabled={isLikePending}
               >
                 <ArrowUpIcon className="h-4 w-4 mr-1" />
-                <span className="text-lg font-medium hidden md:block">
-                  {upvotes}
-                </span>
+                <span className="text-lg font-medium">{upvotes}</span>
               </Button>
             </div>
             <Link href={`/post/${postId}`} className="z-10">
@@ -217,7 +226,7 @@ export default function RedditPostCard({
                 className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
               >
                 <MessageSquare className="h-4 w-4 mr-1" />
-                <span className="text-lg hidden md:flex gap-1">
+                <span className="text-lg flex gap-1">
                   {comments}
                   <span className="hidden md:block">
                     {comments === 1 ? "Comment" : "Comments"}
@@ -232,7 +241,7 @@ export default function RedditPostCard({
                 className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
                 onClick={() => sharePostModal.setPostLink(postId.toString())}
               >
-                <Share2 className="h-4 w-4 mr-1" />
+                <Share2 className="h-5 w-5 mr-0 sm:mr-1 sm:h-4 sm:w-4" />
                 <span className="text-lg hidden md:block">Share</span>
               </Button>
             </div>
@@ -240,14 +249,14 @@ export default function RedditPostCard({
               <Button
                 variant="ghost"
                 size="sm"
-                className={`px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition ${
+                className={`px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition flex items-center justify-center ${
                   saved ? "text-orange-500" : ""
                 }`}
                 onClick={handleSave}
                 disabled={isSavePending}
               >
                 <BookmarkIcon
-                  className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
+                  className={`h-5 w-5 mr-0 sm:mr-1 sm:h-4 sm:w-4 ${saved ? "fill-orange-500" : ""}`}
                 />
                 <span className="text-lg hidden md:block">
                   {saved ? "Saved" : "Save"}

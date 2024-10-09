@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
 import { cn } from "@/lib/utils";
+import useFocusImage from "@/hooks/focus-image-hook";
 
 interface ProfileLayoutProps {
   children: ReactNode;
@@ -32,6 +33,10 @@ export default function ProfileLayout({
   const pathname = usePathname();
   const currentTab = pathname.split("/").pop() || "overview";
   const { data: user, isLoading } = useCurrentUser();
+  const focusImage = useFocusImage();
+  const focusImageProfile = () => {
+    focusImage.setImageLink(user?.image || "");
+  };
 
   return (
     <div className="container mx-auto p-4 space-y-6 ">
@@ -39,13 +44,15 @@ export default function ProfileLayout({
         <ProfileHeaderSkeleton />
       ) : user ? (
         <div className="flex items-center space-x-4">
-          <Avatar className="w-24 h-24">
-            <AvatarImage
-              src={user.image || "/placeholder.svg?height=96&width=96"}
-              alt="User"
-            />
-            <AvatarFallback>UN</AvatarFallback>
-          </Avatar>
+          <button onClick={focusImageProfile}>
+            <Avatar className="w-24 h-24">
+              <AvatarImage
+                src={user.image || "/placeholder.svg?height=96&width=96"}
+                alt="User"
+              />
+              <AvatarFallback>UN</AvatarFallback>
+            </Avatar>
+          </button>
           <div>
             <h1 className="text-2xl text-gray-800 font-bold">
               {user.name || "User Name"}

@@ -24,7 +24,7 @@ const ThreadModal = () => {
 
   return (
     <Modal isOpen={searchPost.searchQuery !== null} onClose={searchPost.setOff}>
-      <div className="flex flex-col h-screen py-5">
+      <div className="flex flex-col h-screen py-20">
         <div className="flex justify-center items-center">
           <h1 className="text-2xl font-bold text-white capitalize">
             Search for a thread or post!
@@ -51,7 +51,7 @@ const ThreadModal = () => {
             </Button>
           )}
         </div>
-        <div className="w-full overflow-y-auto border-white border-2 pt-5 flex-grow">
+        <div className="w-full overflow-y-auto pt-5 flex-grow">
           {searchPost.searchQuery !== "" &&
             (threadsStatus !== "LoadingFirstPage" ||
             postsStatus !== "LoadingFirstPage" ? (

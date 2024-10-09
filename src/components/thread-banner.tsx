@@ -7,6 +7,7 @@ import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
 import { MouseEvent } from "react";
 import Image from "next/image";
 import useToggleThread from "@/hooks/create-thread-hook";
+import useFocusImage from "@/hooks/focus-image-hook";
 
 interface RedditThreadBannerProps {
   backgroundImage?: string | null;
@@ -33,6 +34,14 @@ export default function RedditThreadBanner({
 }: RedditThreadBannerProps) {
   const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
   const { setMany, setOn } = useToggleThread();
+  const focusImage = useFocusImage();
+
+  const handleFocusImageBackground = () => {
+    focusImage.setImageLink(backgroundImage || "");
+  };
+  const handleFocusImageLogo = () => {
+    focusImage.setImageLink(threadImage || "");
+  };
 
   const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -68,13 +77,15 @@ export default function RedditThreadBanner({
                 <span className="text-gray-500">Banner Image</span>
               </div>
             ) : (
-              <Image
-                src={backgroundImage}
-                alt="Banner preview"
-                className="object-cover object-center"
-                fill
-                sizes="100vw"
-              />
+              <button onClick={handleFocusImageBackground}>
+                <Image
+                  src={backgroundImage}
+                  alt="Banner preview"
+                  className="object-cover object-center"
+                  fill
+                  sizes="100vw"
+                />
+              </button>
             )}
           </div>
           <div className="absolute -bottom-4 left-4">
@@ -82,13 +93,15 @@ export default function RedditThreadBanner({
               {!threadImage ? (
                 <User className="text-gray-500 w-10 h-10" />
               ) : (
-                <Image
-                  src={threadImage}
-                  alt="Thread image"
-                  className="object-cover rounded-full"
-                  fill
-                  sizes="80px"
-                />
+                <button onClick={handleFocusImageLogo}>
+                  <Image
+                    src={threadImage}
+                    alt="Thread image"
+                    className="object-cover rounded-full"
+                    fill
+                    sizes="80px"
+                  />
+                </button>
               )}
             </div>
           </div>
