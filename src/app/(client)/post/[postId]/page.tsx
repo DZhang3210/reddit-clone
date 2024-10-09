@@ -11,6 +11,7 @@ import CommentEditor from "@/components/text-editor/comment-editor";
 import { useGetCommentsByPostId } from "@/features/comments/api/use-get-comments";
 import CommentChain from "@/components/comment-chain";
 import { Button } from "@/components/ui/button";
+import { Cat } from "lucide-react";
 
 interface PostPageProps {
   params: {
@@ -63,7 +64,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
 
   return (
     <div className="flex flex-col items-center mt-4 gap-2 mb-20 w-full">
-      <div className="w-full max-w-3xl">
+      <div className="w-full max-w-3xl p-8">
         <RedditPostCard
           key={post._id}
           username={post.user?.name || "anonymous"}
@@ -98,11 +99,18 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
           </div>
         )}
         <div className="w-full mt-4">
-          <CommentChain
-            comments={comments}
-            editor={editor}
-            setEditor={setEditor}
-          />
+          {comments.length > 0 ? (
+            <CommentChain
+              comments={comments}
+              editor={editor}
+              setEditor={setEditor}
+            />
+          ) : (
+            <div className="text-2xl font-bold text-black capitalize flex flex-col items-center">
+              No comments found
+              <Cat className="w-20 h-20" />
+            </div>
+          )}
         </div>
       </div>
     </div>

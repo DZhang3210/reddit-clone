@@ -19,12 +19,16 @@ import { AnimatePresence } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Skeleton } from "./ui/skeleton";
 import { motion } from "framer-motion";
+import { FaReddit } from "react-icons/fa";
 
 const MobileSidebar = () => {
   const { data: threads } = useGetUserThreads();
   const pathname = usePathname();
   const [communitiesTab, setCommunitiesTab] = useState(true);
   const threadModal = useToggleThread();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeSheet = () => setIsOpen(false);
 
   const NavLink = ({
     href,
@@ -43,6 +47,7 @@ const MobileSidebar = () => {
           "text-lg xl:text-2xl text-white transition-all duration-300 border-2 rounded-2xl p-3 border-transparent hover:border-gray-500 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2 ",
           isActive && "bg-gray-800 border-gray-500"
         )}
+        onClick={closeSheet}
       >
         <Icon size={28} className={cn(isActive && "text-white")} />
         <span className={cn(isActive && "font-bold")}>{children}</span>
@@ -51,15 +56,25 @@ const MobileSidebar = () => {
   };
 
   return (
-    <Sheet>
-      <SheetTrigger>
-        <AlignJustify size={40} className="text-white" />
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <SheetTrigger asChild>
+        <button onClick={() => setIsOpen(true)}>
+          <AlignJustify size={40} className="text-white" />
+        </button>
       </SheetTrigger>
-      <SheetContent
-        side="left"
-        className="bg-black w-[60%] h-screen overflow-y-auto"
-      >
-        <div className="left-0 bottom-0 h-screen w-full bg-black">
+      <SheetContent side="left" className="bg-black w-[60%] overflow-y-auto">
+        <div className="left-0 bottom-0 w-full bg-black">
+          <Link
+            href="/"
+            className="w-full flex items-center"
+            onClick={closeSheet}
+          >
+            <div className="flex items-center space-x-1 text-orange-500">
+              {/* Reddit Logo */}
+              <FaReddit size={50} />
+              <h1 className="text-3xl font-bold text-white ">reddit</h1>
+            </div>
+          </Link>
           <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-2">
             <NavLink href="/posts" icon={Home}>
               Home
@@ -107,21 +122,31 @@ const MobileSidebar = () => {
                     </span>
                   </div>
                   {threads ? (
-                    threads.map((thread) => (
-                      <Link
-                        key={thread._id}
-                        href={`/thread/${thread._id}`}
-                        className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
-                      >
-                        <Avatar>
-                          <AvatarImage src={thread.logoImage || ""} />
-                          <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                        <span className="text-lg text-white">
-                          r/{thread.title}
-                        </span>
-                      </Link>
-                    ))
+                    <AnimatePresence>
+                      {threads.map((thread, index) => (
+                        <motion.div
+                          key={thread._id}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2, delay: index * 0.05 }}
+                        >
+                          <Link
+                            href={`/thread/${thread._id}`}
+                            className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
+                            onClick={closeSheet}
+                          >
+                            <Avatar>
+                              <AvatarImage src={thread.logoImage || ""} />
+                              <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                            <span className="text-lg text-white">
+                              r/{thread.title}
+                            </span>
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
                   ) : (
                     <div className="flex flex-col">
                       <div className="flex items-center gap-2 rounded-lg w-full p-2">

@@ -18,6 +18,7 @@ import { useSavePost } from "@/features/posts/api/use-save-post";
 import useToggleSharePost from "@/hooks/share-post-hook";
 import { useRemovePost } from "@/features/posts/api/use-remove-post";
 import useTogglePost from "@/hooks/create-post-hook";
+import { useConfirm } from "@/hooks/use-confirm";
 
 interface RedditPostCardProps {
   username: string;
@@ -61,6 +62,11 @@ export default function RedditPostCard({
   const sharePostModal = useToggleSharePost();
   const editPost = useTogglePost();
   const { mutate: removePost, isPending: isRemovePending } = useRemovePost();
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Are you sure?",
+    "This will permanently remove the post."
+  );
+
   const handleSave = () => {
     savePost(
       { postId },
@@ -74,7 +80,10 @@ export default function RedditPostCard({
       }
     );
   };
-  const handleRemove = () => {
+  const handleRemove = async () => {
+    const ok = await confirm();
+    if (!ok) return;
+
     removePost(
       { postId },
       {
@@ -113,138 +122,141 @@ export default function RedditPostCard({
   };
 
   return (
-    <Card className="w-full max-w-3xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition">
-      <CardHeader className="flex flex-row items-center space-x-4 p-2">
-        <Link href={`/thread/${threadId}`}>
-          <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">
-            <AvatarImage src={threadImage} alt={subreddit} sizes="" />
-            <AvatarFallback>{subreddit[0].toUpperCase()}</AvatarFallback>
-          </Avatar>
-        </Link>
-        <div className="flex w-full justify-between items-center">
-          <div>
-            <Link href={`/thread/${threadId}`}>
-              <p className="text-lg font-medium hover:underline cursor-pointer">
-                r/{subreddit}
-              </p>
-            </Link>
-            <Link href={`/profile/${userId}/overview`}>
-              <p className="text-base text-muted-foreground hover:underline cursor-pointer">
-                Posted by u/{username} • {format(timePosted, "MMM d, yyyy")}
-              </p>
-            </Link>
-          </div>
-          <div className="flex gap-2">
-            {isOwner && (
-              <Button
-                variant="outline"
-                size="sm"
-                className="px-4 py-3 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
-                onClick={handleEdit}
-                disabled={isRemovePending}
-              >
-                Edit
-              </Button>
-            )}
-            {(isAdmin || isOwner) && (
-              <Button
-                variant="destructive"
-                size="sm"
-                className="px-4 py-3 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
-                onClick={handleRemove}
-                disabled={isRemovePending}
-              >
-                Remove
-              </Button>
-            )}
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="px-4 py-2">
-        <Link href={`/post/${postId}`}>
-          <h2 className="text-2xl font-bold mb-2 hover:underline">{title}</h2>
-        </Link>
-        <div className="mb-4">
-          <ReadOnly content={content} />
-        </div>
-        {image && (
-          <div className="w-full aspect-square relative overflow-hidden rounded-md border-2 border-black mb-2">
-            <Image
-              src={image}
-              alt="Post content"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{ objectFit: "cover" }}
-              priority
-              className="rounded-md"
-            />
-          </div>
-        )}
-      </CardContent>
-      <CardFooter className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <div className="z-10">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`px-2 border-2 py-2 border-gray-400 rounded-full hover:bg-gray-200 transition ${
-                liked ? "text-orange-500" : ""
-              }`}
-              onClick={handleVote}
-              disabled={isLikePending}
-            >
-              <ArrowUpIcon className="h-4 w-4 mr-1" />
-              <span className="text-lg font-medium hidden md:block">
-                {upvotes}
-              </span>
-            </Button>
-          </div>
-          <Link href={`/post/${postId}`} className="z-10">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
-            >
-              <MessageSquare className="h-4 w-4 mr-1" />
-              <span className="text-lg hidden md:flex gap-1">
-                {comments}
-                <span className="hidden md:block">
-                  {comments === 1 ? "Comment" : "Comments"}
-                </span>
-              </span>
-            </Button>
+    <>
+      <ConfirmDialog />
+      <Card className="w-full max-w-3xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition">
+        <CardHeader className="flex flex-row items-center space-x-4 p-2">
+          <Link href={`/thread/${threadId}`}>
+            <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">
+              <AvatarImage src={threadImage} alt={subreddit} sizes="" />
+              <AvatarFallback>{subreddit[0].toUpperCase()}</AvatarFallback>
+            </Avatar>
           </Link>
-          <div className="z-10">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
-              onClick={() => sharePostModal.setPostLink(postId.toString())}
-            >
-              <Share2 className="h-4 w-4 mr-1" />
-              <span className="text-lg hidden md:block">Share</span>
-            </Button>
+          <div className="flex w-full justify-between items-center">
+            <div>
+              <Link href={`/thread/${threadId}`}>
+                <p className="text-lg font-medium hover:underline cursor-pointer">
+                  r/{subreddit}
+                </p>
+              </Link>
+              <Link href={`/profile/${userId}/overview`}>
+                <p className="text-base text-muted-foreground hover:underline cursor-pointer">
+                  Posted by u/{username} • {format(timePosted, "MMM d, yyyy")}
+                </p>
+              </Link>
+            </div>
+            <div className="flex gap-2 flex-col">
+              {isOwner && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="px-4 py-3 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+                  onClick={handleEdit}
+                  disabled={isRemovePending}
+                >
+                  Edit
+                </Button>
+              )}
+              {(isAdmin || isOwner) && (
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  className="px-4 py-3 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+                  onClick={handleRemove}
+                  disabled={isRemovePending}
+                >
+                  Remove
+                </Button>
+              )}
+            </div>
           </div>
-          <div className="z-10">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition ${
-                saved ? "text-orange-500" : ""
-              }`}
-              onClick={handleSave}
-              disabled={isSavePending}
-            >
-              <BookmarkIcon
-                className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
+        </CardHeader>
+        <CardContent className="px-4 py-2">
+          <Link href={`/post/${postId}`}>
+            <h2 className="text-2xl font-bold mb-2 hover:underline">{title}</h2>
+          </Link>
+          <div className="mb-4">
+            <ReadOnly content={content} />
+          </div>
+          {image && (
+            <div className="w-full aspect-square relative overflow-hidden rounded-md border-2 border-black mb-2">
+              <Image
+                src={image}
+                alt="Post content"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                style={{ objectFit: "cover" }}
+                priority
+                className="rounded-md"
               />
-              <span className="text-lg hidden md:block">
-                {saved ? "Saved" : "Save"}
-              </span>
-            </Button>
+            </div>
+          )}
+        </CardContent>
+        <CardFooter className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="z-10">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`px-2 border-2 py-2 border-gray-400 rounded-full hover:bg-gray-200 transition ${
+                  liked ? "text-orange-500" : ""
+                }`}
+                onClick={handleVote}
+                disabled={isLikePending}
+              >
+                <ArrowUpIcon className="h-4 w-4 mr-1" />
+                <span className="text-lg font-medium hidden md:block">
+                  {upvotes}
+                </span>
+              </Button>
+            </div>
+            <Link href={`/post/${postId}`} className="z-10">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+              >
+                <MessageSquare className="h-4 w-4 mr-1" />
+                <span className="text-lg hidden md:flex gap-1">
+                  {comments}
+                  <span className="hidden md:block">
+                    {comments === 1 ? "Comment" : "Comments"}
+                  </span>
+                </span>
+              </Button>
+            </Link>
+            <div className="z-10">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+                onClick={() => sharePostModal.setPostLink(postId.toString())}
+              >
+                <Share2 className="h-4 w-4 mr-1" />
+                <span className="text-lg hidden md:block">Share</span>
+              </Button>
+            </div>
+            <div className="z-10">
+              <Button
+                variant="ghost"
+                size="sm"
+                className={`px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition ${
+                  saved ? "text-orange-500" : ""
+                }`}
+                onClick={handleSave}
+                disabled={isSavePending}
+              >
+                <BookmarkIcon
+                  className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
+                />
+                <span className="text-lg hidden md:block">
+                  {saved ? "Saved" : "Save"}
+                </span>
+              </Button>
+            </div>
           </div>
-        </div>
-      </CardFooter>
-    </Card>
+        </CardFooter>
+      </Card>
+    </>
   );
 }
