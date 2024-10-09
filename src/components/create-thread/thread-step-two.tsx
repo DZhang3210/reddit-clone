@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
-import { Id } from "../../../../../../convex/_generated/dataModel";
 import { Input } from "@/components/ui/input";
+import { Id } from "../../../convex/_generated/dataModel";
 
 interface StepTwoProps {
   setProfileImage: React.Dispatch<React.SetStateAction<Id<"_storage"> | null>>;
@@ -94,9 +94,9 @@ export function StepTwo({
   const isNextButtonDisabled = !logoImage || !previewBanner;
 
   return (
-    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full  text-gray-300 max-w-4xl">
-      <div className="flex flex-col sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0">
-        <div className="w-full sm:w-1/2 space-y-4">
+    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full overflow-y-auto text-gray-300 max-w-4xl">
+      <div className="flex flex-col sm:flex-row sm:space-x-8 gap-4 sm:gap-0 sm:space-y-2">
+        <div className="w-full sm:w-1/2 space-y-4 order-2 sm:order-1">
           <div>
             <h3 className="text-lg font-bold mb-4">Input</h3>
             <Label htmlFor="banner">Community Banner</Label>
@@ -180,7 +180,8 @@ export function StepTwo({
             </div>
           </div>
         </div>
-        <div className="w-full sm:w-1/2">
+
+        <div className="w-full sm:w-1/2 order-1 sm:order-2">
           <h3 className="text-lg font-semibold mb-4">Preview</h3>
           <div className="relative">
             {previewBanner ? (

@@ -5,9 +5,9 @@ import { StepTwo } from "./thread-step-two";
 import { StepFour } from "./thread-step-four";
 import { useCreateThread } from "@/features/threads/api/use-create-thread";
 import { toast } from "sonner";
-import { Id } from "../../../../../../convex/_generated/dataModel";
 import useToggleThread from "@/hooks/create-thread-hook";
 import { useUpdateThread } from "@/features/threads/api/use-update-thread";
+import { Id } from "../../../convex/_generated/dataModel";
 
 const ThreadCreate = () => {
   const toggleThread = useToggleThread();
@@ -79,7 +79,7 @@ const ThreadCreate = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center w-full py-5 overflow-auto">
+    <div className="flex justify-center items-center w-full max-h-screen overflow-y-auto">
       {step === 0 && (
         <StepOne
           name={name}

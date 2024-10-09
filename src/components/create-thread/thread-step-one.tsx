@@ -34,7 +34,7 @@ export function StepOne({
   };
 
   return (
-    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full  text-gray-300 max-w-4xl ">
+    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full  text-gray-300 max-w-4xl overflow-y-auto">
       <div className="flex space-y-4 gap-4 flex-col md:flex-row">
         {/* Preview section */}
 
@@ -63,33 +63,32 @@ export function StepOne({
         </div>
         <div className="w-full order-1 md:order-2">
           <h3 className="text-lg font-semibold mb-4">Preview</h3>
-          <div className="relative">
-            <div className="w-full h-32 bg-gray-700 flex items-center justify-center rounded-t-lg">
+          <div className="relative ">
+            <div className="w-full h-32 bg-gray-700 rounded-t-lg relative overflow-hidden">
               {!previewBanner ? (
-                <span className="text-gray-500">Banner Image</span>
+                <span className="absolute inset-0 flex items-center justify-center text-gray-500">
+                  Banner Image
+                </span>
               ) : (
                 <Image
                   src={previewBanner}
                   alt="Banner preview"
-                  className="mt-2 object-cover rounded"
                   fill
                   sizes="100vw"
-                  style={{
-                    objectFit: "cover",
-                  }}
+                  className="object-cover"
                 />
               )}
             </div>
             <div className="absolute -bottom-4 left-4">
-              <div className="w-20 h-20 rounded-full bg-gray-600 border-4 border-gray-800 flex items-center justify-center overflow-hidden">
+              <div className="w-20 h-20 rounded-full bg-gray-600 border-4 border-gray-800 overflow-hidden relative">
                 {!logoImage ? (
-                  <User className="text-gray-500 w-10 h-10" />
+                  <User className="absolute inset-0 m-auto text-gray-500 w-10 h-10" />
                 ) : (
                   <Image
                     src={logoImage}
                     alt="Logo preview"
-                    width={80}
-                    height={80}
+                    fill
+                    sizes="80px"
                     className="object-cover"
                   />
                 )}
@@ -111,7 +110,7 @@ export function StepOne({
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-end gap-2 mt-4">
+      <div className="w-full flex justify-end gap-2 my-4">
         <button
           onClick={() => nextStep((prev) => prev - 1)}
           className="rounded-full bg-black text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"

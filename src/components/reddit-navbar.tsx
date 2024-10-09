@@ -30,10 +30,10 @@ export default function RedditNavbar() {
       <div className="flex items-center space-x-8">
         <Button
           onClick={() => postModal.setOn()}
-          className="items-center bg-gray-800 text-gray-200 rounded-full hover:bg-gray-700 text-2xl py-6 px-3 cursor-pointer hidden lg:flex"
+          className="items-center bg-gray-800 text-gray-200 rounded-full hover:bg-gray-700 text-xl py-3 px-3 cursor-pointer hidden lg:flex"
           aria-label="Create Post"
         >
-          <Plus className="h-8 w-8 mr-1" />
+          <Plus className="h-6 w-6 mr-1" />
           Create
         </Button>
         <Button

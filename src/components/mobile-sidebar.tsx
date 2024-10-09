@@ -40,7 +40,7 @@ const MobileSidebar = () => {
       <Link
         href={href}
         className={cn(
-          "text-2xl text-white transition-all duration-300 border-2 rounded-2xl p-3 border-transparent hover:border-gray-500 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2",
+          "text-lg xl:text-2xl text-white transition-all duration-300 border-2 rounded-2xl p-3 border-transparent hover:border-gray-500 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2 ",
           isActive && "bg-gray-800 border-gray-500"
         )}
       >
@@ -55,8 +55,11 @@ const MobileSidebar = () => {
       <SheetTrigger>
         <AlignJustify size={40} className="text-white" />
       </SheetTrigger>
-      <SheetContent side="left" className="bg-black">
-        <div className="left-0 bottom-0 h-[calc(100vh-120px)] bg-black">
+      <SheetContent
+        side="left"
+        className="bg-black w-[60%] h-screen overflow-y-auto"
+      >
+        <div className="left-0 bottom-0 h-screen w-full bg-black">
           <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-2">
             <NavLink href="/posts" icon={Home}>
               Home
@@ -95,7 +98,7 @@ const MobileSidebar = () => {
                     className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
                     // href="/create/thread"
                   >
-                    <Plus size={40} />
+                    <Plus size={40} className="text-white" />
                     <span
                       className="text-lg text-white"
                       onClick={() => threadModal.setOn()}
