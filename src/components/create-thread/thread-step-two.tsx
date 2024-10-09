@@ -94,7 +94,7 @@ export function StepTwo({
   const isNextButtonDisabled = !logoImage || !previewBanner;
 
   return (
-    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full overflow-y-auto text-gray-300 max-w-4xl">
+    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full overflow-y-auto text-gray-300 max-w-4xl pb-20">
       <div className="flex flex-col sm:flex-row sm:space-x-8 gap-4 sm:gap-0 sm:space-y-2">
         <div className="w-full sm:w-1/2 space-y-4 order-2 sm:order-1">
           <div>
