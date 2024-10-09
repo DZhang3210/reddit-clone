@@ -166,9 +166,9 @@ export default function RedditCreatePost() {
   };
 
   return (
-    <Card className="w-full mx-auto bg-gray-800 text-white border-transparent">
-      <CardContent className="p-6 mb-6">
-        <CardHeader className="text-2xl font-semibold ">
+    <Card className="w-full mx-auto bg-gray-800 text-white border-transparent overflow-y-auto max-h-screen">
+      <CardContent className="p-4 mb-0 ">
+        <CardHeader className="text-xl xl:text-2xl font-semibold ">
           Create Your Amazing Post
         </CardHeader>
 

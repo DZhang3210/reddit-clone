@@ -38,7 +38,7 @@ const Sidebar = () => {
       <Link
         href={href}
         className={cn(
-          "text-2xl text-white transition-all duration-300 border-2 rounded-2xl p-3 border-transparent hover:border-gray-500 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2",
+          "text-lg xl:text-2xl text-white transition-all duration-300 border-2 rounded-2xl p-3 border-transparent hover:border-gray-500 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2",
           isActive && "bg-gray-800 border-gray-500"
         )}
       >
@@ -49,8 +49,11 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="hidden md:block left-0 bottom-0 h-[calc(100vh-120px)] bg-black md:w-[12rem] lg:w-[17rem]">
-      <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-2">
+    <div
+      className="hidden md:block left-0 bottom-0 h-[calc(100vh-120px)] bg-black 
+    md:w-[12rem] xl:w-[17rem] overflow-y-auto"
+    >
+      <div className="flex flex-col items-start justify-start py-4 px-2 space-y-0 xl:space-y-2 overflow-y-auto">
         <NavLink href="/posts" icon={Home}>
           Home
         </NavLink>
@@ -68,7 +71,9 @@ const Sidebar = () => {
           className="flex justify-between w-full px-2 items-center mt-[10rem] transition-all duration-300 hover:bg-gray-700 cursor-pointer py-4 rounded-lg text-white"
           onClick={() => setCommunitiesTab((prev) => !prev)}
         >
-          <span className="text-lg text-foreground uppercase">Threads</span>
+          <span className="text-lg xl:text-xl text-foreground uppercase">
+            Threads
+          </span>
           {communitiesTab ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
         </div>
         <AnimatePresence>
@@ -84,8 +89,10 @@ const Sidebar = () => {
                 className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
                 onClick={() => threadModal.setOn()}
               >
-                <Plus size={40} />
-                <span className="text-lg text-white">Create a Thread</span>
+                <Plus size={32} className="text-white" />
+                <span className="text-md xl:text-xl text-white">
+                  Create a Thread
+                </span>
               </div>
               {threads ? (
                 threads.map((thread) => (
@@ -94,11 +101,13 @@ const Sidebar = () => {
                     href={`/thread/${thread._id}`}
                     className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
                   >
-                    <Avatar>
+                    <Avatar className="h-8 w-8 xl:h-12 xl:w-12">
                       <AvatarImage src={thread.logoImage || ""} />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <span className="text-lg text-white">r/{thread.title}</span>
+                    <span className="text-md xl:text-xl text-white">
+                      r/{thread.title}
+                    </span>
                   </Link>
                 ))
               ) : (

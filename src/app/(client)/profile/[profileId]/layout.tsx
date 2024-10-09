@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCurrentUser } from "@/features/auth/api/use-current-user";
+import { cn } from "@/lib/utils";
 
 interface ProfileLayoutProps {
   children: ReactNode;
@@ -56,7 +57,7 @@ export default function ProfileLayout({
         <div>Error loading user data</div>
       )}
 
-      <div className="flex items-center justify-center space-x-4 w-full">
+      <div className="space-x-4 w-full">
         {[
           "overview",
           "upvoted",
@@ -66,10 +67,14 @@ export default function ProfileLayout({
           "liked-comments",
         ].map((tab) => (
           <Link key={tab} href={`/profile/${profileId}/${tab}`}>
-            <div className="text-xl font-bold text-gray-700 capitalize">
+            <div
+              className={cn(
+                "text-xl font-bold text-gray-700 capitalize inline-block border-b-4 border-transparent",
+                tab === currentTab && "text-blue-500 border-blue-500"
+              )}
+            >
               {tab}
             </div>
-            {tab === currentTab && <div className="h-1 w-full bg-blue-500" />}
           </Link>
         ))}
       </div>

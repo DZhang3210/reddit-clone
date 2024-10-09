@@ -194,7 +194,9 @@ export default function RedditPostCard({
               disabled={isLikePending}
             >
               <ArrowUpIcon className="h-4 w-4 mr-1" />
-              <span className="text-lg font-medium">{upvotes}</span>
+              <span className="text-lg font-medium hidden md:block">
+                {upvotes}
+              </span>
             </Button>
           </div>
           <Link href={`/post/${postId}`} className="z-10">
@@ -204,8 +206,11 @@ export default function RedditPostCard({
               className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
             >
               <MessageSquare className="h-4 w-4 mr-1" />
-              <span className="text-lg hidden sm:block">
-                {comments} Comments
+              <span className="text-lg hidden md:flex gap-1">
+                {comments}
+                <span className="hidden md:block">
+                  {comments === 1 ? "Comment" : "Comments"}
+                </span>
               </span>
             </Button>
           </Link>
@@ -217,7 +222,7 @@ export default function RedditPostCard({
               onClick={() => sharePostModal.setPostLink(postId.toString())}
             >
               <Share2 className="h-4 w-4 mr-1" />
-              <span className="text-lg hidden sm:block">Share</span>
+              <span className="text-lg hidden md:block">Share</span>
             </Button>
           </div>
           <div className="z-10">
@@ -233,7 +238,9 @@ export default function RedditPostCard({
               <BookmarkIcon
                 className={`h-4 w-4 mr-1 ${saved ? "fill-orange-500" : ""}`}
               />
-              <span className="text-lg ">{saved ? "Saved" : "Save"}</span>
+              <span className="text-lg hidden md:block">
+                {saved ? "Saved" : "Save"}
+              </span>
             </Button>
           </div>
         </div>
