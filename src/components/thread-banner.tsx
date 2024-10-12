@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { EllipsisVertical, User } from "lucide-react";
+import { EllipsisVertical, Pencil, ShieldCheck, User } from "lucide-react";
 import { Id } from "../../convex/_generated/dataModel";
 import Link from "next/link";
 import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
@@ -163,18 +163,27 @@ export default function RedditThreadBanner({
                   onOpenChange={setIsDropdownOpen}
                 >
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <EllipsisVertical className="text-white" />
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="px-2 py-2 border-2 border-black rounded-full hover:bg-gray-200 transition bg-white text-black"
+                    >
+                      <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" alignOffset={0}>
+                  <DropdownMenuContent
+                    align="end"
+                    alignOffset={0}
+                    className=" space-y-2"
+                  >
                     {isAdmin && (
                       <DropdownMenuItem asChild>
                         <button
                           onClick={handleEditClick}
-                          className="text-sm text-black w-full"
+                          className="text-black w-full hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
                         >
                           Edit
+                          <Pencil className="h-4 w-4 ml-2" />
                         </button>
                       </DropdownMenuItem>
                     )}
@@ -182,9 +191,10 @@ export default function RedditThreadBanner({
                     <DropdownMenuItem asChild>
                       <button
                         onClick={handleViewAdminsClick}
-                        className="text-sm text-black w-full"
+                        className="bg-blue-200 w-full hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
                       >
-                        View Admins
+                        Admins
+                        <ShieldCheck className="h-4 w-4 ml-2" />
                       </button>
                     </DropdownMenuItem>
 

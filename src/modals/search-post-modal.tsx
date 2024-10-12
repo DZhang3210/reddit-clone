@@ -15,13 +15,17 @@ const ThreadModal = () => {
   const { results: threads, status: threadsStatus } = useGetSearchThreads({
     query: searchPost.searchQuery || "",
   });
-  const { results: posts, status: postsStatus } = useGetSearchPosts({
+  const {
+    results: posts,
+    status: postsStatus,
+    loadMore,
+  } = useGetSearchPosts({
     query: searchPost.searchQuery || "",
   });
 
   return (
     <Modal isOpen={searchPost.searchQuery !== null} onClose={searchPost.setOff}>
-      <div className="flex flex-col h-screen py-20">
+      <div className="flex flex-col h-screen max-h-screen pt-16">
         <div className="flex justify-center items-center">
           <h1 className="text-2xl font-bold text-white capitalize">
             Search for a thread or post!
@@ -41,21 +45,34 @@ const ThreadModal = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-2 top-1/2 transform -translate-y-1/2"
-              onClick={() => searchPost.setOff()}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2  hover:bg-white/80 hover:text-black rounded-full"
+              onClick={() => searchPost.setSearchQuery("")}
             >
               <X className="h-4 w-4" />
             </Button>
           )}
         </div>
-        <div className="w-full overflow-y-auto pt-5 flex-grow">
+        <div className="w-full overflow-y-auto pt-5 flex-grow p-4">
           {searchPost.searchQuery !== "" &&
             (threadsStatus !== "LoadingFirstPage" ||
             postsStatus !== "LoadingFirstPage" ? (
-              <>
-                <ThreadResults results={threads as Thread[]} />
-                <PostResults results={posts} />
-              </>
+              posts.length > 0 && threads.length > 0 ? (
+                <>
+                  <div className="text-white text-xl font-bold mb-4">
+                    Threads
+                  </div>
+                  <ThreadResults results={threads as Thread[]} />
+                  <div className="text-white text-xl font-bold my-4">Posts</div>
+                  <PostResults
+                    results={posts}
+                    loadMore={loadMore}
+                    canLoadMore={postsStatus === "CanLoadMore"}
+                    isLoadingMore={postsStatus === "LoadingMore"}
+                  />
+                </>
+              ) : (
+                <div>No results found</div>
+              )
             ) : (
               <div className="flex justify-center items-center h-full">
                 <Loader2 className="w-20 h-20 animate-spin text-white" />
@@ -67,7 +84,7 @@ const ThreadModal = () => {
           className="text-sm text-center flex justify-center mx-4 my-4"
           onClick={searchPost.setOff}
         >
-          Cancel
+          Back
         </Button>
       </div>
     </Modal>

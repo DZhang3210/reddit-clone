@@ -93,7 +93,7 @@ export default function RedditComment({
             </div>
           </div>
         </CardContent>
-        <CardFooter className="px-4 py-1 flex items-center space-x-4">
+        <CardFooter className="px-12 py-1 flex items-center space-x-4">
           <Button
             variant="ghost"
             size="sm"
@@ -122,14 +122,16 @@ export default function RedditComment({
           )}
         </CardFooter>
       </Card>
-      {editor === comment._id && (
-        <CommentEditor
-          content={replyContent}
-          setContent={setReplyContent}
-          onSubmit={() => handleSubmit()}
-          onCancel={() => setEditor("")}
-        />
-      )}
+      <div className="mx-10 mt-1">
+        {editor === comment._id && (
+          <CommentEditor
+            content={replyContent}
+            setContent={setReplyContent}
+            onSubmit={() => handleSubmit()}
+            onCancel={() => setEditor("")}
+          />
+        )}
+      </div>
     </>
   );
 }

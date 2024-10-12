@@ -11,7 +11,10 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({ onEmojiSelect }) => {
 
   return (
     <div className="relative">
-      <button onClick={() => setShowPicker(!showPicker)} className="p-2">
+      <button
+        onClick={() => setShowPicker(!showPicker)}
+        className="w-4 h-4 hover:bg-gray-200 rounded-full "
+      >
         😊
       </button>
       {showPicker && (

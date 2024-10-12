@@ -341,3 +341,78 @@ export const editPost = mutation({
     return args.postId;
   },
 });
+
+export const getPopularPosts = query({
+  args: {
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
+    }
+    const results = await ctx.db
+      .query("posts")
+      .withIndex("likes")
+      .order("desc")
+      .paginate(args.paginationOpts);
+
+    const currentUser = await ctx.db.get(userId);
+    const page = (
+      await Promise.all(
+        results.page.map(async (post) => {
+          const [user, thread, firstComment] = await Promise.all([
+            await ctx.db.get(post?.author),
+            await ctx.db.get(post?.thread),
+            await ctx.db
+              .query("comments")
+              .withIndex("postId", (q) => q.eq("postId", post?._id))
+              .first(),
+          ]);
+          if (!thread || !user) {
+            return null;
+          }
+          const threadImage = await ctx.storage.getUrl(thread?.logoImage);
+          const liked = currentUser?.likedPosts?.includes(post?._id);
+          const saved = currentUser?.savedPosts?.includes(post?._id);
+          const isAdmin = thread.moderators.includes(userId);
+          const isFollowing = user.followingThreads?.includes(thread?._id);
+          const isCreator = post?.author === userId;
+          if (post?.image) {
+            return {
+              ...post,
+              image: await ctx.storage.getUrl(post?.image),
+              user: user,
+              thread: { ...thread, image: threadImage, isFollowing },
+              liked: liked,
+              saved: saved,
+              firstComment: firstComment,
+              isAdmin,
+              isCreator,
+            };
+          } else {
+            return {
+              ...post,
+              image: "",
+              user: user,
+              thread: { ...thread, image: threadImage, isFollowing },
+              liked: liked,
+              saved: saved,
+              firstComment: firstComment,
+              isAdmin,
+              isCreator,
+            };
+          }
+        })
+      )
+    ).filter((res) => res !== null);
+    return {
+      ...results,
+      page,
+    };
+  },
+});

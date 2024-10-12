@@ -78,7 +78,7 @@ const ThreadCreate = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center w-full max-h-screen overflow-y-auto">
+    <div className="flex justify-center items-center w-full overflow-y-auto pt-10 sm:pt-0">
       {step === 0 && (
         <StepOne
           name={name}

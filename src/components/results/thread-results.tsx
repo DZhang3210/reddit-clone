@@ -14,7 +14,7 @@ interface ThreadResultsProps {
 
 const PostResults = ({ results }: ThreadResultsProps) => {
   return (
-    <div className="flex flex-col gap-4 mx-4 pt-4">
+    <div className="flex flex-col gap-4">
       {results.map((result) => (
         <ThreadResult key={result._id} thread={result} />
       ))}

@@ -13,6 +13,8 @@ import {
   Share2,
   BookmarkIcon,
   EllipsisVertical,
+  Pencil,
+  Trash,
 } from "lucide-react";
 import { format } from "date-fns";
 import ReadOnly from "./text-editor/read-only";
@@ -176,9 +178,12 @@ export default function RedditPostCard({
               </Link>
               <Link href={`/profile/${userId}/overview`}>
                 <p className="text-base text-muted-foreground hover:underline cursor-pointer">
-                  Posted by u/{username} • {format(timePosted, "MMM d, yyyy")}
+                  Posted by u/{username}
                 </p>
               </Link>
+              <div className="text-muted-foreground text-sm indent-1">
+                {format(timePosted, "MMM d, yyyy")}
+              </div>
             </div>
             <div className="flex items-center gap-2">
               {!threadPage && (
@@ -203,42 +208,44 @@ export default function RedditPostCard({
                 </div>
               )}
               <div className="z-10">
-                <DropdownMenu
-                  open={isDropdownOpen}
-                  onOpenChange={setIsDropdownOpen}
-                >
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="px-2 py-2 border-2 border-black rounded-full hover:bg-gray-200 transition"
-                    >
-                      <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    {isOwner && (
-                      <DropdownMenuItem
-                        onClick={handleEdit}
-                        disabled={editPost.isOn}
-                        className="hover:bg-gray-200 transition px-4 cursor-pointer text-lg"
+                {(isOwner || isAdmin) && (
+                  <DropdownMenu
+                    open={isDropdownOpen}
+                    onOpenChange={setIsDropdownOpen}
+                  >
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="px-2 py-2 border-2 border-black rounded-full hover:bg-gray-200 transition"
                       >
-                        Edit
-                      </DropdownMenuItem>
-                    )}
-                    {(isAdmin || isOwner) && (
-                      <DropdownMenuItem asChild>
-                        <button
+                        <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className=" space-y-2">
+                      {isOwner && (
+                        <DropdownMenuItem
+                          onClick={handleEdit}
+                          disabled={editPost.isOn}
+                          className="hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
+                        >
+                          Edit
+                          <Pencil className="h-4 w-4 ml-2" />
+                        </DropdownMenuItem>
+                      )}
+                      {(isAdmin || isOwner) && (
+                        <DropdownMenuItem
                           onClick={handleRemove}
                           disabled={isRemovePending}
-                          className="w-full text-left hover:bg-red-700 hover:text-white transition px-4 py-2 cursor-pointer text-lg bg-red-500 text-white rounded-md focus:bg-red-700 focus:text-white"
+                          className="w-full text-left hover:bg-red-700 hover:text-white transition py-2 cursor-pointer text-sm bg-red-500 text-white rounded-md focus:bg-red-700 focus:text-white flex justify-between"
                         >
                           Delete
-                        </button>
-                      </DropdownMenuItem>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                          <Trash className="h-4 w-4 ml-2" />
+                        </DropdownMenuItem>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )}
               </div>
             </div>
           </div>

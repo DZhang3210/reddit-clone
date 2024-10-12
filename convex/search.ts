@@ -22,6 +22,7 @@ export const searchPosts = query({
       .query("posts")
       .withSearchIndex("search", (q) => q.search("title", args.query))
       .paginate(args.paginationOpts);
+
     const currentUser = await ctx.db.get(userId);
     const page = (
       await Promise.all(

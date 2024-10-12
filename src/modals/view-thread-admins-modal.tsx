@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { CheckIcon } from "lucide-react";
 import { useChangeInviteCode } from "@/features/threads/api/use-change-invite-code";
 import { useConfirm } from "@/hooks/use-confirm";
+import { cn } from "@/lib/utils";
 
 // interface ThreadAdminItemProps {
 //   userId: string;
@@ -90,7 +91,11 @@ const ViewThreadAdminsModal = () => {
     <Modal isOpen={threadModal.threadId !== null} onClose={threadModal.setOff}>
       <ConfirmDialog />
       {adminsData && (
-        <div className="flex flex-col gap-4 px-4 overflow-y-auto max-h-1/2">
+        <div
+          className={cn(
+            "flex flex-col gap-4 px-4 max-h-screen overflow-y-auto pb-20 pt-10 sm:pt-0"
+          )}
+        >
           <div className="text-lg font-semibold flex-grow pb-2 border-b-2 border-white">
             Thread Details
           </div>
@@ -108,7 +113,7 @@ const ViewThreadAdminsModal = () => {
                   </AvatarFallback>
                 </Avatar>
               </div>
-              <div className="text-2xl font-semibold">{thread?.title}</div>
+              <div className="text-2xl font-semibold">r/{thread?.title}</div>
             </div>
             <div className="text-base">
               Total Members: {thread?.totalMembers}
@@ -117,21 +122,23 @@ const ViewThreadAdminsModal = () => {
           <div className="text-lg font-semibold flex-grow pb-2 border-b-2 border-white">
             Admins
           </div>
-          {adminsData.map((admin) => (
-            <button
-              key={admin?._id}
-              onClick={() => handleLink(admin?._id as string)}
-              className="flex items-center gap-2 hover:bg-gray-500 p-2 rounded-md transition"
-            >
-              <Avatar>
-                <AvatarImage src={admin?.image} alt={admin?.name} />
-                <AvatarFallback>{admin?.name?.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <div key={admin?._id} className="hover:underline">
-                {admin?.name}
-              </div>
-            </button>
-          ))}
+          <div className="">
+            {adminsData.map((admin) => (
+              <button
+                key={admin?._id}
+                onClick={() => handleLink(admin?._id as string)}
+                className="flex items-center gap-2 hover:bg-gray-500 p-2 rounded-md transition w-full"
+              >
+                <Avatar>
+                  <AvatarImage src={admin?.image} alt={admin?.name} />
+                  <AvatarFallback>{admin?.name?.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div key={admin?._id} className="hover:underline">
+                  {admin?.name}
+                </div>
+              </button>
+            ))}
+          </div>
           {thread?.isAdmin && (
             <>
               <div className="text-lg font-semibold w-full border-b-2 border-white pb-2">
@@ -140,8 +147,8 @@ const ViewThreadAdminsModal = () => {
               <div className="text-sm text-gray-400">
                 Send an invite to join as a moderator
               </div>
+              <div className="flex-shrink-0 w-32">Invite Link:</div>
               <div className="flex items-center gap-2">
-                <div className="flex-shrink-0 w-32">Invite Link:</div>
                 <Input
                   readOnly
                   value={`${process.env.NEXT_PUBLIC_APP_URL}/invite/${thread?._id}`}
@@ -151,8 +158,8 @@ const ViewThreadAdminsModal = () => {
                   {isCopied ? <CheckIcon /> : <div>Copy</div>}
                 </Button>
               </div>
+              <div className="flex-shrink-0 w-32">Moderator Code:</div>
               <div className="flex items-center gap-2">
-                <div className="flex-shrink-0 w-32">Moderator Code:</div>
                 <Input
                   readOnly
                   value={thread?.moderatorCode}
@@ -161,14 +168,16 @@ const ViewThreadAdminsModal = () => {
                 <Button onClick={handleCopyCode} className="flex-shrink-0">
                   {isCodeCopied ? <CheckIcon /> : <div>Copy</div>}
                 </Button>
-                <Button
-                  onClick={handleChangeInviteCode}
-                  className="flex-shrink-0"
-                  disabled={thread?.moderatorCode === null}
-                >
-                  Change Code
-                </Button>
               </div>
+              <Button
+                onClick={handleChangeInviteCode}
+                className="flex-shrink-0"
+                disabled={thread?.moderatorCode === null}
+                variant="outline"
+              >
+                Change Code
+              </Button>
+              <Button onClick={threadModal.setOff}>Close</Button>
             </>
           )}
         </div>

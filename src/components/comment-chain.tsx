@@ -16,7 +16,10 @@ const CommentChain = ({ comments, editor, setEditor }: CommentChainProps) => {
     <div className="flex flex-col space-y-4 ">
       {comments.map((comment) => {
         return (
-          <div key={comment._id} className="border-l-2 border-black rounded-lg">
+          <div
+            key={comment._id}
+            className="border-l-2 border-gray-500 rounded-sm"
+          >
             <RedditComment
               key={comment._id}
               comment={comment}

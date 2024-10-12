@@ -98,17 +98,20 @@ body {
   @apply border-none;
 }
 .tiptap[contenteditable="true"] {
-  min-height: 100px;
+  height: 100%;
 }
 .tiptap {
   padding-left: 3px;
-  caret-color: white;
-  @apply focus:outline-blue-600/80 focus:outline-2 focus:outline-none rounded-b-xl;
+  /* caret-color: black; */
+  @apply focus:outline-none focus:outline-2 focus:outline-none rounded-b-xl;
 }
 .tiptap {
   :first-child {
     margin-top: 0;
   }
+  /* p {
+    @apply text-sm;
+  } */
 
   pre {
     /* background: var(--black); */

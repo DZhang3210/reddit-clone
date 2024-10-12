@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import CommentEditor from "@/components/text-editor/comment-editor";
 import { useGetCommentsByPostId } from "@/features/comments/api/use-get-comments";
 import CommentChain from "@/components/comment-chain";
-import { Button } from "@/components/ui/button";
 import { Cat } from "lucide-react";
 
 interface PostPageProps {
@@ -82,20 +81,15 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
           isAdmin={post.isAdmin}
           isOwner={post.isCreator}
         />
-        {editor === "reply" ? (
-          <div className="w-full">
-            <CommentEditor
-              content={content}
-              setContent={setContent}
-              onSubmit={() => handleSubmit()}
-              onCancel={() => setEditor("")}
-            />
-          </div>
-        ) : (
-          <div onClick={() => setEditor("reply")} className="w-full">
-            <Button className="w-full">Reply</Button>
-          </div>
-        )}
+        <div className="w-full">
+          <CommentEditor
+            content={content}
+            setContent={setContent}
+            onSubmit={() => handleSubmit()}
+            onCancel={() => setEditor("")}
+          />
+        </div>
+
         <div className="w-full mt-4">
           {comments.length > 0 ? (
             <CommentChain

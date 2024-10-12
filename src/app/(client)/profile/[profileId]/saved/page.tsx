@@ -20,12 +20,18 @@ import PostsFeed from "@/components/posts-feed";
 // };
 
 const DownvotedProfile = () => {
-  const { data: posts, isLoading: postsLoading } = useGetUserSaved();
-  if (postsLoading || !posts) return <div>Loading...</div>;
+  const { results: posts, status, loadMore } = useGetUserSaved();
+  if (status === "LoadingFirstPage") return <div>Loading...</div>;
 
   return (
     <div className="flex flex-col gap-4">
-      <PostsFeed posts={posts} currentFilter="saved" />
+      <PostsFeed
+        posts={posts}
+        currentFilter="saved"
+        isLoadingMore={status === "LoadingMore"}
+        loadMore={loadMore}
+        canLoadMore={status === "CanLoadMore"}
+      />
     </div>
   );
 };

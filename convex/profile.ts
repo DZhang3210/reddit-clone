@@ -4,28 +4,37 @@ import { auth } from "./auth";
 
 export const getUserPosts = query({
   args: {
-    // paginationOpts: paginationOptsValidator,
+    paginationOpts: paginationOptsValidator,
   },
   handler: async (ctx, args) => {
     const userId = await auth.getUserId(ctx);
     if (!userId) {
-      return [];
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
     const user = await ctx.db.get(userId);
 
     if (!user) {
-      return [];
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
     const authorPosts = await ctx.db
       .query("posts")
       .withIndex("author", (q) => q.eq("author", user._id))
-      .collect();
+      .order("desc")
+      .paginate(args.paginationOpts);
 
     const finalAuthorPosts = (
       await Promise.all(
-        authorPosts.map(async (post) => {
+        authorPosts.page.map(async (post) => {
           const thread = await ctx.db.get(post.thread);
           const liked = user?.likedPosts?.includes(post?._id);
           const saved = user?.savedPosts?.includes(post?._id);
@@ -53,33 +62,45 @@ export const getUserPosts = query({
       )
     ).filter((post) => post !== null);
 
-    return finalAuthorPosts;
+    return { ...authorPosts, page: finalAuthorPosts };
   },
 });
 
 export const getUserSaved = query({
   args: {
-    // paginationOpts: paginationOptsValidator,
+    paginationOpts: paginationOptsValidator,
   },
   handler: async (ctx, args) => {
     const userId = await auth.getUserId(ctx);
     if (!userId) {
-      return [];
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
     const user = await ctx.db.get(userId);
 
     if (!user) {
-      return [];
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
     const savedPostIds = user.savedPosts;
 
     if (!savedPostIds) {
-      return [];
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
-    const likedPosts = (
+    const savedPosts = (
       await Promise.all(
         savedPostIds.map(async (postId) => {
           const post = await ctx.db.get(postId);
@@ -112,30 +133,42 @@ export const getUserSaved = query({
       )
     ).filter((post) => post !== null);
 
-    return likedPosts;
+    return { page: savedPosts, isDone: true, continueCursor: "" };
   },
 });
 
 export const getUserUpvoted = query({
   args: {
-    // paginationOpts: paginationOptsValidator,
+    paginationOpts: paginationOptsValidator,
   },
   handler: async (ctx, args) => {
     const userId = await auth.getUserId(ctx);
     if (!userId) {
-      return [];
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
     const user = await ctx.db.get(userId);
 
     if (!user) {
-      return [];
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
     const savedPostIds = user.likedPosts;
 
     if (!savedPostIds) {
-      return [];
+      return {
+        page: [],
+        isDone: true,
+        continueCursor: "",
+      };
     }
 
     const likedPosts = (
@@ -171,7 +204,7 @@ export const getUserUpvoted = query({
       )
     ).filter((post) => post !== null);
 
-    return likedPosts;
+    return { page: likedPosts, isDone: true, continueCursor: "" };
   },
 });
 

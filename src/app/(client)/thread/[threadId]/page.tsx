@@ -21,7 +21,11 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
     id: threadId as Id<"threads">,
   });
 
-  const { results: posts } = useGetPosts({
+  const {
+    results: posts,
+    status,
+    loadMore,
+  } = useGetPosts({
     threadId: threadId as Id<"threads">,
   });
   if (threadLoading) {
@@ -48,6 +52,9 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
         posts={posts}
         currentFilter={currentFilter}
         isThreadPage={true}
+        isLoadingMore={status === "LoadingMore"}
+        loadMore={loadMore}
+        canLoadMore={status === "CanLoadMore"}
       />
     </div>
   );

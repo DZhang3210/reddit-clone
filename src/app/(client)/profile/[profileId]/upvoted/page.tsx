@@ -21,13 +21,19 @@ import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 // };
 
 const UpvotedProfile = () => {
-  const { data: posts, isLoading: postsLoading } = useGetUserLiked();
+  const { results: posts, status, loadMore } = useGetUserLiked();
 
-  if (postsLoading || !posts) return <PostsFeedSkeleton />;
+  if (status === "LoadingFirstPage") return <PostsFeedSkeleton />;
 
   return (
     <div className="flex flex-col gap-4">
-      <PostsFeed posts={posts} currentFilter="liked" />
+      <PostsFeed
+        posts={posts}
+        currentFilter="liked"
+        isLoadingMore={status === "LoadingMore"}
+        loadMore={loadMore}
+        canLoadMore={status === "CanLoadMore"}
+      />
     </div>
   );
 };

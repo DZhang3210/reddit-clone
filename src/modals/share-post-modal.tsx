@@ -20,7 +20,7 @@ const SharePostModal = () => {
       setTimeout(() => setIsCopied(false), 2000); // Reset copied state after 2 seconds
     }
   };
-  const shareableLink = `https://${process.env.NEXT_PUBLIC_APP_URL}/post/${sharePostModal.link}`;
+  const shareableLink = `${process.env.NEXT_PUBLIC_APP_URL}/post/${sharePostModal.link}`;
   return (
     <Modal
       isOpen={sharePostModal.link !== ""}

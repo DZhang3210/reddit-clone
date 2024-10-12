@@ -3,16 +3,12 @@ import { api } from "../../../../convex/_generated/api";
 
 export type GetThreadsReturnType = (typeof api.posts.get._returnType)["page"];
 
-interface UseGetSearchPostsProps {
-  query: string;
-}
+const BATCH_SIZE = 5;
 
-const BATCH_SIZE = 3;
-
-export const useGetSearchPosts = ({ query }: UseGetSearchPostsProps) => {
+export const useGetPopularPosts = () => {
   const { results, status, loadMore } = usePaginatedQuery(
-    api.search.searchPosts,
-    { query },
+    api.posts.getPopularPosts,
+    {},
     { initialNumItems: BATCH_SIZE }
   );
 

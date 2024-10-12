@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { ChevronDownIcon, Dog } from "lucide-react";
+import { ChevronDownIcon, Dog, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Doc, Id } from "../../convex/_generated/dataModel";
 
@@ -43,9 +43,19 @@ interface PostsPageProps {
   currentFilter: string;
   isThreadPage?: boolean;
   posts: Post[];
+  isLoadingMore: boolean;
+  loadMore: () => void;
+  canLoadMore: boolean;
 }
 
-const PostsFeed = ({ posts, currentFilter, isThreadPage }: PostsPageProps) => {
+const PostsFeed = ({
+  posts,
+  currentFilter,
+  isThreadPage,
+  loadMore,
+  isLoadingMore,
+  canLoadMore,
+}: PostsPageProps) => {
   const router = useRouter();
 
   const handleFilterChange = (filter: string) => {
@@ -130,6 +140,33 @@ const PostsFeed = ({ posts, currentFilter, isThreadPage }: PostsPageProps) => {
           <div className="text-2xl font-bold text-black capitalize flex flex-col items-center">
             No posts found
             <Dog className="w-20 h-20" />
+          </div>
+        )}
+        <div
+          className="h-1"
+          ref={(el) => {
+            if (el) {
+              const observer = new IntersectionObserver(
+                ([entry]) => {
+                  if (entry.isIntersecting && canLoadMore) {
+                    loadMore();
+                  }
+                },
+                { threshold: 1.0 }
+              );
+
+              observer.observe(el);
+              return () => observer.disconnect();
+            }
+          }}
+        />
+
+        {isLoadingMore && (
+          <div className="text-center my-2 relative">
+            <hr className="absolute top-1/2 left-0 right-0 border-t border-gray-300" />
+            <span className="relative inline-block bg-white px-4 py-1 rounded-full text-xs border border-gray-300 shadow-sm">
+              <Loader2 className="size-4 animate-spin" />
+            </span>
           </div>
         )}
       </div>

@@ -1,11 +1,20 @@
-import { useQuery } from "convex/react";
+import { usePaginatedQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 
-// export type GetThreadsReturnType = (typeof api.threads.get._returnType)["page"];
+export type GetThreadsReturnType = (typeof api.posts.get._returnType)["page"];
+
+const BATCH_SIZE = 5;
 
 export const useGetUserSaved = () => {
-  const data = useQuery(api.profile.getUserSaved);
-  const isLoading = data === undefined;
+  const { results, status, loadMore } = usePaginatedQuery(
+    api.profile.getUserSaved,
+    {},
+    { initialNumItems: BATCH_SIZE }
+  );
 
-  return { data, isLoading };
+  return {
+    results,
+    status,
+    loadMore: () => loadMore(BATCH_SIZE),
+  };
 };

@@ -1,9 +1,9 @@
 "use client";
-import { useGetUserPosts } from "@/features/profile/api/use-get-user-posts";
 import React from "react";
 // import { Doc, Id } from "../../../../../../convex/_generated/dataModel";
 import PostsFeed from "@/components/posts-feed";
 import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
+import { useGetUserPosts } from "@/features/profile/api/use-get-user-posts";
 
 // type Post = {
 //   image: string | null;
@@ -22,15 +22,21 @@ import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 // };
 
 const PostsProfile = () => {
-  const { data: posts, isLoading: postsLoading } = useGetUserPosts();
+  const { results: posts, status, loadMore } = useGetUserPosts();
 
-  if (postsLoading || !posts) {
+  if (status === "LoadingFirstPage") {
     return <PostsFeedSkeleton />;
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <PostsFeed posts={posts} currentFilter="saved" />
+      <PostsFeed
+        posts={posts}
+        currentFilter="saved"
+        loadMore={loadMore}
+        canLoadMore={status === "CanLoadMore"}
+        isLoadingMore={status === "LoadingMore"}
+      />
     </div>
   );
 };
