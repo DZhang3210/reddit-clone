@@ -7,7 +7,6 @@ import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
 import { MouseEvent } from "react";
 import Image from "next/image";
 import useToggleThread from "@/hooks/create-thread-hook";
-import useFocusImage from "@/hooks/focus-image-hook";
 import {
   DropdownMenu,
   DropdownMenuContent,

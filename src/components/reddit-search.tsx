@@ -1,6 +1,6 @@
 "use client";
 import { Search } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "./ui/input";
 import useSearchPost from "@/hooks/search-post-hook";
 

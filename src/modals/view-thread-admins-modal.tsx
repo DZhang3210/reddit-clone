@@ -72,7 +72,7 @@ const ViewThreadAdminsModal = () => {
     changeInviteCode(
       { id: thread?._id as Id<"threads"> },
       {
-        onSuccess: (data) => {
+        onSuccess: () => {
           toast.success("Invite code changed!");
         },
       }

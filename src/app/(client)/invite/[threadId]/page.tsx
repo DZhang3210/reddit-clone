@@ -6,7 +6,7 @@ import { Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import VerificationInput from "react-verification-input";
 import { toast } from "sonner";
 import { Id } from "../../../../../convex/_generated/dataModel";

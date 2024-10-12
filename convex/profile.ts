@@ -37,10 +37,11 @@ export const getUserPosts = query({
           }
           const threadImage = await ctx.storage.getUrl(thread?.logoImage);
           const isAdmin = thread.moderators.includes(user?._id);
+          const isFollowing = user.followingThreads?.includes(thread?._id);
           const isCreator = post.author === user?._id;
           return {
             ...post,
-            thread: { ...thread, image: threadImage },
+            thread: { ...thread, image: threadImage, isFollowing },
             liked,
             saved,
             image,
@@ -96,13 +97,14 @@ export const getUserSaved = query({
           const threadImage = await ctx.storage.getUrl(thread?.logoImage);
           const isAdmin = thread.moderators.includes(user?._id);
           const isCreator = post.author === user?._id;
+          const isFollowing = user.followingThreads?.includes(thread?._id);
           return {
             ...post,
             liked,
             saved,
             image: image,
             user: user,
-            thread: { ...thread, image: threadImage },
+            thread: { ...thread, image: threadImage, isFollowing },
             isAdmin,
             isCreator,
           };
@@ -154,13 +156,14 @@ export const getUserUpvoted = query({
           const threadImage = await ctx.storage.getUrl(thread?.logoImage);
           const isAdmin = thread.moderators.includes(user?._id);
           const isCreator = post.author === user?._id;
+          const isFollowing = user.followingThreads?.includes(thread?._id);
           return {
             ...post,
             liked,
             saved,
             image: image,
             user: user,
-            thread: { ...thread, image: threadImage },
+            thread: { ...thread, image: threadImage, isFollowing },
             isAdmin,
             isCreator,
           };

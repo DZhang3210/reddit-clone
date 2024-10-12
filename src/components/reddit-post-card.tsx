@@ -32,7 +32,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
 
 interface RedditPostCardProps {
@@ -77,7 +77,7 @@ export default function RedditPostCard({
   threadPage = false,
 }: RedditPostCardProps) {
   const { mutate: likePost, isPending: isLikePending } = useLikePost();
-  const { mutate: savePost, isPending: isSavePending } = useSavePost();
+  const { mutate: savePost } = useSavePost();
   const sharePostModal = useToggleSharePost();
   const editPost = useTogglePost();
   const { mutate: removePost, isPending: isRemovePending } = useRemovePost();
@@ -180,27 +180,67 @@ export default function RedditPostCard({
                 </p>
               </Link>
             </div>
-            {!threadPage && (
-              <div className="flex gap-2 flex-col">
-                {isFollowing ? (
-                  <Button
-                    className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
-                    onClick={handleFollow}
-                    disabled={isLoading}
-                  >
-                    Following
-                  </Button>
-                ) : (
-                  <Button
-                    className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
-                    onClick={handleFollow}
-                    disabled={isLoading}
-                  >
-                    Follow
-                  </Button>
-                )}
+            <div className="flex items-center gap-2">
+              {!threadPage && (
+                <div className="flex gap-2 flex-col">
+                  {isFollowing ? (
+                    <Button
+                      className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
+                      onClick={handleFollow}
+                      disabled={isLoading}
+                    >
+                      Following
+                    </Button>
+                  ) : (
+                    <Button
+                      className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
+                      onClick={handleFollow}
+                      disabled={isLoading}
+                    >
+                      Follow
+                    </Button>
+                  )}
+                </div>
+              )}
+              <div className="z-10">
+                <DropdownMenu
+                  open={isDropdownOpen}
+                  onOpenChange={setIsDropdownOpen}
+                >
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="px-2 py-2 border-2 border-black rounded-full hover:bg-gray-200 transition"
+                    >
+                      <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    {isOwner && (
+                      <DropdownMenuItem
+                        onClick={handleEdit}
+                        disabled={editPost.isOn}
+                        className="hover:bg-gray-200 transition px-4 cursor-pointer text-lg"
+                      >
+                        Edit
+                      </DropdownMenuItem>
+                    )}
+                    {(isAdmin || isOwner) && (
+                      <DropdownMenuItem asChild>
+                        <button
+                          onClick={handleRemove}
+                          disabled={isRemovePending}
+                          className="w-full text-left hover:bg-red-700 hover:text-white transition px-4 py-2 cursor-pointer text-lg bg-red-500 text-white rounded-md focus:bg-red-700 focus:text-white"
+                        >
+                          Delete
+                        </button>
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
-            )}
+            </div>
           </div>
         </CardHeader>
         <CardContent className="px-4 py-2">
@@ -286,40 +326,6 @@ export default function RedditPostCard({
                   {saved ? "Saved" : "Save"}
                 </span>
               </Button>
-            </div>
-            <div className="z-10">
-              <DropdownMenu
-                open={isDropdownOpen}
-                onOpenChange={setIsDropdownOpen}
-              >
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
-                  >
-                    <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  {isOwner && (
-                    <DropdownMenuItem
-                      onClick={handleEdit}
-                      disabled={editPost.isOn}
-                    >
-                      Edit
-                    </DropdownMenuItem>
-                  )}
-                  {(isAdmin || isOwner) && (
-                    <DropdownMenuItem
-                      onClick={handleRemove}
-                      disabled={isRemovePending}
-                    >
-                      Delete
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
           </div>
         </CardFooter>
