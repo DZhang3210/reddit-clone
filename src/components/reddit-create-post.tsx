@@ -43,8 +43,6 @@ export default function RedditCreatePost() {
   const [imageUrl, setImageUrl] = useState<string | null>(editPost.image);
   const [isUploading, setIsUploading] = useState(false);
 
-  console.log("editPost", editPost);
-
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
   const [activeTab, setActiveTab] = useState("text");
 

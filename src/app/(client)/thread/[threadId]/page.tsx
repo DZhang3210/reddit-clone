@@ -24,7 +24,6 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
   const { results: posts } = useGetPosts({
     threadId: threadId as Id<"threads">,
   });
-  console.log("DATA", posts);
   if (threadLoading) {
     return <ThreadBannerSkeleton />;
   }
@@ -45,7 +44,11 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
         bannerColor={thread.bannerColor}
         isAdmin={thread.isAdmin}
       />
-      <PostsFeed posts={posts} currentFilter={currentFilter} />
+      <PostsFeed
+        posts={posts}
+        currentFilter={currentFilter}
+        isThreadPage={true}
+      />
     </div>
   );
 };

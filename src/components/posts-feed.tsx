@@ -25,7 +25,12 @@ type Post = {
   imageTitle: string;
   likes: number;
   user: Doc<"users"> | null;
-  thread: (Doc<"threads"> & { image: string | null }) | null;
+  thread:
+    | (Doc<"threads"> & {
+        image: string | null;
+        isFollowing: boolean | undefined;
+      })
+    | null;
   liked: boolean | undefined;
   saved: boolean | undefined;
   numComments: number;
@@ -36,10 +41,11 @@ type Post = {
 
 interface PostsPageProps {
   currentFilter: string;
+  isThreadPage?: boolean;
   posts: Post[];
 }
 
-const PostsFeed = ({ posts, currentFilter }: PostsPageProps) => {
+const PostsFeed = ({ posts, currentFilter, isThreadPage }: PostsPageProps) => {
   const router = useRouter();
 
   const handleFilterChange = (filter: string) => {
@@ -93,6 +99,8 @@ const PostsFeed = ({ posts, currentFilter }: PostsPageProps) => {
                 className="w-full flex flex-col gap-4 items-center"
               >
                 <RedditPostCard
+                  threadPage={isThreadPage}
+                  isFollowing={post.thread.isFollowing || false}
                   username={post.user?.name || "anonymous"}
                   subreddit={post.thread.title}
                   timePosted={post._creationTime}

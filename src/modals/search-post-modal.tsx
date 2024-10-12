@@ -19,9 +19,6 @@ const ThreadModal = () => {
     query: searchPost.searchQuery || "",
   });
 
-  console.log("THREADS", threads);
-  console.log("POSTS", posts);
-
   return (
     <Modal isOpen={searchPost.searchQuery !== null} onClose={searchPost.setOff}>
       <div className="flex flex-col h-screen py-20">

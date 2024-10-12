@@ -31,6 +31,7 @@ const useTogglePost = create<TogglePost>((set) => ({
     set({
       isOn: false,
       editMode: false,
+      id: "",
       title: "",
       content: "",
       threadId: "",

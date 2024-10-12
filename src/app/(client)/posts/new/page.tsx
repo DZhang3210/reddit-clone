@@ -25,7 +25,12 @@ type Post = {
   imageTitle: string;
   likes: number;
   user: Doc<"users"> | null;
-  thread: (Doc<"threads"> & { image: string | null }) | null;
+  thread:
+    | (Doc<"threads"> & {
+        image: string | null;
+        isFollowing: boolean | undefined;
+      })
+    | null;
   liked: boolean | undefined;
   saved: boolean | undefined;
 };
@@ -72,6 +77,7 @@ const PostsPage = () => {
         return (
           <RedditPostCard
             key={post._id}
+            isFollowing={post.thread.isFollowing || false}
             username={post.user?.name || "anonymous"}
             subreddit={post.thread.title}
             timePosted={post._creationTime}

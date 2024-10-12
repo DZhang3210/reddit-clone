@@ -161,6 +161,15 @@ export const create = mutation({
       throw new Error("Name already taken");
     }
 
+    const generateModeratorCode = () => {
+      const symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      return Array.from(
+        { length: 6 },
+        () => symbols[Math.floor(Math.random() * symbols.length)]
+      ).join("");
+    };
+
+    const moderatorCode = generateModeratorCode();
     const newThread = await ctx.db.insert("threads", {
       title: args.title,
       description: args.description,
@@ -171,6 +180,7 @@ export const create = mutation({
       createdAt: Date.now(),
       updatedAt: Date.now(),
       moderators: [userId],
+      moderatorCode: moderatorCode, // Use the generated code
     });
 
     const author = await ctx.db.get(userId);
@@ -218,5 +228,118 @@ export const update = mutation({
     });
 
     return updatedThread;
+  },
+});
+
+export const getAdmins = query({
+  args: { id: v.union(v.id("threads"), v.null()) },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId || !args.id) {
+      return null;
+    }
+    const user = await ctx.db.get(userId);
+    if (!user) {
+      return null;
+    }
+
+    const isFollowing = user.followingThreads?.includes(args.id);
+
+    const thread = await ctx.db.get(args.id);
+    if (!thread) {
+      return null;
+    }
+
+    const isAdmin = thread.moderators
+      ? thread.moderators.includes(userId)
+      : false;
+
+    const admins = thread.moderators;
+    const [threadImage, logoImage] = await Promise.all([
+      await ctx.storage.getUrl(thread.bannerImage),
+      await ctx.storage.getUrl(thread.logoImage),
+    ]);
+    const adminsData = await Promise.all(
+      admins.map(async (adminId) => {
+        return await ctx.db.get(adminId);
+      })
+    );
+    return {
+      ...thread,
+      moderators: adminsData,
+      threadImage,
+      logoImage,
+      isFollowing,
+      isAdmin,
+    };
+  },
+});
+
+const generateModeratorCode = () => {
+  const symbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  return Array.from(
+    { length: 6 },
+    () => symbols[Math.floor(Math.random() * symbols.length)]
+  ).join("");
+};
+
+export const changeInviteCode = mutation({
+  args: { id: v.id("threads") },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      return null;
+    }
+    const thread = await ctx.db.get(args.id);
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+    const newCode = generateModeratorCode();
+    await ctx.db.patch(args.id, {
+      moderatorCode: newCode,
+    });
+    return newCode;
+  },
+});
+
+export const addModerator = mutation({
+  args: { id: v.id("threads"), code: v.string() },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db.get(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const thread = await ctx.db.get(args.id);
+    if (!thread) {
+      throw new Error("Thread not found");
+    }
+    if (args.code !== thread.moderatorCode) {
+      throw new Error("Invalid code");
+    }
+
+    const isMember = user.followingThreads?.includes(args.id);
+    if (!isMember) {
+      await Promise.all([
+        ctx.db.patch(args.id, {
+          totalMembers: thread.totalMembers + 1,
+        }),
+        ctx.db.patch(userId, {
+          followingThreads: user.followingThreads
+            ? [...user.followingThreads, args.id]
+            : [args.id],
+        }),
+      ]);
+    }
+
+    await ctx.db.patch(args.id, {
+      updatedAt: Date.now(),
+      moderators: [...thread.moderators, userId],
+    });
   },
 });

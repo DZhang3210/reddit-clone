@@ -7,7 +7,13 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { ArrowUpIcon, MessageSquare, Share2, BookmarkIcon } from "lucide-react";
+import {
+  ArrowUpIcon,
+  MessageSquare,
+  Share2,
+  BookmarkIcon,
+  EllipsisVertical,
+} from "lucide-react";
 import { format } from "date-fns";
 import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
@@ -20,6 +26,14 @@ import { useRemovePost } from "@/features/posts/api/use-remove-post";
 import useTogglePost from "@/hooks/create-post-hook";
 import { useConfirm } from "@/hooks/use-confirm";
 import useFocusImage from "@/hooks/focus-image-hook";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MouseEvent, useEffect, useState } from "react";
+import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
 
 interface RedditPostCardProps {
   username: string;
@@ -38,6 +52,8 @@ interface RedditPostCardProps {
   threadImage: string;
   isAdmin?: boolean;
   isOwner?: boolean;
+  isFollowing: boolean;
+  threadPage?: boolean;
 }
 
 export default function RedditPostCard({
@@ -57,6 +73,8 @@ export default function RedditPostCard({
   threadImage,
   isAdmin,
   isOwner,
+  isFollowing,
+  threadPage = false,
 }: RedditPostCardProps) {
   const { mutate: likePost, isPending: isLikePending } = useLikePost();
   const { mutate: savePost, isPending: isSavePending } = useSavePost();
@@ -67,6 +85,9 @@ export default function RedditPostCard({
     "Are you sure?",
     "This will permanently remove the post."
   );
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
+
   const focusImage = useFocusImage();
 
   const handleFocusImage = () => {
@@ -88,6 +109,7 @@ export default function RedditPostCard({
     );
   };
   const handleRemove = async () => {
+    setIsDropdownOpen(false);
     const ok = await confirm();
     if (!ok) return;
 
@@ -117,6 +139,7 @@ export default function RedditPostCard({
     );
   };
   const handleEdit = () => {
+    setIsDropdownOpen(false);
     editPost.setMany({
       isOn: true,
       editMode: true,
@@ -126,6 +149,11 @@ export default function RedditPostCard({
       threadId,
       image,
     });
+  };
+  const handleFollow = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFollow({ threadId });
   };
 
   return (
@@ -152,30 +180,27 @@ export default function RedditPostCard({
                 </p>
               </Link>
             </div>
-            <div className="flex gap-2 flex-col">
-              {isOwner && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="px-4 py-3 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
-                  onClick={handleEdit}
-                  disabled={isRemovePending}
-                >
-                  Edit
-                </Button>
-              )}
-              {(isAdmin || isOwner) && (
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  className="px-4 py-3 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
-                  onClick={handleRemove}
-                  disabled={isRemovePending}
-                >
-                  Remove
-                </Button>
-              )}
-            </div>
+            {!threadPage && (
+              <div className="flex gap-2 flex-col">
+                {isFollowing ? (
+                  <Button
+                    className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
+                    onClick={handleFollow}
+                    disabled={isLoading}
+                  >
+                    Following
+                  </Button>
+                ) : (
+                  <Button
+                    className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
+                    onClick={handleFollow}
+                    disabled={isLoading}
+                  >
+                    Follow
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
         </CardHeader>
         <CardContent className="px-4 py-2">
@@ -253,7 +278,6 @@ export default function RedditPostCard({
                   saved ? "text-orange-500" : ""
                 }`}
                 onClick={handleSave}
-                disabled={isSavePending}
               >
                 <BookmarkIcon
                   className={`h-5 w-5 mr-0 sm:mr-1 sm:h-4 sm:w-4 ${saved ? "fill-orange-500" : ""}`}
@@ -262,6 +286,40 @@ export default function RedditPostCard({
                   {saved ? "Saved" : "Save"}
                 </span>
               </Button>
+            </div>
+            <div className="z-10">
+              <DropdownMenu
+                open={isDropdownOpen}
+                onOpenChange={setIsDropdownOpen}
+              >
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+                  >
+                    <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {isOwner && (
+                    <DropdownMenuItem
+                      onClick={handleEdit}
+                      disabled={editPost.isOn}
+                    >
+                      Edit
+                    </DropdownMenuItem>
+                  )}
+                  {(isAdmin || isOwner) && (
+                    <DropdownMenuItem
+                      onClick={handleRemove}
+                      disabled={isRemovePending}
+                    >
+                      Delete
+                    </DropdownMenuItem>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </CardFooter>

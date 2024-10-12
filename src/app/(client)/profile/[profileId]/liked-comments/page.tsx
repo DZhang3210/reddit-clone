@@ -8,7 +8,6 @@ import React from "react";
 const LikedCommentsProfile = () => {
   const { data: comments, isLoading } = useGetUserLikedComments();
   if (!comments || isLoading) return <div>Loading...</div>;
-  console.log(comments);
   return (
     <div>
       {comments.length > 0 ? (

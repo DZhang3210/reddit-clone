@@ -85,7 +85,6 @@ const getReplyByCommentId = async (
     return null;
   }
 
-  console.log(currentComment.replies);
   const replies: Comment[] = (
     await Promise.all(
       currentComment.replies.map(async (replyId: Id<"comments">) => {

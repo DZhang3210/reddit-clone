@@ -34,7 +34,6 @@ const ThreadCreate = () => {
       (!toggleThread.editMode && (!profileImage || !bannerImage))
     ) {
       toast.error("you need to fill in all fields..");
-      console.log(profileImage, bannerImage, toggleThread.editMode);
       return;
     }
     if (toggleThread.editMode && toggleThread.id) {

@@ -137,13 +137,14 @@ export const get = query({
           const liked = currentUser?.likedPosts?.includes(post?._id);
           const saved = currentUser?.savedPosts?.includes(post?._id);
           const isAdmin = thread.moderators.includes(userId);
+          const isFollowing = user.followingThreads?.includes(thread?._id);
           const isCreator = post?.author === userId;
           if (post?.image) {
             return {
               ...post,
               image: await ctx.storage.getUrl(post?.image),
               user: user,
-              thread: { ...thread, image: threadImage },
+              thread: { ...thread, image: threadImage, isFollowing },
               liked: liked,
               saved: saved,
               firstComment: firstComment,
@@ -155,7 +156,7 @@ export const get = query({
               ...post,
               image: "",
               user: user,
-              thread: { ...thread, image: threadImage },
+              thread: { ...thread, image: threadImage, isFollowing },
               liked: liked,
               saved: saved,
               firstComment: firstComment,
@@ -202,13 +203,14 @@ export const getById = query({
     const saved = currentUser?.savedPosts?.includes(post?._id);
     const isCreator = post?.author === userId;
     const isAdmin = thread.moderators.includes(userId);
+    const isFollowing = user.followingThreads?.includes(thread?._id);
     const threadImage = await ctx.storage.getUrl(thread?.logoImage);
     if (post?.image) {
       const image = await ctx.storage.getUrl(post?.image);
       return {
         ...post,
         user,
-        thread: { ...thread, image: threadImage },
+        thread: { ...thread, image: threadImage, isFollowing },
         liked,
         saved,
         image,
@@ -219,7 +221,7 @@ export const getById = query({
       return {
         ...post,
         user,
-        thread: { ...thread, image: threadImage },
+        thread: { ...thread, image: threadImage, isFollowing },
         liked,
         saved,
         isCreator,

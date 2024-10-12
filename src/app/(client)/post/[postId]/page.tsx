@@ -28,9 +28,6 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
   const [content, setContent] = useState("");
   const [editor, setEditor] = useState("");
 
-  console.log("COMMENTS");
-  console.log(comments);
-
   if (isLoading || !post || !comments)
     return (
       <div className="flex flex-col items-center gap-4 mt-4 mx-4">
@@ -66,6 +63,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
     <div className="flex flex-col items-center mt-4 gap-2 mb-20 w-full">
       <div className="w-full max-w-3xl p-8">
         <RedditPostCard
+          isFollowing={post.thread.isFollowing || false}
           key={post._id}
           username={post.user?.name || "anonymous"}
           subreddit={post.thread.title}

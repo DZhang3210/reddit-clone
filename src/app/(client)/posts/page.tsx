@@ -25,7 +25,6 @@ const PostsPage = () => {
   const searchParams = useSearchParams();
   const currentFilter = searchParams.get("filter") || "Best";
   const { results: posts, status } = useGetPosts({ name: "" });
-  console.log("POSTS", posts);
   // const posts = await fetchQuery(api.posts.get, {
   //   name: "",
   //   paginationOpts: { numItems: 10, cursor: null },

@@ -16,16 +16,8 @@ const RedditSearch = () => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    console.log(searchPost.searchQuery);
-  }, [searchPost.searchQuery]);
-
   const handleClick = () => {
-    console.log("clicked");
-    console.log(searchPost.searchQuery !== null);
-
     searchPost.setSearchQuery("");
-    console.log(searchPost.searchQuery !== null);
   };
 
   return (

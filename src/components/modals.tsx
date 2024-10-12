@@ -4,6 +4,7 @@ import ThreadModal from "@/modals/create-thread-modal";
 import FocusImageModal from "@/modals/focus-image-modal";
 import SearchPostModal from "@/modals/search-post-modal";
 import SharePostModal from "@/modals/share-post-modal";
+import ViewThreadAdminsModal from "@/modals/view-thread-admins-modal";
 import { useEffect, useState } from "react";
 import React from "react";
 
@@ -17,6 +18,7 @@ const Modals = () => {
     <div>
       <PostModal />
       <ThreadModal />
+      <ViewThreadAdminsModal />
       <SharePostModal />
       <SearchPostModal />
       <FocusImageModal />
