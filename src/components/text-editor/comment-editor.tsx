@@ -19,7 +19,7 @@ import {
   ArrowUpIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Button } from "../ui/button";
 import { TooltipHover } from "../tooltip-hover";
 
@@ -28,6 +28,7 @@ interface CommentEditorProps {
   setContent: Dispatch<SetStateAction<string>>;
   onSubmit: () => void;
   onCancel: () => void;
+  mainEditor?: boolean;
 }
 
 const CommentEditor = ({
@@ -35,6 +36,7 @@ const CommentEditor = ({
   setContent,
   onSubmit,
   onCancel,
+  mainEditor = false,
 }: CommentEditorProps) => {
   const [open, setOpen] = useState(false);
   const editor = useEditor({
@@ -58,6 +60,15 @@ const CommentEditor = ({
     },
     immediatelyRender: false,
   });
+
+  // Update editor content when the content prop changes
+  useEffect(() => {
+    if (editor && editor.getHTML() !== content) {
+      editor.commands.setContent(content);
+    }
+    console.log("Content", content);
+  }, [editor, content]);
+
   if (!editor) {
     return null;
   }
@@ -120,12 +131,14 @@ const CommentEditor = ({
           </TooltipHover>
 
           <div className="flex gap-2 py-2">
-            <Button
-              className="rounded-full bg-black text-white px-4 text-xs h-[30px]"
-              onClick={onCancel}
-            >
-              Cancel
-            </Button>
+            {!mainEditor && (
+              <Button
+                className="rounded-full bg-black text-white px-4 text-xs h-[30px]"
+                onClick={onCancel}
+              >
+                Cancel
+              </Button>
+            )}
             <Button
               className="rounded-full bg-orange-600 text-white px-4 text-xs h-[30px]"
               onClick={onSubmit}

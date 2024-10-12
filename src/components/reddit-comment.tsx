@@ -60,6 +60,10 @@ export default function RedditComment({
       }
     );
   };
+  const handleCancel = () => {
+    setReplyContent("");
+    setEditor("");
+  };
 
   return (
     <>
@@ -127,8 +131,8 @@ export default function RedditComment({
           <CommentEditor
             content={replyContent}
             setContent={setReplyContent}
-            onSubmit={() => handleSubmit()}
-            onCancel={() => setEditor("")}
+            onSubmit={handleSubmit}
+            onCancel={handleCancel}
           />
         )}
       </div>
