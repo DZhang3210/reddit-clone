@@ -58,6 +58,7 @@ const PostsPage = () => {
             <Button
               variant="outline"
               className="border-none text-gray-400 rounded-full text-base flex items-center transition-all duration-300 hover:bg-gray-300 gap-0"
+              aria-label="dropdown-trigger"
             >
               {currentFilter}
               <ChevronDownIcon className="w-7 h-7 ml-1" />

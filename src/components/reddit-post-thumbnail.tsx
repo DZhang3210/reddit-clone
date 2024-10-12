@@ -75,6 +75,7 @@ export default function RedditPostThumbnail({
               size="sm"
               onClick={() => setJoined(true)}
               className="text-xs"
+              aria-label="join button"
             >
               Join
             </Button>
@@ -84,13 +85,19 @@ export default function RedditPostThumbnail({
               size="sm"
               onClick={() => setJoined(false)}
               className="text-xs"
+              aria-label="joined button"
             >
               Joined
             </Button>
           )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+                aria-label="more options"
+              >
                 <MoreVertical className="h-4 w-4" />
                 <span className="sr-only">More options</span>
               </Button>
@@ -122,6 +129,7 @@ export default function RedditPostThumbnail({
             size="sm"
             className={`px-2 ${userVote === "up" ? "text-orange-500" : ""}`}
             onClick={() => handleVote("up")}
+            aria-label="upvote button"
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />
             <span className="text-xs font-medium">{likeCount}</span>
@@ -133,13 +141,24 @@ export default function RedditPostThumbnail({
                 e.stopPropagation();
                 handleVote("down");
               }}
+              aria-label="downvote button"
             />
           </Button>
-          <Button variant="ghost" size="sm" className="px-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="px-2"
+            aria-label="comments button"
+          >
             <MessageSquare className="h-4 w-4 mr-1" />
             <span className="text-xs">{comments}</span>
           </Button>
-          <Button variant="ghost" size="sm" className="px-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="px-2"
+            aria-label="share button"
+          >
             <Share2 className="h-4 w-4 mr-1" />
             <span className="text-xs">Share</span>
           </Button>

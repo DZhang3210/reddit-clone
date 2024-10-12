@@ -58,7 +58,7 @@ const MobileSidebar = () => {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <button onClick={() => setIsOpen(true)}>
+        <button onClick={() => setIsOpen(true)} aria-label="sidebar-trigger">
           <AlignJustify size={40} className="text-white" />
         </button>
       </SheetTrigger>
@@ -137,7 +137,10 @@ const MobileSidebar = () => {
                             onClick={closeSheet}
                           >
                             <Avatar>
-                              <AvatarImage src={thread.logoImage || ""} />
+                              <AvatarImage
+                                src={thread.logoImage || ""}
+                                alt="thread image"
+                              />
                               <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                             <span className="text-lg text-white">

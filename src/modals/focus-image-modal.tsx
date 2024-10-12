@@ -21,7 +21,9 @@ const PostModal = () => {
           />
         )}
         <div className="absolute top-2 right-2 bg-black/80 p-2 rounded-full">
-          <button onClick={focusImage.setOff}>Close</button>
+          <button onClick={focusImage.setOff} aria-label="close-trigger">
+            Close
+          </button>
         </div>
       </div>
     </Modal>

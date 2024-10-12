@@ -103,6 +103,7 @@ export default function RedditComment({
             size="sm"
             className={`px-2 ${comment.isLiked ? "text-orange-500" : ""}`}
             onClick={() => handleVote()}
+            aria-label="upvote button"
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />
             <span className="text-xs font-medium">{comment.likes}</span>
@@ -111,6 +112,7 @@ export default function RedditComment({
             variant="ghost"
             size="sm"
             className="px-2"
+            aria-label="reply button"
             onClick={() => setEditor(editor === comment._id ? "" : comment._id)}
           >
             <MessageSquare className="h-4 w-4 mr-1" />

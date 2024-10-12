@@ -17,33 +17,12 @@ import { useChangeInviteCode } from "@/features/threads/api/use-change-invite-co
 import { useConfirm } from "@/hooks/use-confirm";
 import { cn } from "@/lib/utils";
 
-// interface ThreadAdminItemProps {
-//   userId: string;
-//   username: string;
-//   image: string;
-// }
-
-// const ThreadAdminItem = ({ userId, username, image }: ThreadAdminItemProps) => {
-//   const fallbackLetter = username ? username.charAt(0).toUpperCase() : "?";
-//   return (
-//     <div className="flex items-center space-x-3">
-//       <Avatar>
-//         <AvatarImage src={image} alt={username || "User"} />
-//         <AvatarFallback>{fallbackLetter}</AvatarFallback>
-//       </Avatar>
-//       <span className="text-sm font-medium">
-//         {username || "Anonymous User"}
-//       </span>
-//     </div>
-//   );
-// };
-
 const ViewThreadAdminsModal = () => {
   const threadModal = useViewThreadAdmins();
   const { data: thread } = useGetThreadAdmins({
     id: threadModal.threadId as Id<"threads"> | null,
   });
-  console.log(thread);
+  // console.log(thread);
   const adminsData = thread?.moderators;
   const router = useRouter();
   const [isCopied, setIsCopied] = useState(false);
@@ -127,6 +106,7 @@ const ViewThreadAdminsModal = () => {
               <button
                 key={admin?._id}
                 onClick={() => handleLink(admin?._id as string)}
+                aria-label="admin-link"
                 className="flex items-center gap-2 hover:bg-gray-500 p-2 rounded-md transition w-full"
               >
                 <Avatar>
@@ -154,7 +134,7 @@ const ViewThreadAdminsModal = () => {
                   value={`${process.env.NEXT_PUBLIC_APP_URL}/invite/${thread?._id}`}
                   className="flex-grow"
                 />
-                <Button onClick={handleCopyLink}>
+                <Button onClick={handleCopyLink} aria-label="copy link button">
                   {isCopied ? <CheckIcon /> : <div>Copy</div>}
                 </Button>
               </div>
@@ -165,7 +145,11 @@ const ViewThreadAdminsModal = () => {
                   value={thread?.moderatorCode}
                   className="flex-grow min-w-0"
                 />
-                <Button onClick={handleCopyCode} className="flex-shrink-0">
+                <Button
+                  onClick={handleCopyCode}
+                  className="flex-shrink-0"
+                  aria-label="copy code button"
+                >
                   {isCodeCopied ? <CheckIcon /> : <div>Copy</div>}
                 </Button>
               </div>
@@ -174,10 +158,13 @@ const ViewThreadAdminsModal = () => {
                 className="flex-shrink-0"
                 disabled={thread?.moderatorCode === null}
                 variant="outline"
+                aria-label="change code button"
               >
                 Change Code
               </Button>
-              <Button onClick={threadModal.setOff}>Close</Button>
+              <Button onClick={threadModal.setOff} aria-label="close button">
+                Close
+              </Button>
             </>
           )}
         </div>

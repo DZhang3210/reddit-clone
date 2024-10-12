@@ -101,12 +101,14 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             type="password"
             className="h-10 text-xl"
             required
+            aria-label="confirm password"
           />
           <Button
             type="submit"
             className="w-full bg-white text-black hover:bg-gray-400 text-xl font-semibold"
             size="lg"
             disabled={pending}
+            aria-label="continue button"
           >
             Continue
           </Button>
@@ -119,6 +121,7 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             variant="outline"
             size="lg"
             className="w-full relative text-xl"
+            aria-label="google button"
           >
             <FaGoogle className="size-5 absolute top-2.5 left-2.5" />
             Continue with Google
@@ -129,6 +132,7 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
             variant="outline"
             size="lg"
             className="w-full relative text-xl"
+            aria-label="github button"
           >
             <FaGithub className="size-5 absolute top-2.5 left-2.5" />
             Continue with Github
@@ -139,6 +143,7 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
           <span
             className="text-sky-700 hover:underline cursor-pointer"
             onClick={() => setState("signIn")}
+            aria-label="sign in button"
           >
             Sign In
           </span>

@@ -37,7 +37,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
 
   const handleSubmit = (parentCommentId?: Id<"comments"> | null) => {
     if (content.trim() === "") return;
-    console.log("submit content", JSON.stringify(content));
+    // console.log("submit content", JSON.stringify(content));
     createComment(
       {
         content,

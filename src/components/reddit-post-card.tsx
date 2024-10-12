@@ -193,6 +193,7 @@ export default function RedditPostCard({
                       className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
                       onClick={handleFollow}
                       disabled={isLoading}
+                      aria-label="following button"
                     >
                       Following
                     </Button>
@@ -201,6 +202,7 @@ export default function RedditPostCard({
                       className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
                       onClick={handleFollow}
                       disabled={isLoading}
+                      aria-label="follow button"
                     >
                       Follow
                     </Button>
@@ -217,6 +219,7 @@ export default function RedditPostCard({
                       <Button
                         variant="ghost"
                         size="sm"
+                        aria-label="dropdown-trigger"
                         className="px-2 py-2 border-2 border-black rounded-full hover:bg-gray-200 transition"
                       >
                         <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
@@ -286,6 +289,7 @@ export default function RedditPostCard({
                 }`}
                 onClick={handleVote}
                 disabled={isLikePending}
+                aria-label="upvote button"
               >
                 <ArrowUpIcon className="h-4 w-4 mr-1" />
                 <span className="text-lg font-medium">{upvotes}</span>
@@ -296,6 +300,7 @@ export default function RedditPostCard({
                 variant="ghost"
                 size="sm"
                 className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+                aria-label="comment button"
               >
                 <MessageSquare className="h-4 w-4 mr-1" />
                 <span className="text-lg flex gap-1">
@@ -312,6 +317,7 @@ export default function RedditPostCard({
                 size="sm"
                 className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
                 onClick={() => sharePostModal.setPostLink(postId.toString())}
+                aria-label="share button"
               >
                 <Share2 className="h-5 w-5 mr-0 sm:mr-1 sm:h-4 sm:w-4" />
                 <span className="text-lg hidden md:block">Share</span>
@@ -325,6 +331,7 @@ export default function RedditPostCard({
                   saved ? "text-orange-500" : ""
                 }`}
                 onClick={handleSave}
+                aria-label="save button"
               >
                 <BookmarkIcon
                   className={`h-5 w-5 mr-0 sm:mr-1 sm:h-4 sm:w-4 ${saved ? "fill-orange-500" : ""}`}

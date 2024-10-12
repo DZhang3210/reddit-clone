@@ -103,7 +103,7 @@ body {
 .tiptap {
   padding-left: 3px;
   /* caret-color: black; */
-  @apply focus:outline-none focus:outline-2 focus:outline-none rounded-b-xl;
+  @apply focus:outline-none focus:outline-2 rounded-b-xl;
 }
 .tiptap {
   :first-child {

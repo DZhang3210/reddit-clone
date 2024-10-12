@@ -83,6 +83,7 @@ const CommentEditor = ({
               "p-2 my-1 transition hover:bg-gray-300 rounded-full text-black",
               editor.isActive("bold") && "bg-blue-200"
             )}
+            aria-label="bold-trigger"
           >
             <BoldIcon className="w-4 h-4" />
           </button>
@@ -92,6 +93,7 @@ const CommentEditor = ({
               "p-2 my-1 transition hover:bg-gray-300 rounded-full text-black",
               editor.isActive("italic") && "bg-gray-400"
             )}
+            aria-label="italic-trigger"
           >
             <ItalicIcon className="w-4 h-4" />
           </button>
@@ -101,6 +103,7 @@ const CommentEditor = ({
               "p-2 my-1 transition hover:bg-gray-300 rounded-full text-black",
               editor.isActive("underline") && "bg-gray-400"
             )}
+            aria-label="underline-trigger"
           >
             <UnderlineIcon className="w-4 h-4" />
           </button>
@@ -110,11 +113,13 @@ const CommentEditor = ({
               "p-2 my-1 transition hover:bg-gray-300 rounded-full text-black",
               editor.isActive("bulletList") && "bg-gray-400"
             )}
+            aria-label="list-trigger"
           >
             <ListIcon className="w-4 h-4" />
           </button>
           <EmojiPicker
             onEmojiSelect={(emoji) => editor.commands.insertContent(emoji)}
+            aria-label="emoji-picker"
           />
         </div>
       )}
@@ -125,7 +130,11 @@ const CommentEditor = ({
         />
         <div className="flex justify-between items-center m-0 px-2">
           <TooltipHover content="Formatting">
-            <button onClick={() => setOpen(!open)} className="text-black ml-2">
+            <button
+              onClick={() => setOpen(!open)}
+              className="text-black ml-2"
+              aria-label="formatting-trigger"
+            >
               <ArrowUpIcon className={cn("w-4 h-4", open && "rotate-180")} />
             </button>
           </TooltipHover>
@@ -135,6 +144,7 @@ const CommentEditor = ({
               <Button
                 className="rounded-full bg-black text-white px-4 text-xs h-[30px]"
                 onClick={onCancel}
+                aria-label="cancel button"
               >
                 Cancel
               </Button>
@@ -142,6 +152,7 @@ const CommentEditor = ({
             <Button
               className="rounded-full bg-orange-600 text-white px-4 text-xs h-[30px]"
               onClick={onSubmit}
+              aria-label="submit button"
             >
               Submit
             </Button>

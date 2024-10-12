@@ -58,6 +58,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
       {open && (
         <div className="flex gap-2 mb-1rounded-t-xl items-center ml-2">
           <button
+            aria-label="bold-trigger"
             onClick={() => editor.chain().focus().toggleBold().run()}
             className={cn(
               "p-1 my-1 transition hover:bg-gray-500 rounded-lg",
@@ -67,6 +68,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
             <BoldIcon className="w-4 h-4" />
           </button>
           <button
+            aria-label="italic-trigger"
             onClick={() => editor.chain().focus().toggleItalic().run()}
             className={cn(
               "p-1 my-1 transition hover:bg-gray-500 rounded-lg",
@@ -76,6 +78,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
             <ItalicIcon className="w-4 h-4" />
           </button>
           <button
+            aria-label="underline-trigger"
             onClick={() => editor.chain().focus().toggleUnderline().run()}
             className={cn(
               "p-1 my-1 transition hover:bg-gray-500 rounded-lg",
@@ -85,6 +88,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
             <UnderlineIcon className="w-4 h-4" />
           </button>
           <button
+            aria-label="list-trigger"
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={cn(
               "p-1 my-1 transition hover:bg-gray-500 rounded-lg",
@@ -95,6 +99,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
           </button>
           <EmojiPicker
             onEmojiSelect={(emoji) => editor.commands.insertContent(emoji)}
+            aria-label="emoji-picker"
           />
         </div>
       )}
@@ -105,7 +110,11 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
         />
       </div>
       <div className="pb-1">
-        <button onClick={() => setOpen(!open)} className="ml-4 text-white">
+        <button
+          onClick={() => setOpen(!open)}
+          aria-label="formatting-trigger"
+          className="ml-4 text-white"
+        >
           <ArrowUpIcon className={cn("w-4 h-4", open && "rotate-180")} />
         </button>
       </div>

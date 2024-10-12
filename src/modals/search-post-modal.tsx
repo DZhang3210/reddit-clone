@@ -47,6 +47,7 @@ const ThreadModal = () => {
               size="icon"
               className="absolute right-2 top-1/2 transform -translate-y-1/2  hover:bg-white/80 hover:text-black rounded-full"
               onClick={() => searchPost.setSearchQuery("")}
+              aria-label="clear search button"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -83,6 +84,7 @@ const ThreadModal = () => {
         <Button
           className="text-sm text-center flex justify-center mx-4 my-4"
           onClick={searchPost.setOff}
+          aria-label="back button"
         >
           Back
         </Button>

@@ -23,7 +23,7 @@ const ThreadResult = ({ thread }: { thread: Thread }) => {
     searchPost.setOff();
   };
   return (
-    <button onClick={handleClick}>
+    <button onClick={handleClick} aria-label="thread-result">
       <Card className="overflow-hidden">
         <CardContent className="px-2 py-1 bg-gray-200 rounded-md">
           <div className="flex items-center space-x-2 justify-start rounded-md p-0">
@@ -47,6 +47,7 @@ const ThreadResult = ({ thread }: { thread: Thread }) => {
               <button
                 onClick={handleClick}
                 className="text-xl font-semibold truncate hover:underline"
+                aria-label="thread-result-title"
               >
                 {thread.title}
               </button>
@@ -56,6 +57,7 @@ const ThreadResult = ({ thread }: { thread: Thread }) => {
                   className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
                   onClick={handleButtonClick}
                   disabled={isLoading}
+                  aria-label="following button"
                 >
                   Following
                 </Button>
@@ -64,6 +66,7 @@ const ThreadResult = ({ thread }: { thread: Thread }) => {
                   className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
                   onClick={handleButtonClick}
                   disabled={isLoading}
+                  aria-label="follow button"
                 >
                   Follow
                 </Button>

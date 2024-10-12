@@ -27,19 +27,39 @@ export default function CreateComment() {
             </p>
             <div className="flex items-center space-x-4 mt-4">
               <div className="flex items-center space-x-1">
-                <Button variant="ghost" size="icon" className="w-6 h-6">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="w-6 h-6"
+                  aria-label="upvote button"
+                >
                   <ArrowBigUp className="h-4 w-4" />
                 </Button>
                 <span className="text-sm font-medium">42</span>
-                <Button variant="ghost" size="icon" className="w-6 h-6">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="w-6 h-6"
+                  aria-label="downvote button"
+                >
                   <ArrowBigDown className="h-4 w-4" />
                 </Button>
               </div>
-              <Button variant="ghost" size="sm" className="text-xs">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-xs"
+                aria-label="reply button"
+              >
                 <MessageSquare className="h-4 w-4 mr-2" />
                 Reply
               </Button>
-              <Button variant="ghost" size="sm" className="text-xs">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-xs"
+                aria-label="share button"
+              >
                 <Share2 className="h-4 w-4 mr-2" />
                 Share
               </Button>

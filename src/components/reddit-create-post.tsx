@@ -288,6 +288,7 @@ export default function RedditCreatePost() {
                 onClick={() => document.getElementById("image-upload")?.click()}
                 disabled={isUploading}
                 className="mt-4"
+                aria-label="upload image button"
               >
                 <Upload className="mr-2 h-4 w-4" />
                 {isUploading ? "Uploading..." : "Upload Image"}
@@ -311,6 +312,7 @@ export default function RedditCreatePost() {
           variant="outline"
           className="border-gray-600 text-white hover:bg-gray-700"
           onClick={() => postModal.setOff()}
+          aria-label="cancel button"
         >
           Cancel
         </Button>

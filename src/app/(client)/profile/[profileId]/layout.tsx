@@ -44,7 +44,7 @@ export default function ProfileLayout({
         <ProfileHeaderSkeleton />
       ) : user ? (
         <div className="flex items-center space-x-4">
-          <button onClick={focusImageProfile}>
+          <button onClick={focusImageProfile} aria-label="profile image">
             <Avatar className="w-24 h-24">
               <AvatarImage
                 src={user.image || "/placeholder.svg?height=96&width=96"}

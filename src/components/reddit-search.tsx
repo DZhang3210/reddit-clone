@@ -29,7 +29,11 @@ const RedditSearch = () => {
         onSubmit={handleSearch}
         className="relative rounded-full h-full flex gap-1 px-4"
       >
-        <button className=" text-gray-400" onClick={handleClick}>
+        <button
+          className="text-gray-400 aria-label='search'"
+          onClick={handleClick}
+          aria-label="search-trigger"
+        >
           <Search size={30} />
         </button>
         <Input

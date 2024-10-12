@@ -102,7 +102,10 @@ const Sidebar = () => {
                     className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
                   >
                     <Avatar className="h-8 w-8 xl:h-12 xl:w-12">
-                      <AvatarImage src={thread.logoImage || ""} />
+                      <AvatarImage
+                        src={thread.logoImage || ""}
+                        alt="thread image"
+                      />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <span className="text-md xl:text-xl text-white">

@@ -84,6 +84,7 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             className="w-full bg-white text-black hover:bg-gray-400 text-xl font-semibold"
             size="lg"
             disabled={pending}
+            aria-label="submit button"
           >
             Continue
           </Button>
@@ -96,6 +97,7 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             variant="outline"
             size="lg"
             className="w-full relative text-xl"
+            aria-label="google button"
           >
             <FaGoogle className="size-5 absolute top-2.5 left-2.5" />
             Continue with Google
@@ -106,6 +108,7 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
             variant="outline"
             size="lg"
             className="w-full relative text-xl "
+            aria-label="github button"
           >
             <FaGithub className="size-5 absolute top-2.5 left-2.5" />
             Continue with Github
@@ -116,6 +119,7 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
           <span
             className="text-sky-700 hover:underline cursor-pointer"
             onClick={() => setState("signUp")}
+            aria-label="sign up button"
           >
             Sign up
           </span>

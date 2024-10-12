@@ -123,14 +123,6 @@ export default function RedditThreadBanner({
                 {threadName || "Community Name"}
               </h4>
 
-              {/* {isAdmin && (
-                <button
-                  className="text-sm text-white mt-2 rounded-full px-4 py-1 bg-blue-800 hover:bg-blue-900 transition"
-                  onClick={handleEditClick}
-                >
-                  Edit
-                </button>
-              )} */}
               <p className="text-sm text-gray-400 mt-2 truncate">
                 r/
                 {threadName
@@ -145,6 +137,7 @@ export default function RedditThreadBanner({
                   className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
                   onClick={handleButtonClick}
                   disabled={isLoading}
+                  aria-label="following button"
                 >
                   Following
                 </Button>
@@ -153,6 +146,7 @@ export default function RedditThreadBanner({
                   className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
                   onClick={handleButtonClick}
                   disabled={isLoading}
+                  aria-label="follow button"
                 >
                   Follow
                 </Button>
@@ -166,6 +160,7 @@ export default function RedditThreadBanner({
                     <Button
                       variant="ghost"
                       size="sm"
+                      aria-label="dropdown-trigger"
                       className="px-2 py-2 border-2 border-black rounded-full hover:bg-gray-200 transition bg-white text-black"
                     >
                       <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
@@ -180,6 +175,7 @@ export default function RedditThreadBanner({
                       <DropdownMenuItem asChild>
                         <button
                           onClick={handleEditClick}
+                          aria-label="edit-trigger"
                           className="text-black w-full hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
                         >
                           Edit
@@ -191,6 +187,7 @@ export default function RedditThreadBanner({
                     <DropdownMenuItem asChild>
                       <button
                         onClick={handleViewAdminsClick}
+                        aria-label="admins-trigger"
                         className="bg-blue-200 w-full hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
                       >
                         Admins

@@ -98,7 +98,7 @@ export function StepTwo({
       <div className="flex flex-col sm:flex-row sm:space-x-8 gap-4 sm:gap-0 sm:space-y-2">
         <div className="w-full sm:w-1/2 space-y-4 order-2 sm:order-1">
           <div>
-            <h3 className="text-lg font-bold mb-4">Input</h3>
+            <h1 className="text-lg font-bold mb-4">Input</h1>
             <Label htmlFor="banner">Community Banner</Label>
             <div className="mt-2">
               <Button
@@ -108,6 +108,7 @@ export function StepTwo({
                 }
                 disabled={isUploading}
                 className="w-full sm:w-auto"
+                aria-label="upload banner button"
               >
                 <Upload className="mr-2 h-4 w-4" />
                 {isUploading ? "Uploading..." : "Upload Banner"}
@@ -139,6 +140,7 @@ export function StepTwo({
                 onClick={() => document.getElementById("icon-upload")?.click()}
                 disabled={isUploading}
                 className="w-full sm:w-auto"
+                aria-label="upload icon button"
               >
                 <Upload className="mr-2 h-4 w-4" />
                 {isUploading ? "Uploading..." : "Upload Icon"}
@@ -182,7 +184,7 @@ export function StepTwo({
         </div>
 
         <div className="w-full sm:w-1/2 order-1 sm:order-2">
-          <h3 className="text-lg font-semibold mb-4">Preview</h3>
+          <h1 className="text-lg font-semibold mb-4">Preview</h1>
           <div className="relative">
             {previewBanner ? (
               <div className="w-full h-32 relative">
@@ -233,6 +235,7 @@ export function StepTwo({
         <button
           onClick={() => nextStep((prev) => prev - 1)}
           className="rounded-full bg-black text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
+          aria-label="back-trigger"
         >
           Back
         </button>
@@ -244,6 +247,7 @@ export function StepTwo({
               ? "bg-gray-600 cursor-not-allowed"
               : "bg-blue-900 hover:text-gray-400 hover:scale-105"
           } text-white px-4 py-1 transition`}
+          aria-label="next-trigger"
         >
           Next
         </button>

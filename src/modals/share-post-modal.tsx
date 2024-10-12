@@ -39,7 +39,12 @@ const SharePostModal = () => {
             value={shareableLink}
             className="flex-grow"
           />
-          <Button size="sm" className="px-3" onClick={copyToClipboard}>
+          <Button
+            size="sm"
+            className="px-3"
+            onClick={copyToClipboard}
+            aria-label="copy button"
+          >
             <span className="sr-only">Copy</span>
             {isCopied ? (
               <Check className="h-4 w-4 text-green-400" />

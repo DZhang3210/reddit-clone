@@ -50,6 +50,7 @@ export const useConfirm = (
             onClick={handleCancel}
             variant="outline"
             className="text-white border-2 border-white hover:bg-white order-2 sm:order-1"
+            aria-label="cancel button"
           >
             Cancel
           </Button>
@@ -57,6 +58,7 @@ export const useConfirm = (
             onClick={handleConfirm}
             variant="outline"
             className="text-white border-2 bg-black border-white hover:bg-white index-1 sm:order-2"
+            aria-label="confirm button"
           >
             Confirm
           </Button>

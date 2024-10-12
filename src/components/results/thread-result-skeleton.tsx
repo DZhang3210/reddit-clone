@@ -3,7 +3,7 @@ import { Card, CardContent } from "../ui/card";
 
 const ThreadResultSkeleton = () => {
   return (
-    <button className="w-full">
+    <button className="w-full" aria-label="thread-result-skeleton">
       <Card className="overflow-hidden">
         <CardContent className="px-4 py-1 bg-gray-200 rounded-md">
           <div className="flex items-center space-x-2 justify-start rounded-md p-0">

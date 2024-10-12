@@ -24,9 +24,9 @@ const ThreadsPage = () => {
 
   return (
     <div className="w-full flex flex-col">
-      <h3 className="text-5xl mt-5 ml-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600">
+      <h1 className="text-5xl mt-5 ml-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600">
         Explore Threads
-      </h3>
+      </h1>
       <div className="ml-8 my-5 font-semibold text-gray-700 text-2xl">
         Recommended for you
       </div>

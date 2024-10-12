@@ -23,9 +23,9 @@ export function StepFour({
 }: StepFourProps) {
   return (
     <div className="space-y-4 bg-gray-800/80 p-5 rounded-xl w-full max-w-4xl text-gray-300 pb-20">
-      <h3 className="text-lg font-semibold capitalize">
+      <h1 className="text-lg font-semibold capitalize">
         This is what your thread will look like
-      </h3>
+      </h1>
 
       <div className="w-full">
         <div className="relative">
@@ -78,6 +78,7 @@ export function StepFour({
           onClick={() => nextStep((prev) => prev - 1)}
           className="rounded-full bg-black text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
           disabled={loading}
+          aria-label="back-trigger"
         >
           Back
         </button>
@@ -85,6 +86,7 @@ export function StepFour({
           onClick={() => onSubmit()}
           className="rounded-full bg-blue-900 text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
           disabled={loading}
+          aria-label="submit-trigger"
         >
           Submit
         </button>

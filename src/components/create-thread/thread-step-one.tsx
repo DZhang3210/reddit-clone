@@ -40,7 +40,7 @@ export function StepOne({
 
         <div className="w-full space-y-4 order-2 md:order-1">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Input</h3>
+            <h1 className="text-lg font-semibold mb-4">Input</h1>
             <Label htmlFor="name">Community Name</Label>
             <Input
               id="name"
@@ -62,7 +62,7 @@ export function StepOne({
           </div>
         </div>
         <div className="w-full order-1 md:order-2">
-          <h3 className="text-lg font-semibold mb-4">Preview</h3>
+          <h1 className="text-lg font-semibold mb-4">Preview</h1>
           <div className="relative ">
             <div className="w-full h-32 bg-gray-700 rounded-t-lg relative overflow-hidden">
               {!previewBanner ? (
@@ -114,6 +114,7 @@ export function StepOne({
         <button
           onClick={() => nextStep((prev) => prev - 1)}
           className="rounded-full bg-black text-white px-4 py-1 hover:text-gray-400 hover:scale-105 transition"
+          aria-label="back-trigger"
         >
           Back
         </button>
@@ -125,6 +126,7 @@ export function StepOne({
               ? "bg-blue-900 text-white hover:text-gray-400 hover:scale-105"
               : "bg-gray-600 text-gray-400 cursor-not-allowed"
           }`}
+          aria-label="next-trigger"
         >
           Next
         </button>

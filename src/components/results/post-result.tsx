@@ -16,7 +16,7 @@ const ResultItem = ({ post }: { post: Post }) => {
   };
 
   return (
-    <button onClick={handleClick}>
+    <button onClick={handleClick} aria-label="post-result">
       <Card className="overflow-hidden">
         <CardContent className="px-2 py-1 bg-gray-200 rounded-md">
           <div className="flex items-center space-x-2 justify-start rounded-md p-0">

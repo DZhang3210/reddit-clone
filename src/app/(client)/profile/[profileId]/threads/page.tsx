@@ -9,7 +9,7 @@ const ThreadsPage = () => {
   if (threadsLoading || !threads) {
     return (
       <div className="w-full flex flex-col justify-center items-center ">
-        <h3 className="text-6xl">Threads</h3>
+        <h1 className="text-6xl">Threads</h1>
         <div className="w-full grid grid-cols-2 gap-4">
           <ThreadBannerSkeleton />
           <ThreadBannerSkeleton />
@@ -21,7 +21,7 @@ const ThreadsPage = () => {
   }
   return (
     <div className="w-full flex flex-col">
-      <h3 className="text-6xl">Threads</h3>
+      <h1 className="text-6xl">Threads</h1>
       <div className="w-full grid grid-cols-2">
         {threads?.map(
           (

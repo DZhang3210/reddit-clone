@@ -43,7 +43,10 @@ export default function AloneRedditComment({
               <div className="flex items-center gap-2">
                 <Link href={`/thread/${comment.thread._id}`}>
                   <Avatar>
-                    <AvatarImage src={comment.image || ""} />
+                    <AvatarImage
+                      src={comment.image || ""}
+                      alt="comment image"
+                    />
                     <AvatarFallback>
                       {comment.thread?.title?.[0].toUpperCase()}
                     </AvatarFallback>
@@ -73,6 +76,7 @@ export default function AloneRedditComment({
         </CardContent>
         <CardFooter className="px-4 py-1 flex items-center space-x-4">
           <Button
+            aria-label="vote button"
             variant="ghost"
             size="sm"
             className={`px-2 ${comment.isLiked ? "text-orange-500" : ""}`}
