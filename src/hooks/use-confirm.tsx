@@ -38,7 +38,10 @@ export const useConfirm = (
 
   const ConfirmDialog = () => (
     <Dialog open={promise !== null}>
-      <DialogContent className="bg-gray-900 p-4">
+      <DialogContent
+        className="bg-gray-900 p-4"
+        aria-describedby="confirm dialog"
+      >
         <DialogHeader>
           <DialogTitle className="text-white">{title}</DialogTitle>
           <DialogDescription className="text-white">

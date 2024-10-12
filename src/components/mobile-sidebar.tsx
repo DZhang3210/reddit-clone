@@ -1,6 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { useGetUserThreads } from "@/features/profile/api/use-get-user-threads";
 import { usePathname } from "next/navigation";
 import useToggleThread from "@/hooks/create-thread-hook";
@@ -62,7 +67,12 @@ const MobileSidebar = () => {
           <AlignJustify size={40} className="text-white" />
         </button>
       </SheetTrigger>
-      <SheetContent side="left" className="bg-black w-[60%] overflow-y-auto">
+      <SheetContent
+        side="left"
+        className="bg-black w-[60%] overflow-y-auto"
+        aria-describedby="mobile sidebar"
+      >
+        <SheetTitle className="sr-only">mobile sidebar</SheetTitle>
         <div className="left-0 bottom-0 w-full bg-black">
           <Link
             href="/"

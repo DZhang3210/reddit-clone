@@ -1,4 +1,9 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import Image from "next/image";
 
 interface ThumbnailProps {
@@ -20,7 +25,11 @@ export const Thumbnail = ({ url }: ThumbnailProps) => {
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="max-w-[800px] w-full h-[600px] border-none bg-transparent p-0 shadow-none">
+      <DialogContent
+        className="max-w-[800px] w-full h-[600px] border-none bg-transparent p-0 shadow-none"
+        aria-describedby="thumbnail"
+      >
+        <DialogTitle className="sr-only">thumbnail</DialogTitle>
         <div className="relative w-full h-full">
           <Image
             src={url}

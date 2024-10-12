@@ -270,11 +270,11 @@ export default function RedditCreatePost() {
               ) : (
                 <>
                   <Image
-                    src="/placeholder-image.png" // Replace with your placeholder image path
+                    src="/placeholder-image.webp"
                     alt="Upload placeholder"
-                    width={48}
-                    height={48}
-                    className="mb-4 text-gray-400"
+                    width={80}
+                    height={80}
+                    className="mb-4 text-gray-400 rounded-full"
                   />
                   <p>
                     {imageFile
