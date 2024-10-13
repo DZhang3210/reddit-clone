@@ -30,7 +30,7 @@ const ThreadsPage = () => {
       <div className="ml-8 my-5 font-semibold text-gray-700 text-2xl">
         Recommended for you
       </div>
-      <div className="w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5 gap-4 px-12">
+      <div className="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-5 gap-4 px-12">
         {threads?.map(
           (
             thread: any // eslint-disable-line @typescript-eslint/no-explicit-any
