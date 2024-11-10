@@ -25,19 +25,19 @@ const ThreadModal = () => {
 
   return (
     <Modal isOpen={searchPost.searchQuery !== null} onClose={searchPost.setOff}>
-      <div className="flex flex-col h-screen max-h-screen pt-16">
+      <div className="flex flex-col h-[80vh] justify-between">
         <div className="flex justify-center items-center">
           <h1 className="text-2xl font-bold text-white capitalize">
             Search for a thread or post!
           </h1>
         </div>
-        <div className="relative mx-4 flex items-center rounded-full h-[40px] my-4">
-          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
+        <div className="relative mx-4 flex items-center rounded-full  h-[40px] border border-white">
+          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white" />
           <Input
             //   ref={inputRef}
             type="text"
             placeholder="Type to search..."
-            className="pl-8 pr-4 text-white"
+            className="pl-8 pr-4 text-white border-none indent-4"
             value={searchPost.searchQuery || ""}
             onChange={(e) => searchPost.setSearchQuery(e.target.value)}
           />
