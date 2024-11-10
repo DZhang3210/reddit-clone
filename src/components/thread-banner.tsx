@@ -14,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
-import useViewThreadAdmins from "@/hooks/view-thread-admins-hook";
 
 interface RedditThreadBannerProps {
   backgroundImage?: string | null;
@@ -44,7 +43,6 @@ export default function RedditThreadBanner({
   const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
   const { setMany, setOn } = useToggleThread();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const viewAdmins = useViewThreadAdmins();
 
   const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -67,18 +65,9 @@ export default function RedditThreadBanner({
     });
     setOn();
   };
-  const handleViewAdminsClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDropdownOpen(false);
-    viewAdmins.setThreadId(threadId);
-  };
 
   return (
-    <Link
-      href={`/thread/${threadId}`}
-      className="transition hover:scale-[101%] container"
-    >
+    <Link href={`/thread/${threadId}`} className="transition w-full">
       <div className="w-full cursor-pointer">
         <div className="relative">
           <div className="w-full h-[10rem] bg-gray-700 overflow-hidden">
@@ -185,14 +174,14 @@ export default function RedditThreadBanner({
                     )}
 
                     <DropdownMenuItem asChild>
-                      <button
-                        onClick={handleViewAdminsClick}
+                      <Link
+                        href={`/admin/${threadId}`}
                         aria-label="admins-trigger"
                         className="bg-blue-200 w-full hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
                       >
                         Admins
                         <ShieldCheck className="h-4 w-4 ml-2" />
-                      </button>
+                      </Link>
                     </DropdownMenuItem>
 
                     {/* Add more dropdown items as needed */}

@@ -35,12 +35,18 @@ export function StepOne({
 
   return (
     <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full  text-gray-300 max-w-4xl overflow-y-auto pb-20">
-      <div className="flex space-y-4 gap-4 flex-col md:flex-row">
+      <div>
+        <h1 className="text-2xl font-bold">Tell us about your community</h1>
+        <p className="text-sm text-gray-400">
+          A name and description help people understand what your community is
+          all about.
+        </p>
+      </div>
+      <div className="flex space-y-4 gap-10 flex-col md:flex-row">
         {/* Preview section */}
 
         <div className="w-full space-y-4 order-2 md:order-1">
           <div>
-            <h1 className="text-lg font-semibold mb-4">Input</h1>
             <Label htmlFor="name">Community Name</Label>
             <Input
               id="name"
@@ -62,7 +68,6 @@ export function StepOne({
           </div>
         </div>
         <div className="w-full order-1 md:order-2">
-          <h1 className="text-lg font-semibold mb-4">Preview</h1>
           <div className="relative ">
             <div className="w-full h-32 bg-gray-700 rounded-t-lg relative overflow-hidden">
               {!previewBanner ? (

@@ -257,7 +257,9 @@ export default function RedditPostCard({
           <Link href={`/post/${postId}`}>
             <h2 className="text-2xl font-bold mb-2 hover:underline">{title}</h2>
           </Link>
-
+          <div className="mb-4">
+            <ReadOnly content={content} />
+          </div>
           {image && (
             <button
               className="w-full aspect-square relative overflow-hidden rounded-md border-2 border-black mb-2"
@@ -274,9 +276,6 @@ export default function RedditPostCard({
               />
             </button>
           )}
-          <div className="mb-4">
-            <ReadOnly content={content} />
-          </div>
         </CardContent>
         <CardFooter className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
