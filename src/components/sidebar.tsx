@@ -38,22 +38,24 @@ const Sidebar = () => {
       <Link
         href={href}
         className={cn(
-          "text-lg xl:text-2xl text-white transition-all duration-300 border-2 rounded-2xl p-3 border-transparent hover:border-gray-500 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2",
+          "text-base transition-all duration-300 border-2 rounded-2xl p-[0.6rem] border-transparent hover:border-gray-600 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2 text-gray-200",
           isActive && "bg-gray-800 border-gray-500"
         )}
       >
-        <Icon size={28} className={cn(isActive && "text-white-500")} />
-        <span className={cn(isActive && "font-bold")}>{children}</span>
+        <Icon size={20} className={cn(isActive && "text-white")} />
+        <span className={cn(isActive && "font-bold text-white")}>
+          {children}
+        </span>
       </Link>
     );
   };
 
   return (
     <div
-      className="hidden md:block left-0 bottom-0 h-[calc(100vh-120px)] bg-black 
-    md:w-[10rem] xl:w-[18rem] overflow-y-auto"
+      className="hidden md:block left-0 bottom-0 h-[calc(100vh-80px)] bg-black 
+    md:w-[14rem] xl:w-[16rem] overflow-y-auto"
     >
-      <div className="flex flex-col items-start justify-start py-4 px-2 space-y-1 xl:space-y-2 ">
+      <div className="flex flex-col items-start justify-start py-4 px-2 space-y-0 xl:space-y-1 text-base">
         <NavLink href="/posts" icon={Home}>
           Home
         </NavLink>
@@ -68,10 +70,10 @@ const Sidebar = () => {
 
         {/* Communities */}
         <div
-          className="flex justify-between w-full px-2 items-center mt-[10rem] transition-all duration-300 hover:bg-gray-700 cursor-pointer py-4 rounded-lg text-white"
+          className="flex justify-between w-full px-2 items-center mt-[10rem] transition-all duration-300 hover:bg-gray-700 cursor-pointer py-4 rounded-lg text-gray-300"
           onClick={() => setCommunitiesTab((prev) => !prev)}
         >
-          <span className="text-lg xl:text-xl text-foreground uppercase">
+          <span className="text-base xl:text-base text-gray-400 uppercase">
             Threads
           </span>
           {communitiesTab ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
@@ -83,15 +85,15 @@ const Sidebar = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="ml-1 flex flex-col gap-2 w-full overflow-hidden"
+              className="flex flex-col gap-2 w-full overflow-hidden"
             >
               <div
-                className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
+                className="flex items-center gap-1 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer text-gray-300"
                 onClick={() => threadModal.setOn()}
               >
-                <Plus size={32} className="text-white" />
-                <span className="text-md xl:text-xl text-white">
-                  Create a Thread
+                <Plus size={20} className="" />
+                <span className="text-md translate-y-[2px]">
+                  Create a thread
                 </span>
               </div>
               {threads ? (
@@ -99,16 +101,16 @@ const Sidebar = () => {
                   <Link
                     key={thread._id}
                     href={`/thread/${thread._id}`}
-                    className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
+                    className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer text-gray-300"
                   >
-                    <Avatar className="h-8 w-8 xl:h-12 xl:w-12">
+                    <Avatar className="h-8 w-8 xl:h-9 xl:w-9">
                       <AvatarImage
                         src={thread.logoImage || ""}
                         alt="thread image"
                       />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <span className="text-md xl:text-xl text-white">
+                    <span className="text-md xl:text-lg text-gray-100">
                       r/{thread.title}
                     </span>
                   </Link>

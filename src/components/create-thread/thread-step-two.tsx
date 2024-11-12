@@ -1,8 +1,7 @@
 import { useState, useCallback } from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Upload } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 import { Input } from "@/components/ui/input";
 import { Id } from "../../../convex/_generated/dataModel";
@@ -94,25 +93,32 @@ export function StepTwo({
   const isNextButtonDisabled = !logoImage || !previewBanner;
 
   return (
-    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full overflow-y-auto text-gray-300 max-w-4xl pb-20">
+    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full overflow-y-auto text-gray-300 max-w-4xl pb-20 max-h-screen ">
+      <div>
+        <h1 className="text-2xl font-bold">Style your community</h1>
+        <p className="text-sm text-gray-400">
+          Adding visual flair will catch new members attention and help
+          establish your community’s culture! You can update this at any time.
+        </p>
+      </div>
       <div className="flex flex-col sm:flex-row sm:space-x-8 gap-4 sm:gap-0 sm:space-y-2">
         <div className="w-full sm:w-1/2 space-y-4 order-2 sm:order-1">
-          <div>
-            <h1 className="text-lg font-bold mb-4">Input</h1>
-            <Label htmlFor="banner">Community Banner</Label>
-            <div className="mt-2">
-              <Button
-                variant="outline"
+          <div className="w-full flex justify-between items-center px-1">
+            <Label htmlFor="banner" className="text-sm text-white">
+              Banner
+            </Label>
+            <div className="mt-2 text-white">
+              <button
                 onClick={() =>
                   document.getElementById("banner-upload")?.click()
                 }
                 disabled={isUploading}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto flex items-center justify-center gap-1 text-sm"
                 aria-label="upload banner button"
               >
-                <Upload className="mr-2 h-4 w-4" />
-                {isUploading ? "Uploading..." : "Upload Banner"}
-              </Button>
+                <ImageIcon className="mr-2 h-4 w-4" />
+                {isUploading ? "Adding..." : "Add"}
+              </button>
               <input
                 id="banner-upload"
                 type="file"
@@ -121,30 +127,31 @@ export function StepTwo({
                 onChange={(e) => handleFileUpload(e, "banner")}
               />
             </div>
-            {previewBanner && (
-              <div className="mt-2 max-h-32 w-full relative aspect-[3/1]">
-                <Image
-                  src={previewBanner}
-                  alt="Banner preview"
-                  fill
-                  className="object-cover rounded"
-                />
-              </div>
-            )}
           </div>
-          <div>
-            <Label htmlFor="icon">Community Icon</Label>
-            <div className="mt-2">
-              <Button
-                variant="outline"
+          {previewBanner && (
+            <div className="mt-2 max-h-20 w-full relative aspect-[3/1]">
+              <Image
+                src={previewBanner}
+                alt="Banner preview"
+                fill
+                className="object-cover rounded"
+              />
+            </div>
+          )}
+          <div className="flex justify-between items-center px-1">
+            <Label htmlFor="icon" className="text-sm text-white">
+              Icon
+            </Label>
+            <div className="mt-2 text-white">
+              <button
                 onClick={() => document.getElementById("icon-upload")?.click()}
                 disabled={isUploading}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto flex items-center justify-center gap-1 text-sm"
                 aria-label="upload icon button"
               >
-                <Upload className="mr-2 h-4 w-4" />
-                {isUploading ? "Uploading..." : "Upload Icon"}
-              </Button>
+                <ImageIcon className="mr-2 h-4 w-4" />
+                {isUploading ? "Adding..." : "Add"}
+              </button>
               <input
                 id="icon-upload"
                 type="file"
@@ -153,22 +160,24 @@ export function StepTwo({
                 onChange={(e) => handleFileUpload(e, "icon")}
               />
             </div>
-            {logoImage && (
-              <div className="mt-2 w-20 h-20 relative">
-                <Image
-                  src={logoImage}
-                  alt="Icon preview"
-                  fill
-                  className="object-cover rounded-full"
-                />
-              </div>
-            )}
           </div>
-          <div>
-            <Label htmlFor="icon">Banner Color</Label>
+          {logoImage && (
+            <div className="mt-2 w-16 h-16 relative">
+              <Image
+                src={logoImage}
+                alt="Icon preview"
+                fill
+                className="object-cover rounded-full"
+              />
+            </div>
+          )}
+          <div className="flex justify-between items-center px-1">
+            <Label htmlFor="icon" className="text-sm text-white">
+              Color
+            </Label>
             <div className="mt-2 flex items-center space-x-2">
               <div
-                className="w-10 h-10 rounded-full"
+                className="w-9 h-9 rounded-full border border-white"
                 style={{ backgroundColor: bannerColor }}
               ></div>
               <Input
@@ -184,7 +193,6 @@ export function StepTwo({
         </div>
 
         <div className="w-full sm:w-1/2 order-1 sm:order-2">
-          <h1 className="text-lg font-semibold mb-4">Preview</h1>
           <div className="relative">
             {previewBanner ? (
               <div className="w-full h-32 relative">

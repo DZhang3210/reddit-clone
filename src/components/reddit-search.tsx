@@ -22,7 +22,7 @@ const RedditSearch = () => {
 
   return (
     <div
-      className="sm:flex-1 max-w-xl mx-4 h-1/2 border rounded-full"
+      className="sm:flex-1 max-w-xl mx-4 h-1/2 rounded-full"
       onClick={handleClick}
     >
       <form
@@ -34,13 +34,13 @@ const RedditSearch = () => {
           onClick={handleClick}
           aria-label="search-trigger"
         >
-          <Search size={30} />
+          <Search size={22} className="text-white" />
         </button>
         <Input
           ref={inputRef}
           type="text"
           placeholder="Search for your favorite threads!"
-          className="w-full h-full text-white text-lg rounded-full placeholder:text-lg border-0 outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 hidden sm:block"
+          className="w-full h-full text-white text-lg rounded-full placeholder:text-base placeholder:text-gray-400 border-0 outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 hidden sm:block"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

@@ -105,6 +105,11 @@ body {
   /* caret-color: black; */
   @apply focus:outline-none focus:outline-2 rounded-b-xl;
 }
+
+.has-focus {
+  @apply border-gray-400;
+}
+
 .tiptap {
   :first-child {
     margin-top: 0;

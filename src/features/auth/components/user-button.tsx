@@ -3,7 +3,6 @@ import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Loader, LogOut, Plus, Users } from "lucide-react";
@@ -28,76 +27,67 @@ const UserButton = () => {
     return null;
   }
 
-  const { name, image, email } = data;
+  const { name, image } = data;
   const avatarFallback = name!.charAt(0).toUpperCase();
 
   // const router = useRouter();
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger className="outline-none relative">
-        <Avatar className="size-[70px] hover:opacity-75 transition">
+        <Avatar className="size-[35px] hover:opacity-75 transition">
           <AvatarImage alt={name} src={image} />
           <AvatarFallback>{avatarFallback}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-80 bg-black text-white *:p-6">
-        <DropdownMenuItem
-          className="cursor-pointer text-lg flex items-center group hover:bg-white"
-          asChild
-        >
+      <DropdownMenuContent
+        className="w-52 bg-black text-white *:p-3 border-none overflow-hidden"
+        align="end"
+        sideOffset={5}
+      >
+        <div className="cursor-pointer text-lg flex items-center group ">
           <div
-            className="flex items-center space-x-4"
+            className="items-center grid grid-cols-5 w-full h-full"
             onClick={() => router.push(`/profile/${data._id}/overview`)}
           >
-            <Avatar className="size-[50px] hover:opacity-75 transition">
-              <AvatarImage alt={name} src={image} />
-              <AvatarFallback>{avatarFallback}</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col">
-              <p className="text-lg font-bold text-gray-100 group-hover:text-black transition">
-                {name}
+            <div className="flex items-center h-full w-full justify-center col-span-1 -translate-x-2">
+              <Avatar className="size-[40px] hover:opacity-75 transition">
+                <AvatarImage alt={name} src={image} />
+                <AvatarFallback>{avatarFallback}</AvatarFallback>
+              </Avatar>
+            </div>
+            <div className="flex flex-col w-full col-span-4 ">
+              <p className="text-base font-semibold text-gray-300  truncate group-hover:text-white transition">
+                View profile
               </p>
-              <p className="text-sm text-gray-400">{email}</p>
+              <p className="text-xs text-gray-400 truncate">r/{name}</p>
             </div>
           </div>
-        </DropdownMenuItem>
+        </div>
 
-        <DropdownMenuItem
-          className="cursor-pointer text-xl flex items-center"
-          asChild
+        <div
+          className="cursor-pointer text-base  items-center text-gray-300 grid grid-cols-5 hover:text-white transition group"
+          onClick={threadOn}
         >
-          <div
-            // href="/create/thread"
-            onClick={threadOn}
-            className="flex"
-          >
-            <Users className="size-8 mr-2" />
-            Create Thread
-          </div>
-        </DropdownMenuItem>
+          <Users className="size-5 col-span-1" />
+          <span className="col-span-4">Create Thread</span>
+        </div>
 
-        <DropdownMenuItem
-          className="cursor-pointer text-xl flex items-center"
-          asChild
+        <div
+          className="cursor-pointer text-base grid grid-cols-5 items-center text-gray-300 hover:text-white transition group"
+          onClick={postOn}
         >
-          <div
-            onClick={postOn}
-            // href="/create/post"
-            className="flex"
-          >
-            <Plus className="size-8 mr-2" />
-            Create Post
-          </div>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="cursor-pointer text-xl flex items-center"
+          <Plus className="size-5 col-span-1" />
+          <span className="col-span-4">Create Post</span>
+        </div>
+        <div
+          className="cursor-pointer text-base grid grid-cols-5  items-center text-gray-300 hover:text-white transition group"
           onClick={() => {
             signOut();
           }}
         >
-          <LogOut className="size-8 mr-2" />
-          Log out
-        </DropdownMenuItem>
+          <LogOut className="size-5 col-span-1" />
+          <span className="col-span-4">Log out</span>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

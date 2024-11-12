@@ -11,7 +11,7 @@ export default function RootLayout({
       <RedditNavbar />
       <div className="flex w-full">
         <Sidebar />
-        <div className="w-full md:w-[calc(100vw-12rem)] xl:w-[calc(100vw-12rem)] h-[calc(100vh-120px)] overflow-y-auto">
+        <div className="w-full md:w-[calc(100vw-14rem)] xl:w-[calc(100vw-16rem)] h-[calc(100vh-80px)] overflow-y-auto ">
           {children}
         </div>
       </div>

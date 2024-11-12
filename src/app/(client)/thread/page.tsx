@@ -23,8 +23,8 @@ const ThreadsPage = () => {
   }
 
   return (
-    <div className="w-full flex flex-col">
-      <h1 className="text-5xl mt-5 ml-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600">
+    <div className="w-full flex flex-col px-4">
+      <h1 className="text-5xl pt-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600">
         Explore Threads
       </h1>
       <div className="ml-8 my-5 font-semibold text-gray-700 text-2xl">

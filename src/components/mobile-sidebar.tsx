@@ -49,13 +49,15 @@ const MobileSidebar = () => {
       <Link
         href={href}
         className={cn(
-          "text-lg xl:text-2xl text-white transition-all duration-300 border-2 rounded-2xl p-3 border-transparent hover:border-gray-500 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2 ",
+          "text-base transition-all duration-300 border-2 rounded-2xl p-[0.6rem] border-transparent hover:border-gray-600 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2 text-gray-300",
           isActive && "bg-gray-800 border-gray-500"
         )}
         onClick={closeSheet}
       >
-        <Icon size={28} className={cn(isActive && "text-white")} />
-        <span className={cn(isActive && "font-bold")}>{children}</span>
+        <Icon size={20} className={cn(isActive && "text-white")} />
+        <span className={cn(isActive && "font-bold text-white")}>
+          {children}
+        </span>
       </Link>
     );
   };
@@ -64,12 +66,12 @@ const MobileSidebar = () => {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <button onClick={() => setIsOpen(true)} aria-label="sidebar-trigger">
-          <AlignJustify size={40} className="text-white" />
+          <AlignJustify size={30} className="text-white" />
         </button>
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="bg-black w-[60%] overflow-y-auto"
+        className="bg-black w-[60%] overflow-y-auto border-none"
         aria-describedby="mobile sidebar"
       >
         <SheetTitle className="sr-only">mobile sidebar</SheetTitle>
@@ -85,7 +87,7 @@ const MobileSidebar = () => {
               <h1 className="text-3xl font-bold text-white ">reddit</h1>
             </div>
           </Link>
-          <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-2">
+          <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-0">
             <NavLink href="/posts" icon={Home}>
               Home
             </NavLink>
@@ -103,7 +105,7 @@ const MobileSidebar = () => {
               className="flex justify-between w-full px-2 items-center mt-[10rem] transition-all duration-300 hover:bg-gray-700 cursor-pointer py-4 rounded-lg text-white"
               onClick={() => setCommunitiesTab((prev) => !prev)}
             >
-              <span className="text-lg text-foreground uppercase">Threads</span>
+              <span className="text-sm text-gray-400 uppercase">Threads</span>
               {communitiesTab ? (
                 <ChevronUp size={24} />
               ) : (
@@ -120,12 +122,12 @@ const MobileSidebar = () => {
                   className="ml-1 flex flex-col gap-2 w-full overflow-hidden"
                 >
                   <div
-                    className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
+                    className="flex items-center gap-1 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer text-gray-300"
                     // href="/create/thread"
                   >
-                    <Plus size={40} className="text-white" />
+                    <Plus size={20} className="" />
                     <span
-                      className="text-lg text-white"
+                      className="text-sm"
                       onClick={() => threadModal.setOn()}
                     >
                       Create a Thread
@@ -146,14 +148,14 @@ const MobileSidebar = () => {
                             className="flex items-center gap-2 rounded-lg w-full transition-all duration-300 p-2 hover:bg-gray-700 cursor-pointer"
                             onClick={closeSheet}
                           >
-                            <Avatar>
+                            <Avatar className="h-8 w-8 xl:h-9 xl:w-9">
                               <AvatarImage
                                 src={thread.logoImage || ""}
                                 alt="thread image"
                               />
                               <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                            <span className="text-lg text-white">
+                            <span className="text-sm text-gray-100">
                               r/{thread.title}
                             </span>
                           </Link>

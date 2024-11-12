@@ -23,9 +23,12 @@ export function StepFour({
 }: StepFourProps) {
   return (
     <div className="space-y-4 bg-gray-800/80 p-5 rounded-xl w-full max-w-4xl text-gray-300 pb-20">
-      <h1 className="text-lg font-semibold capitalize">
-        This is what your thread will look like
-      </h1>
+      <div>
+        <h1 className="text-2xl font-bold">Preview your community</h1>
+        <p className="text-sm text-gray-400">
+          First impressions matter! Make sure your community looks great.
+        </p>
+      </div>
 
       <div className="w-full">
         <div className="relative">

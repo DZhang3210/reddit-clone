@@ -11,12 +11,12 @@ import MobileSidebar from "./mobile-sidebar";
 export default function RedditNavbar() {
   const postModal = useTogglePost();
   return (
-    <nav className="bg-gray-900 border-b-4 h-[120px] flex items-center justify-between sticky top-0 z-50 border-orange-500 px-5">
+    <nav className="bg-gray-900  h-[80px] flex items-center justify-between sticky top-0 z-50 px-8">
       <Link href="/" className="hidden md:block">
-        <div className="flex items-center space-x-1 text-orange-500">
+        <div className="flex items-center space-x-2 text-orange-500">
           {/* Reddit Logo */}
-          <FaReddit size={50} />
-          <h1 className="text-3xl font-bold text-white hidden md:block">
+          <FaReddit size={35} />
+          <h1 className="text-2xl font-bold text-white hidden md:block">
             reddit
           </h1>
         </div>
@@ -27,23 +27,21 @@ export default function RedditNavbar() {
       <RedditSearch />
 
       {/* Right side buttons */}
-      <div className="flex items-center space-x-8">
+      <div className="flex items-center space-x-3">
         <Button
           onClick={() => postModal.setOn()}
-          className="items-center bg-gray-800 text-gray-200 rounded-full hover:bg-gray-700 text-xl py-3 px-3 cursor-pointer hidden lg:flex"
+          className="items-center bg-gray-800 text-gray-400 rounded-full hover:text-gray-200 text-lg py-3 px-3 cursor-pointer hidden lg:flex"
           aria-label="Create Post"
         >
-          <Plus className="h-6 w-6 mr-1" />
+          <Plus className="h-6 w-6 mr-1 " />
           Create
         </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="hidden lg:block text-gray-200 hover:bg-gray-800"
+        <button
+          className="hidden lg:block text-gray-400 hover:text-gray-200"
           aria-label="Notifications"
         >
-          <Bell className="h-8 w-8" />
-        </Button>
+          <Bell className="h-6 w-6" />
+        </button>
         <UserButton />
       </div>
     </nav>

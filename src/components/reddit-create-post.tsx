@@ -15,7 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
 import { FileText, Image as ImageIcon, Upload, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
@@ -42,10 +41,8 @@ export default function RedditCreatePost() {
   const [imageId, setImageId] = useState<Id<"_storage"> | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(editPost.image);
   const [isUploading, setIsUploading] = useState(false);
-
   const { mutate: generateUploadUrl } = useGenerateUploadUrl();
   const [activeTab, setActiveTab] = useState("text");
-
   const { data: threads, isLoading: threadsLoading } = useGetAllThreads();
   const { mutate: createPost, isPending: creatingPost } = useCreatePost();
   const postModal = useTogglePost();
@@ -164,10 +161,10 @@ export default function RedditCreatePost() {
   };
 
   return (
-    <Card className="w-full mx-auto bg-gray-800 text-white border-transparent overflow-y-auto max-h-screen pt-10 sm:pt-0">
-      <CardContent className="p-4 mb-0 ">
-        <CardHeader className="text-xl xl:text-2xl font-semibold ">
-          Create Your Amazing Post
+    <Card className="w-full mx-auto bg-gray-800 text-white border-transparent overflow-y-auto max-h-screen pt-10 sm:pt-0 rounded-3xl">
+      <CardContent className="mb-0 ">
+        <CardHeader className="text-xl xl:text-2xl font-semibold text-gray-100">
+          Create Post
         </CardHeader>
 
         {threadsLoading || communities ? (
@@ -213,35 +210,35 @@ export default function RedditCreatePost() {
           </TabsList>
           <TabsContent value="text" className="mt-0 space-y-4 w-full">
             <div>
-              <Label htmlFor="title" className="text-white text-lg">
-                Post Title
-              </Label>
+              <div className="text-white text-sm">Title</div>
               <Input
                 id="title"
-                placeholder="Enter your post title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="bg-gray-700 text-white border-gray-600"
+                className="bg-gray-700 text-white border-gray-600 focus:border-gray-400
+                focus:ring-0
+                transition-colors
+                placeholder:text-sm mt-2 rounded-3xl"
               />
             </div>
             <div>
               <div className="container mx-auto">
-                <h1 className="text-lg mb-4">Rich Text Editor</h1>
+                <h1 className="text-sm mb-4">Body</h1>
                 {memoizedRichTextEditor}
               </div>
             </div>
           </TabsContent>
           <TabsContent value="image" className="mt-0 space-y-4 w-full">
             <div>
-              <Label htmlFor="image-title" className="text-white">
-                Image Title
-              </Label>
+              <div className="text-white text-sm">Image Title</div>
               <Input
                 id="image-title"
-                placeholder="Enter your image title"
                 value={imageTitle}
                 onChange={(e) => setImageTitle(e.target.value)}
-                className="bg-gray-700 text-white border-gray-600"
+                className="bg-gray-700 text-white border-gray-600 focus:border-gray-400
+                focus:ring-0
+                transition-colors
+                placeholder:text-sm mt-2 rounded-3xl"
               />
             </div>
             <div
@@ -276,7 +273,7 @@ export default function RedditCreatePost() {
                     height={80}
                     className="mb-4 text-gray-400 rounded-full"
                   />
-                  <p>
+                  <p className="text-sm text-gray-400">
                     {imageFile
                       ? imageFile.name
                       : "Drag and drop your image here, or click to select"}
@@ -287,7 +284,7 @@ export default function RedditCreatePost() {
                 variant="outline"
                 onClick={() => document.getElementById("image-upload")?.click()}
                 disabled={isUploading}
-                className="mt-4"
+                className="mt-4 text-sm text-gray-200"
                 aria-label="upload image button"
               >
                 <Upload className="mr-2 h-4 w-4" />
@@ -307,18 +304,17 @@ export default function RedditCreatePost() {
           </TabsContent>
         </Tabs>
       </CardContent>
-      <CardFooter className="flex justify-between bg-gray-800">
-        <Button
-          variant="outline"
-          className="border-gray-600 text-white hover:bg-gray-700"
+      <CardFooter className="w-full flex justify-between bg-gray-800 px-8">
+        <button
+          className=" text-white hover:text-gray-400 text-sm transition"
           onClick={() => postModal.setOff()}
           aria-label="cancel button"
         >
           Cancel
-        </Button>
-        <Button
+        </button>
+        <button
           onClick={() => handleSubmit()}
-          className="bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-full px-4 py-2 text-sm"
           disabled={
             !title ||
             !textContent ||
@@ -328,7 +324,7 @@ export default function RedditCreatePost() {
           }
         >
           Post
-        </Button>
+        </button>
       </CardFooter>
     </Card>
   );

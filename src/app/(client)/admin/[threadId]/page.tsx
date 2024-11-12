@@ -66,7 +66,7 @@ const ViewThreadAdminsModal = ({
       {adminsData && (
         <div
           className={cn(
-            "flex flex-col gap-4 max-h-screen overflow-y-auto pb-20 pt-10 sm:pt-0 text-black"
+            "flex flex-col gap-4 max-h-screen overflow-y-auto pb-20 sm:pt-0 text-black"
           )}
         >
           <RedditThreadBanner

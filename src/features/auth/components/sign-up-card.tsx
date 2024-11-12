@@ -1,19 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGithub, FaRedditAlien } from "react-icons/fa";
 import { SignInFlow } from "./types";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { TriangleAlert } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
 
 interface SignUpCardProps {
   setState: (state: SignInFlow) => void;
@@ -51,105 +44,113 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
   };
 
   return (
-    <Card className="w-full h-full p-8 bg-[#181C1F] text-white">
-      <CardHeader className="px-0 pt-0">
-        <CardTitle className="text-2xl">Sign up to Continue</CardTitle>
-        <CardDescription className="text-gray-300 text-xl">
-          Use your email or another serve to continue
-        </CardDescription>
-      </CardHeader>
-      {!!error && (
-        <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
-          <TriangleAlert className="size-4" />
-          <p>{error} </p>
+    <div className="w-full h-full flex items-center justify-center bg-[#181C1F]">
+      <div className="w-full h-full p-8 bg-[#181C1F] text-white border-none rounded-none max-w-[550px]">
+        <div className="flex items-center gap-x-2 text-orange-600">
+          <FaRedditAlien className="size-8" />
+          <span className="text-2xl translate-y-[10%]">reddit</span>
         </div>
-      )}
-      <CardContent className="space-y-5 px-0 pb-0">
-        <form className="space-y-2" onSubmit={onPasswordSignUp}>
-          <Input
-            disabled={pending}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Full Name"
-            type="name"
-            className="h-10 text-xl"
-            required
-          />
-          <Input
-            disabled={pending}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            type="email"
-            className="h-10 text-xl"
-            required
-          />
-          <Input
-            disabled={pending}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            type="password"
-            className="h-10 text-xl"
-            required
-          />
-          <Input
-            disabled={pending}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm password"
-            type="password"
-            className="h-10 text-xl"
-            required
-            aria-label="confirm password"
-          />
-          <Button
-            type="submit"
-            className="w-full bg-white text-black hover:bg-gray-400 text-xl font-semibold"
-            size="lg"
-            disabled={pending}
-            aria-label="continue button"
-          >
-            Continue
-          </Button>
-        </form>
-        <Separator />
-        <div className="flex flex-col gap-y-2.5">
-          <Button
-            disabled={pending}
-            onClick={() => handleProviderSignUp("google")}
-            variant="outline"
-            size="lg"
-            className="w-full relative text-xl"
-            aria-label="google button"
-          >
-            <FaGoogle className="size-5 absolute top-2.5 left-2.5" />
-            Continue with Google
-          </Button>
-          <Button
-            disabled={pending}
-            onClick={() => handleProviderSignUp("github")}
-            variant="outline"
-            size="lg"
-            className="w-full relative text-xl"
-            aria-label="github button"
-          >
-            <FaGithub className="size-5 absolute top-2.5 left-2.5" />
-            Continue with Github
-          </Button>
+        <div className="px-0 pt-0 mt-5">
+          <div className="text-2xl">Sign up to Continue</div>
+          <div className="text-gray-400 text-base">
+            Use your email or another serve to continue
+          </div>
         </div>
-        <p className="text-base text-gray-300">
-          Already have an account?{" "}
-          <span
-            className="text-sky-700 hover:underline cursor-pointer"
-            onClick={() => setState("signIn")}
-            aria-label="sign in button"
-          >
-            Sign In
-          </span>
-        </p>
-      </CardContent>
-    </Card>
+        {!!error && (
+          <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
+            <TriangleAlert className="size-4" />
+            <p>{error} </p>
+          </div>
+        )}
+        <div className="space-y-5 px-0 pb-0 pt-10">
+          <form className="space-y-4" onSubmit={onPasswordSignUp}>
+            <Input
+              disabled={pending}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Full Name"
+              type="name"
+              className="text-base h-12 rounded-none placeholder:text-gray-400 border-gray-400 focus:border-white focus:ring-0 transition-colors placeholder:text-base"
+              required
+            />
+            <Input
+              disabled={pending}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              type="email"
+              className="text-base h-12 rounded-none placeholder:text-gray-400 border-gray-400 focus:border-white focus:ring-0 transition-colors placeholder:text-base"
+              required
+            />
+            <Input
+              disabled={pending}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              type="password"
+              className="text-base h-12 rounded-none placeholder:text-gray-400 border-gray-400 focus:border-white focus:ring-0 transition-colors placeholder:text-base"
+              required
+            />
+            <Input
+              disabled={pending}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm password"
+              type="password"
+              className="text-base h-12 rounded-none placeholder:text-gray-400 border-gray-400 focus:border-white focus:ring-0 transition-colors placeholder:text-base"
+              required
+              aria-label="confirm password"
+            />
+            <Button
+              type="submit"
+              className="w-full bg-white text-black hover:bg-gray-400 text-lg h-12"
+              size="lg"
+              disabled={pending}
+              aria-label="continue button"
+            >
+              Sign Up
+            </Button>
+          </form>
+
+          <div className="flex items-center justify-center text-gray-400 text-base">
+            OR
+          </div>
+          <div className="flex flex-col gap-y-2.5">
+            <Button
+              disabled={pending}
+              onClick={() => handleProviderSignUp("google")}
+              variant="outline"
+              size="lg"
+              className="w-full relative text-lg h-12 bg-white text-black hover:bg-gray-300 gap-3 items-center"
+              aria-label="google button"
+            >
+              <FcGoogle /> Continue with Google
+            </Button>
+            <Button
+              disabled={pending}
+              onClick={() => handleProviderSignUp("github")}
+              variant="outline"
+              size="lg"
+              className="w-full relative text-lg h-12 bg-white text-black hover:bg-gray-300 gap-3 items-center"
+              aria-label="github button"
+            >
+              <FaGithub />
+              Continue with Github
+            </Button>
+          </div>
+          <p className="text-base text-gray-300">
+            Already have an account?{" "}
+            <span
+              className="text-sky-600 hover:underline cursor-pointer"
+              onClick={() => setState("signIn")}
+              aria-label="sign in button"
+            >
+              Sign In
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 
