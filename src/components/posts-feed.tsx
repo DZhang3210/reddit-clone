@@ -1,18 +1,8 @@
 "use client";
-import RedditPostCard from "@/components/reddit-post-card";
 import React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { ChevronDownIcon, Dog, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Dog, Loader2 } from "lucide-react";
 import { Doc, Id } from "../../convex/_generated/dataModel";
+import PostCard from "./post-card";
 
 type Post = {
   image: string | null;
@@ -40,8 +30,6 @@ type Post = {
 };
 
 interface PostsPageProps {
-  currentFilter: string;
-  isThreadPage?: boolean;
   posts: Post[];
   isLoadingMore: boolean;
   loadMore: () => void;
@@ -50,21 +38,13 @@ interface PostsPageProps {
 
 const PostsFeed = ({
   posts,
-  currentFilter,
-  isThreadPage,
   loadMore,
   isLoadingMore,
   canLoadMore,
 }: PostsPageProps) => {
-  const router = useRouter();
-
-  const handleFilterChange = (filter: string) => {
-    router.push(`?filter=${filter}`);
-  };
-
   return (
-    <div className="flex flex-col gap-4 mt-4 mb-20 mx-4 ">
-      {posts.length > 0 && (
+    <div className="flex flex-col gap-4 mt-4 mb-20 ">
+      {/* {posts.length > 0 && (
         <div className="max-w-3xl w-full mx-auto text-4xl flex justify-start">
           <DropdownMenu>
             <DropdownMenuTrigger
@@ -99,7 +79,7 @@ const PostsFeed = ({
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      )}
+      )} */}
       <div className="flex flex-col items-center gap-8">
         {posts.length > 0 ? (
           posts.map((post: Post) => {
@@ -109,9 +89,7 @@ const PostsFeed = ({
                 key={post._id}
                 className="w-full flex flex-col gap-4 items-center"
               >
-                <RedditPostCard
-                  threadPage={isThreadPage}
-                  isFollowing={post.thread.isFollowing || false}
+                <PostCard
                   username={post.user?.name || "anonymous"}
                   subreddit={post.thread.title}
                   timePosted={post._creationTime}

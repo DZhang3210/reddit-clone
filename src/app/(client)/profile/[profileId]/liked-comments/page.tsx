@@ -1,6 +1,6 @@
 "use client";
 
-import AloneRedditComment from "@/components/alone-reddit-comment";
+import SoloComment from "@/components/solo-comment";
 import { useGetUserLikedComments } from "@/features/profile/api/use-get-user-liked-comments";
 import { Cat } from "lucide-react";
 import React from "react";
@@ -13,7 +13,7 @@ const LikedCommentsProfile = () => {
       {comments.length > 0 ? (
         comments.map((comment) => (
           <div key={comment._id}>
-            <AloneRedditComment comment={comment} />
+            <SoloComment comment={comment} />
           </div>
         ))
       ) : (

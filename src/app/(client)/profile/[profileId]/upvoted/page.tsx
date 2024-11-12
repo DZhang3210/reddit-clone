@@ -29,7 +29,6 @@ const UpvotedProfile = () => {
     <div className="flex flex-col gap-4">
       <PostsFeed
         posts={posts}
-        currentFilter="liked"
         isLoadingMore={status === "LoadingMore"}
         loadMore={loadMore}
         canLoadMore={status === "CanLoadMore"}

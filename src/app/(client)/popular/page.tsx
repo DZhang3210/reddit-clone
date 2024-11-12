@@ -2,7 +2,6 @@
 import React from "react";
 import PostsFeed from "@/components/posts-feed";
 import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
-import { useSearchParams } from "next/navigation";
 import { useGetPopularPosts } from "@/features/posts/api/use-get-popular-posts";
 
 // type Post = {
@@ -22,8 +21,6 @@ import { useGetPopularPosts } from "@/features/posts/api/use-get-popular-posts";
 // };
 
 const PopularPostsPage = () => {
-  const searchParams = useSearchParams();
-  const currentFilter = searchParams.get("filter") || "Best";
   const { results: posts, status, loadMore } = useGetPopularPosts();
   // const posts = await fetchQuery(api.posts.get, {
   //   name: "",
@@ -46,7 +43,6 @@ const PopularPostsPage = () => {
       </h1>
       <PostsFeed
         posts={posts}
-        currentFilter={currentFilter}
         isLoadingMore={status === "LoadingMore"}
         loadMore={loadMore}
         canLoadMore={status === "CanLoadMore"}

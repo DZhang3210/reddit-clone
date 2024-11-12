@@ -22,7 +22,7 @@ import {
   Share2,
 } from "lucide-react";
 
-interface RedditPostThumbnailProps {
+interface PostThumbnailProps {
   // thread_id: string;
   thread_name?: string;
   thread_image?: string;
@@ -32,7 +32,7 @@ interface RedditPostThumbnailProps {
   comments?: number;
 }
 
-export default function RedditPostThumbnail({
+export default function PostThumbnail({
   // thread_id,
   thread_name = "defaultsubreddit",
   thread_image = "/placeholder.svg?height=24&width=24",
@@ -40,7 +40,7 @@ export default function RedditPostThumbnail({
   thumbnail_image = "/placeholder.svg?height=200&width=400",
   likes = 0,
   comments = 0,
-}: RedditPostThumbnailProps) {
+}: PostThumbnailProps) {
   const [joined, setJoined] = useState(false);
   const [userVote, setUserVote] = useState<"up" | "down" | null>(null);
   const [likeCount, setLikeCount] = useState(likes);

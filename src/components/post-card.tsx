@@ -12,9 +12,9 @@ import {
   MessageSquare,
   Share2,
   BookmarkIcon,
-  EllipsisVertical,
   Pencil,
   Trash,
+  Ellipsis,
 } from "lucide-react";
 import { format } from "date-fns";
 import ReadOnly from "./text-editor/read-only";
@@ -31,13 +31,11 @@ import useFocusImage from "@/hooks/focus-image-hook";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MouseEvent, useState } from "react";
-import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
+import { useState } from "react";
 
-interface RedditPostCardProps {
+interface PostCardProps {
   username: string;
   subreddit: string;
   timePosted: number;
@@ -54,11 +52,9 @@ interface RedditPostCardProps {
   threadImage: string;
   isAdmin?: boolean;
   isOwner?: boolean;
-  isFollowing: boolean;
-  threadPage?: boolean;
 }
 
-export default function RedditPostCard({
+export default function PostCard({
   username,
   subreddit,
   timePosted,
@@ -75,9 +71,7 @@ export default function RedditPostCard({
   threadImage,
   isAdmin,
   isOwner,
-  isFollowing,
-  threadPage = false,
-}: RedditPostCardProps) {
+}: PostCardProps) {
   const { mutate: likePost, isPending: isLikePending } = useLikePost();
   const { mutate: savePost } = useSavePost();
   const sharePostModal = useToggleSharePost();
@@ -88,7 +82,6 @@ export default function RedditPostCard({
     "This will permanently remove the post."
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
 
   const focusImage = useFocusImage();
 
@@ -152,11 +145,6 @@ export default function RedditPostCard({
       image,
     });
   };
-  const handleFollow = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleFollow({ threadId });
-  };
 
   return (
     <>
@@ -186,29 +174,6 @@ export default function RedditPostCard({
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {!threadPage && (
-                <div className="flex gap-2 flex-col">
-                  {isFollowing ? (
-                    <Button
-                      className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
-                      onClick={handleFollow}
-                      disabled={isLoading}
-                      aria-label="following button"
-                    >
-                      Following
-                    </Button>
-                  ) : (
-                    <Button
-                      className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
-                      onClick={handleFollow}
-                      disabled={isLoading}
-                      aria-label="follow button"
-                    >
-                      Follow
-                    </Button>
-                  )}
-                </div>
-              )}
               <div className="z-10">
                 {(isOwner || isAdmin) && (
                   <DropdownMenu
@@ -220,31 +185,39 @@ export default function RedditPostCard({
                         variant="ghost"
                         size="sm"
                         aria-label="dropdown-trigger"
-                        className="px-2 py-2 border-2 border-black rounded-full hover:bg-gray-200 transition"
+                        className="px-3 py-3 rounded-full hover:bg-gray-200 transition"
                       >
-                        <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
+                        <Ellipsis className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className=" space-y-2">
+                    <DropdownMenuContent
+                      align="end"
+                      sideOffset={5}
+                      className="*:px-2 *:py-2 w-[130px] bg-black"
+                    >
                       {isOwner && (
-                        <DropdownMenuItem
+                        <button
                           onClick={handleEdit}
                           disabled={editPost.isOn}
-                          className="hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
+                          className="hover:text-white transition  cursor-pointer text-sm grid grid-cols-5 w-full h-full items-center text-gray-300 gap-7"
                         >
-                          Edit
-                          <Pencil className="h-4 w-4 ml-2" />
-                        </DropdownMenuItem>
+                          <Pencil className="h-5 w-5 col-span-1" />
+                          <span className="flex items-center col-span-4 text-base">
+                            Edit
+                          </span>
+                        </button>
                       )}
                       {(isAdmin || isOwner) && (
-                        <DropdownMenuItem
+                        <button
                           onClick={handleRemove}
                           disabled={isRemovePending}
-                          className="w-full text-left hover:bg-red-700 hover:text-white transition py-2 cursor-pointer text-sm bg-red-500 text-white rounded-md focus:bg-red-700 focus:text-white flex justify-between"
+                          className="w-full text-left hover:text-white transition py-2 cursor-pointer text-sm  text-gray-300  rounded-md focus:bg-red-70 focus:text-white grid grid-cols-5 h-full items-center gap-7"
                         >
-                          Delete
-                          <Trash className="h-4 w-4 ml-2" />
-                        </DropdownMenuItem>
+                          <Trash className="h-5 w-5 col-span-1" />
+                          <span className="flex items-center col-span-4 text-base">
+                            Delete
+                          </span>
+                        </button>
                       )}
                     </DropdownMenuContent>
                   </DropdownMenu>

@@ -1,5 +1,4 @@
 "use client";
-import RedditPostCard from "@/components/reddit-post-card";
 import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import React from "react";
 import { Doc, Id } from "../../../../../convex/_generated/dataModel";
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useSearchParams, useRouter } from "next/navigation";
 import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import PostCard from "@/components/post-card";
 
 type Post = {
   image: string | null;
@@ -86,8 +86,7 @@ const PostsPage = () => {
       {posts.map((post: Post) => {
         if (!post.thread || !post.user) return null;
         return (
-          <RedditPostCard
-            isFollowing={post.thread.isFollowing || false}
+          <PostCard
             key={post._id}
             username={post.user?.name || "anonymous"}
             subreddit={post.thread.title}

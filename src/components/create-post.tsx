@@ -30,7 +30,7 @@ import Image from "next/image";
 import useTogglePost from "@/hooks/create-post-hook";
 import { useEditPost } from "@/features/posts/api/use-edit-post";
 
-export default function RedditCreatePost() {
+export default function CreatePost() {
   const editPost = useTogglePost();
   const router = useRouter();
   const [selectedCommunity, setSelectedCommunity] = useState(editPost.threadId);

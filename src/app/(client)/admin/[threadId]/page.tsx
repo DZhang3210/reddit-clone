@@ -11,8 +11,8 @@ import { useChangeInviteCode } from "@/features/threads/api/use-change-invite-co
 import { useConfirm } from "@/hooks/use-confirm";
 import { cn } from "@/lib/utils";
 import { Id } from "../../../../../convex/_generated/dataModel";
-import RedditThreadBanner from "@/components/thread-banner";
 import Link from "next/link";
+import ThreadBanner from "@/components/thread-banner";
 
 const ViewThreadAdminsModal = ({
   params: { threadId },
@@ -69,7 +69,7 @@ const ViewThreadAdminsModal = ({
             "flex flex-col gap-4 max-h-screen overflow-y-auto pb-20 sm:pt-0 text-black"
           )}
         >
-          <RedditThreadBanner
+          <ThreadBanner
             threadId={thread?._id}
             threadImage={thread?.logoImage}
             threadDesc={thread?.description}

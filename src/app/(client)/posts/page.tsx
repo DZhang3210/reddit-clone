@@ -3,7 +3,6 @@ import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import React from "react";
 import PostsFeed from "@/components/posts-feed";
 import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
-import { useSearchParams } from "next/navigation";
 
 // type Post = {
 //   image: string | null;
@@ -22,8 +21,6 @@ import { useSearchParams } from "next/navigation";
 // };
 
 const PostsPage = () => {
-  const searchParams = useSearchParams();
-  const currentFilter = searchParams.get("filter") || "Best";
   const {
     results: posts,
     status,
@@ -46,17 +43,26 @@ const PostsPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 mt-4 mx-4 ">
-      <h1 className="text-5xl mt-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600 ">
+    <div className="flex flex-col gap-4 mt-4 mx-2 ">
+      {/* <h1 className="text-5xl mt-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600 ">
         Home Feed
-      </h1>
-      <PostsFeed
-        posts={posts}
-        currentFilter={currentFilter}
-        isLoadingMore={status === "LoadingMore"}
-        loadMore={loadMore}
-        canLoadMore={status === "CanLoadMore"}
-      />
+      </h1> */}
+      <div className="grid grid-cols-6">
+        <div className="col-span-4">
+          <PostsFeed
+            posts={posts}
+            isLoadingMore={status === "LoadingMore"}
+            loadMore={loadMore}
+            canLoadMore={status === "CanLoadMore"}
+          />
+        </div>
+        <div className="col-span-2 mt-4 w-full border">
+          <div className="flex justify-between items-center gap-4 px-6 py-4">
+            <h1 className="text-sm font-bold uppercase">Recent Posts</h1>
+            <button className="text-sm text-blue-500">Clear</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -10,12 +10,11 @@ import useToggleThread from "@/hooks/create-thread-hook";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 
-interface RedditThreadBannerProps {
+interface ThreadBannerProps {
   backgroundImage?: string | null;
   threadId: Id<"threads">;
   threadImage?: string | null;
@@ -28,7 +27,7 @@ interface RedditThreadBannerProps {
   isMini?: boolean;
 }
 
-export default function RedditThreadBanner({
+export default function ThreadBanner({
   threadId,
   backgroundImage = "/placeholder.svg?height=192&width=1024",
   threadImage = "/placeholder.svg?height=80&width=80",
@@ -39,7 +38,7 @@ export default function RedditThreadBanner({
   isFollowing = false,
   isAdmin = false,
   isMini = false,
-}: RedditThreadBannerProps) {
+}: ThreadBannerProps) {
   const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
   const { setMany, setOn } = useToggleThread();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -157,32 +156,36 @@ export default function RedditThreadBanner({
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="end"
-                    alignOffset={0}
-                    className=" space-y-2"
+                    sideOffset={5}
+                    className=" space-y-2 *:px-1 *:py-2 w-[130px] bg-black"
                   >
                     {isAdmin && (
-                      <DropdownMenuItem asChild>
+                      <div>
                         <button
                           onClick={handleEditClick}
                           aria-label="edit-trigger"
-                          className="text-black w-full hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
+                          className="hover:text-white transition  cursor-pointer text-sm grid grid-cols-5 w-full h-full items-center text-gray-300 gap-9"
                         >
-                          Edit
-                          <Pencil className="h-4 w-4 ml-2" />
+                          <Pencil className="h-5 w-5 ml-2" />
+                          <span className="flex items-center col-span-4 text-base">
+                            Edit
+                          </span>
                         </button>
-                      </DropdownMenuItem>
+                      </div>
                     )}
 
-                    <DropdownMenuItem asChild>
+                    <div>
                       <Link
                         href={`/admin/${threadId}`}
                         aria-label="admins-trigger"
-                        className="bg-blue-200 w-full hover:bg-gray-200 transition  cursor-pointer text-sm flex justify-between"
+                        className="hover:text-white transition  cursor-pointer text-sm grid grid-cols-5 w-full h-full items-center text-gray-300 gap-9"
                       >
-                        Admins
-                        <ShieldCheck className="h-4 w-4 ml-2" />
+                        <ShieldCheck className="h-5 w-5 ml-2" />
+                        <span className="flex items-center col-span-4 text-base">
+                          Admins
+                        </span>
                       </Link>
-                    </DropdownMenuItem>
+                    </div>
 
                     {/* Add more dropdown items as needed */}
                   </DropdownMenuContent>

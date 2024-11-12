@@ -1,14 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Bell, Plus } from "lucide-react";
-import RedditSearch from "./reddit-search";
+import { Bell, Plus, Search } from "lucide-react";
 import { FaReddit } from "react-icons/fa";
 import Link from "next/link";
 import UserButton from "@/features/auth/components/user-button";
 import useTogglePost from "@/hooks/create-post-hook";
 import MobileSidebar from "./mobile-sidebar";
 
-export default function RedditNavbar() {
+export default function Navbar() {
   const postModal = useTogglePost();
   return (
     <nav className="bg-gray-900  h-[80px] flex items-center justify-between sticky top-0 z-50 px-8">
@@ -24,7 +23,7 @@ export default function RedditNavbar() {
       <div className="block md:hidden">
         <MobileSidebar />
       </div>
-      <RedditSearch />
+      <Search />
 
       {/* Right side buttons */}
       <div className="flex items-center space-x-3">

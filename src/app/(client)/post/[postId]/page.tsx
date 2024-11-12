@@ -3,14 +3,14 @@
 import { useGetPost } from "@/features/posts/api/use-get-post";
 import React, { useState } from "react";
 import { Id } from "../../../../../convex/_generated/dataModel";
-import RedditPostCard from "@/components/reddit-post-card";
-import RedditPostCardGhost from "@/components/skeletons/reddit-post-card-ghost";
 import { useCreateComment } from "@/features/comments/api/use-create-comment";
 import { toast } from "sonner";
 import CommentEditor from "@/components/text-editor/comment-editor";
 import { useGetCommentsByPostId } from "@/features/comments/api/use-get-comments";
 import CommentChain from "@/components/comment-chain";
 import { Cat } from "lucide-react";
+import PostCard from "@/components/post-card";
+import PostCardGhost from "@/components/skeletons/post-card-ghost";
 
 interface PostPageProps {
   params: {
@@ -30,7 +30,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
   if (isLoading || !post || !comments)
     return (
       <div className="flex flex-col items-center gap-4 mt-4 mx-4">
-        <RedditPostCardGhost />
+        <PostCardGhost />
       </div>
     );
   if (!post.thread || !post.user) return null;
@@ -67,8 +67,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
   return (
     <div className="flex flex-col items-center mt-4 gap-2 mb-20 w-full">
       <div className="w-full max-w-3xl p-8">
-        <RedditPostCard
-          isFollowing={post.thread.isFollowing || false}
+        <PostCard
           key={post._id}
           username={post.user?.name || "anonymous"}
           subreddit={post.thread.title}

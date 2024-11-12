@@ -1,6 +1,6 @@
 import React from "react";
-import RedditPostCardGhost from "./reddit-post-card-ghost";
 import { Skeleton } from "../ui/skeleton";
+import PostCardGhost from "./post-card-ghost";
 
 const PostsFeedSkeleton = () => {
   return (
@@ -9,10 +9,10 @@ const PostsFeedSkeleton = () => {
         <Skeleton className="w-14 h-5 ml-4" />
       </div>
       <div className="flex flex-col items-center gap-4">
-        <RedditPostCardGhost />
-        <RedditPostCardGhost />
-        <RedditPostCardGhost />
-        <RedditPostCardGhost />
+        <PostCardGhost />
+        <PostCardGhost />
+        <PostCardGhost />
+        <PostCardGhost />
       </div>
     </div>
   );

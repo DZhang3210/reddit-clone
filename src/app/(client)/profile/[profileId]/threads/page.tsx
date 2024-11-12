@@ -1,8 +1,8 @@
 "use client";
-import RedditThreadBanner from "@/components/thread-banner";
 import { ThreadBannerSkeleton } from "@/components/skeletons/thread-banner-skeleton";
 import { useGetUserThreads } from "@/features/profile/api/use-get-user-threads";
 import React from "react";
+import ThreadBanner from "@/components/thread-banner";
 
 const ThreadsPage = () => {
   const { data: threads, isLoading: threadsLoading } = useGetUserThreads();
@@ -27,7 +27,7 @@ const ThreadsPage = () => {
           (
             thread: any // eslint-disable-line @typescript-eslint/no-explicit-any
           ) => (
-            <RedditThreadBanner
+            <ThreadBanner
               key={thread._id}
               threadId={thread._id}
               backgroundImage={thread.bannerImage}

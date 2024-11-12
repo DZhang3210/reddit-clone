@@ -8,7 +8,7 @@ import { Doc } from "../../convex/_generated/dataModel";
 import { Button } from "./ui/button";
 import { ArrowUpIcon } from "lucide-react";
 
-interface AloneRedditCommentProps {
+interface SoloCommentProps {
   comment: Doc<"comments"> & {
     author: Doc<"users">;
     post: Doc<"posts">;
@@ -18,9 +18,7 @@ interface AloneRedditCommentProps {
   };
 }
 
-export default function AloneRedditComment({
-  comment,
-}: AloneRedditCommentProps) {
+export default function SoloComment({ comment }: SoloCommentProps) {
   const { mutate: likeComment } = useLikeComment();
 
   const handleVote = () => {

@@ -7,26 +7,26 @@ import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
 import CommentEditor from "./text-editor/comment-editor";
 import { useCreateComment } from "@/features/comments/api/use-create-comment";
-import { Comment } from "@/lib/types";
+import { Comment as CommentType } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
 import { toast } from "sonner";
 import { useLikeComment } from "@/features/comments/api/use-like-comment";
 
-interface RedditCommentProps {
-  comment: Comment;
+interface CommentProps {
+  comment: CommentType;
   editor: string;
   setEditor: (editor: string) => void;
   showComments: boolean;
   setShowComments: (showComments: boolean) => void;
 }
 
-export default function RedditComment({
+export default function Comment({
   comment,
   editor,
   setEditor,
   showComments,
   setShowComments,
-}: RedditCommentProps) {
+}: CommentProps) {
   const [replyContent, setReplyContent] = useState("");
   const { mutate: createComment } = useCreateComment();
   const { mutate: likeComment } = useLikeComment();

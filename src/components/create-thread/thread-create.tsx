@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { StepOne } from "./thread-step-one";
 import { StepTwo } from "./thread-step-two";
-import { StepFour } from "./thread-step-four";
+import { StepThree } from "./thread-step-three";
 import { useCreateThread } from "@/features/threads/api/use-create-thread";
 import { toast } from "sonner";
 import useToggleThread from "@/hooks/create-thread-hook";
@@ -105,7 +105,7 @@ const ThreadCreate = () => {
         />
       )}
       {step === 2 && (
-        <StepFour
+        <StepThree
           name={name}
           desc={desc}
           nextStep={setStep}

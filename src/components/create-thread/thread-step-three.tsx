@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface StepFourProps {
+interface StepThreeProps {
   name: string | null;
   desc: string | null;
   onSubmit: () => void;
@@ -11,7 +11,7 @@ interface StepFourProps {
   bannerColor: string;
 }
 
-export function StepFour({
+export function StepThree({
   name,
   desc,
   nextStep,
@@ -20,7 +20,7 @@ export function StepFour({
   previewBanner,
   logoImage,
   bannerColor,
-}: StepFourProps) {
+}: StepThreeProps) {
   return (
     <div className="space-y-4 bg-gray-800/80 p-5 rounded-xl w-full max-w-4xl text-gray-300 pb-20">
       <div>

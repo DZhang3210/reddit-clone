@@ -32,7 +32,6 @@ const PostsProfile = () => {
     <div className="flex flex-col gap-4">
       <PostsFeed
         posts={posts}
-        currentFilter="saved"
         loadMore={loadMore}
         canLoadMore={status === "CanLoadMore"}
         isLoadingMore={status === "LoadingMore"}

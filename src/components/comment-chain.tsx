@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import RedditComment from "./reddit-comment";
-import { Comment } from "@/lib/types";
+import Comment from "./comment";
+import { Comment as CommentType } from "@/lib/types";
 
 type CommentChainProps = {
-  comments: Comment[];
+  comments: CommentType[];
   editor: string;
   setEditor: (editor: string) => void;
 };
@@ -20,7 +20,7 @@ const CommentChain = ({ comments, editor, setEditor }: CommentChainProps) => {
             key={comment._id}
             className="border-l-2 border-gray-500 rounded-sm"
           >
-            <RedditComment
+            <Comment
               key={comment._id}
               comment={comment}
               editor={editor}

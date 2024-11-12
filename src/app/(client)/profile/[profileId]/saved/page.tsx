@@ -27,7 +27,6 @@ const DownvotedProfile = () => {
     <div className="flex flex-col gap-4">
       <PostsFeed
         posts={posts}
-        currentFilter="saved"
         isLoadingMore={status === "LoadingMore"}
         loadMore={loadMore}
         canLoadMore={status === "CanLoadMore"}

@@ -1,10 +1,10 @@
 "use client";
-import { Search } from "lucide-react";
+import { Search as SearchIcon } from "lucide-react";
 import React, { useRef, useState } from "react";
 import { Input } from "./ui/input";
 import useSearchPost from "@/hooks/search-post-hook";
 
-const RedditSearch = () => {
+const Search = () => {
   const searchPost = useSearchPost();
   const [searchQuery, setSearchQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +34,7 @@ const RedditSearch = () => {
           onClick={handleClick}
           aria-label="search-trigger"
         >
-          <Search size={22} className="text-white" />
+          <SearchIcon size={22} className="text-white" />
         </button>
         <Input
           ref={inputRef}
@@ -49,4 +49,4 @@ const RedditSearch = () => {
   );
 };
 
-export default RedditSearch;
+export default Search;

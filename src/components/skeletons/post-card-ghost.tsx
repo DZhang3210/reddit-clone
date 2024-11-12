@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function RedditPostCardGhost() {
+export default function PostCardGhost() {
   return (
     <Card className="w-full max-w-4xl border-2 border-gray-400">
       <CardHeader className="flex flex-row items-center space-x-4 p-2">
