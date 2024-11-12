@@ -43,7 +43,7 @@ const PostsFeed = ({
   canLoadMore,
 }: PostsPageProps) => {
   return (
-    <div className="flex flex-col gap-4 mt-4 mb-20 ">
+    <div className="flex flex-col gap-4 mb-20 ">
       {/* {posts.length > 0 && (
         <div className="max-w-3xl w-full mx-auto text-4xl flex justify-start">
           <DropdownMenu>

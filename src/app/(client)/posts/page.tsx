@@ -3,22 +3,7 @@ import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import React from "react";
 import PostsFeed from "@/components/posts-feed";
 import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
-
-// type Post = {
-//   image: string | null;
-//   _id: Id<"posts">;
-//   _creationTime: number;
-//   title: string;
-//   createdAt: number;
-//   updatedAt: number;
-//   content: string;
-//   imageTitle: string;
-//   likes: number;
-//   user: Doc<"users"> | null;
-//   thread: Doc<"threads"> | null;
-//   liked: boolean | undefined;
-//   saved: boolean | undefined;
-// };
+import RecentPostCard from "@/components/recent-post-card";
 
 const PostsPage = () => {
   const {
@@ -28,15 +13,6 @@ const PostsPage = () => {
   } = useGetPosts({
     name: "",
   });
-  // const posts = await fetchQuery(api.posts.get, {
-  //   name: "",
-  //   paginationOpts: { numItems: 10, cursor: null },
-  // });
-
-  // if (posts.page.length === 0) {
-  //   console.log("POSTS", posts.page);
-  //   return <div>Loading...</div>;
-  // }
 
   if (status === "LoadingFirstPage") {
     return <PostsFeedSkeleton />;
@@ -47,19 +23,28 @@ const PostsPage = () => {
       {/* <h1 className="text-5xl mt-5 pb-2 font-bold text-black w-full border-b-[2px] border-gray-600 ">
         Home Feed
       </h1> */}
-      <div className="grid grid-cols-6">
-        <div className="col-span-4">
-          <PostsFeed
-            posts={posts}
-            isLoadingMore={status === "LoadingMore"}
-            loadMore={loadMore}
-            canLoadMore={status === "CanLoadMore"}
-          />
-        </div>
-        <div className="col-span-2 mt-4 w-full border">
-          <div className="flex justify-between items-center gap-4 px-6 py-4">
-            <h1 className="text-sm font-bold uppercase">Recent Posts</h1>
-            <button className="text-sm text-blue-500">Clear</button>
+      <div className="flex justify-center items-center">
+        <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl mt-10">
+          <div className="col-span-6">
+            <PostsFeed
+              posts={posts}
+              isLoadingMore={status === "LoadingMore"}
+              loadMore={loadMore}
+              canLoadMore={status === "CanLoadMore"}
+            />
+          </div>
+          <div className="col-span-2 w-full bg-black">
+            <div className="flex justify-between items-center gap-4 px-6 py-4">
+              <h1 className="text-xs font-bold uppercase text-gray-400/80">
+                Recent Posts
+              </h1>
+              <button className="text-xs text-blue-500">Clear</button>
+            </div>
+            <div className="flex flex-col gap-6 px-6">
+              {posts.map((post) => (
+                <RecentPostCard post={post} key={post._id} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

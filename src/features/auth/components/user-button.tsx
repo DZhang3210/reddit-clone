@@ -47,7 +47,7 @@ const UserButton = () => {
         <div className="cursor-pointer text-lg flex items-center group ">
           <div
             className="items-center grid grid-cols-5 w-full h-full"
-            onClick={() => router.push(`/profile/${data._id}/overview`)}
+            onClick={() => router.push(`/profile/${data._id}/posts`)}
           >
             <div className="flex items-center h-full w-full justify-center col-span-1 -translate-x-2">
               <Avatar className="size-[40px] hover:opacity-75 transition">

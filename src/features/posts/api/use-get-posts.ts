@@ -2,7 +2,7 @@ import { usePaginatedQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 
-export type GetThreadsReturnType = (typeof api.posts.get._returnType)["page"];
+export type GetPostsReturnType = (typeof api.posts.get._returnType)["page"];
 
 interface UseGetPostsProps {
   name?: string;

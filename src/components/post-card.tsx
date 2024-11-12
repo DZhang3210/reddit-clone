@@ -164,7 +164,7 @@ export default function PostCard({
                   r/{subreddit}
                 </p>
               </Link>
-              <Link href={`/profile/${userId}/overview`}>
+              <Link href={`/profile/${userId}/posts`}>
                 <p className="text-base text-muted-foreground hover:underline cursor-pointer">
                   Posted by u/{username}
                 </p>

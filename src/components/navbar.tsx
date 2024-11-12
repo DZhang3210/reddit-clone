@@ -1,11 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Bell, Plus, Search } from "lucide-react";
+import { Bell, Plus } from "lucide-react";
 import { FaReddit } from "react-icons/fa";
 import Link from "next/link";
 import UserButton from "@/features/auth/components/user-button";
 import useTogglePost from "@/hooks/create-post-hook";
 import MobileSidebar from "./mobile-sidebar";
+import Search from "./search";
 
 export default function Navbar() {
   const postModal = useTogglePost();
