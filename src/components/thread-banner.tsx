@@ -1,6 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { EllipsisVertical, Pencil, ShieldCheck, User } from "lucide-react";
+import {
+  EllipsisVertical,
+  Pencil,
+  Plus,
+  ShieldCheck,
+  User,
+} from "lucide-react";
 import { Id } from "../../convex/_generated/dataModel";
 import Link from "next/link";
 import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
@@ -13,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
+import useTogglePost from "@/hooks/create-post-hook";
 
 interface ThreadBannerProps {
   backgroundImage?: string | null;
@@ -20,7 +27,6 @@ interface ThreadBannerProps {
   threadImage?: string | null;
   threadName?: string;
   threadDesc: string | undefined;
-  memberCount?: number;
   isFollowing?: boolean | null;
   bannerColor: string;
   isAdmin?: boolean;
@@ -34,11 +40,11 @@ export default function ThreadBanner({
   threadName = "DefaultSubreddit",
   threadDesc,
   bannerColor,
-  memberCount = 1000,
   isFollowing = false,
   isAdmin = false,
   isMini = false,
 }: ThreadBannerProps) {
+  const postModal = useTogglePost();
   const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
   const { setMany, setOn } = useToggleThread();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -66,7 +72,7 @@ export default function ThreadBanner({
   };
 
   return (
-    <Link href={`/thread/${threadId}`} className="transition w-full">
+    <div className="w-full">
       <div className="w-full cursor-pointer">
         <div className="relative">
           <div className="w-full h-[10rem] bg-gray-700 overflow-hidden">
@@ -104,39 +110,38 @@ export default function ThreadBanner({
             </div>
           </div>
         </div>
-        <div className=" p-4" style={{ backgroundColor: bannerColor }}>
-          <div className="flex justify-between">
+        <div className=" p-4">
+          <div className="flex justify-between px-6">
             <div>
-              <h4 className="text-xl font-bold text-white truncate">
-                {threadName || "Community Name"}
+              <h4 className="text-4xl font-bold text-white truncate">
+                r/{threadName || "Community Name"}
               </h4>
-
-              <p className="text-sm text-gray-400 mt-2 truncate">
-                r/
-                {threadName
-                  ? threadName.toLowerCase().replace(/\s+/g, "")
-                  : "communityname"}
-              </p>
-              <p className="text-gray-300 text-xs">{memberCount} members</p>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-4 items-center">
+              <button
+                className="py-2 px-4 text-white border border-gray-300 rounded-full text-sm flex items-center gap-1 hover:border-white transition"
+                onClick={() => postModal.setOn()}
+              >
+                <Plus className="h-4 w-4 " />
+                Create
+              </button>
               {isFollowing ? (
                 <Button
-                  className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
+                  className="py-2 px-6 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full text-xs"
                   onClick={handleButtonClick}
                   disabled={isLoading}
                   aria-label="following button"
                 >
-                  Following
+                  Joined
                 </Button>
               ) : (
                 <Button
-                  className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
+                  className="py-2 px-6 bg-blue-600 text-sm rounded-full hover:bg-blue-800"
                   onClick={handleButtonClick}
                   disabled={isLoading}
                   aria-label="follow button"
                 >
-                  Follow
+                  Join
                 </Button>
               )}
               {!isMini && (
@@ -145,19 +150,17 @@ export default function ThreadBanner({
                   onOpenChange={setIsDropdownOpen}
                 >
                   <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
+                    <button
                       aria-label="dropdown-trigger"
-                      className="px-2 py-2 border-2 border-black rounded-full hover:bg-gray-200 transition bg-white text-black"
+                      className="p-2 aspect-square border-2 border-gray-300 rounded-full hover:border-white transition"
                     >
                       <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
-                    </Button>
+                    </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="end"
                     sideOffset={5}
-                    className=" space-y-2 *:px-1 *:py-2 w-[130px] bg-black"
+                    className=" space-y-2 *:px-1 *:py-2 w-[130px] bg-black border-0"
                   >
                     {isAdmin && (
                       <div>
@@ -193,11 +196,8 @@ export default function ThreadBanner({
               )}
             </div>
           </div>
-          <p className="text-sm text-gray-300 mt-4 truncate">
-            {threadDesc || "Community description will appear here."}
-          </p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

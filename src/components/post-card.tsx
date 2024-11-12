@@ -149,8 +149,8 @@ export default function PostCard({
   return (
     <>
       <ConfirmDialog />
-      <Card className="w-full max-w-3xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-100 transition">
-        <CardHeader className="flex flex-row items-center space-x-4 p-2">
+      <Card className="w-full max-w-3xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-700 transition bg-black">
+        <CardHeader className="flex flex-row items-center space-x-4 p-2 text-white">
           <Link href={`/thread/${threadId}`}>
             <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">
               <AvatarImage src={threadImage} alt={subreddit} sizes="" />
@@ -165,11 +165,11 @@ export default function PostCard({
                 </p>
               </Link>
               <Link href={`/profile/${userId}/posts`}>
-                <p className="text-base text-muted-foreground hover:underline cursor-pointer">
+                <p className="text-base text-gray-400 hover:underline cursor-pointer">
                   Posted by u/{username}
                 </p>
               </Link>
-              <div className="text-muted-foreground text-sm indent-1">
+              <div className="text-gray-400/80 text-sm indent-1">
                 {format(timePosted, "MMM d, yyyy")}
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function PostCard({
                         variant="ghost"
                         size="sm"
                         aria-label="dropdown-trigger"
-                        className="px-3 py-3 rounded-full hover:bg-gray-200 transition"
+                        className="px-3 py-3 rounded-full hover:bg-gray-400/80 transition text-white"
                       >
                         <Ellipsis className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
                       </Button>
@@ -193,7 +193,7 @@ export default function PostCard({
                     <DropdownMenuContent
                       align="end"
                       sideOffset={5}
-                      className="*:px-2 *:py-2 w-[130px] bg-black"
+                      className="*:px-2 *:py-2 w-[130px] bg-black border-none"
                     >
                       {isOwner && (
                         <button
@@ -228,7 +228,9 @@ export default function PostCard({
         </CardHeader>
         <CardContent className="px-4 py-2">
           <Link href={`/post/${postId}`}>
-            <h2 className="text-2xl font-bold mb-2 hover:underline">{title}</h2>
+            <h2 className="text-2xl font-bold mb-2 hover:underline text-white">
+              {title}
+            </h2>
           </Link>
           <div className="mb-4">
             <ReadOnly content={content} />
@@ -253,10 +255,8 @@ export default function PostCard({
         <CardFooter className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="z-10">
-              <Button
-                variant="ghost"
-                size="sm"
-                className={`px-2 border-2 py-2 border-gray-400 rounded-full hover:bg-gray-200 transition ${
+              <button
+                className={`px-2 py-2  rounded-full transition text-white flex items-center justify-center ${
                   liked ? "text-orange-500" : ""
                 }`}
                 onClick={handleVote}
@@ -264,54 +264,43 @@ export default function PostCard({
                 aria-label="upvote button"
               >
                 <ArrowUpIcon className="h-4 w-4 mr-1" />
-                <span className="text-lg font-medium">{upvotes}</span>
-              </Button>
+                <span className="text-base font-medium">{upvotes}</span>
+              </button>
             </div>
             <Link href={`/post/${postId}`} className="z-10">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+              <button
+                className="px-2 py-2  rounded-full  transition text-white flex items-center justify-center"
                 aria-label="comment button"
               >
                 <MessageSquare className="h-4 w-4 mr-1" />
-                <span className="text-lg flex gap-1">
-                  {comments}
-                  <span className="hidden md:block">
-                    {comments === 1 ? "Comment" : "Comments"}
-                  </span>
-                </span>
-              </Button>
+                <span className="text-base flex gap-1">{comments}</span>
+              </button>
             </Link>
             <div className="z-10">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition"
+              <button
+                className="px-2 py-2 rounded-full transition text-white flex items-center justify-center"
                 onClick={() => sharePostModal.setPostLink(postId.toString())}
                 aria-label="share button"
               >
-                <Share2 className="h-5 w-5 mr-0 sm:mr-1 sm:h-4 sm:w-4" />
-                <span className="text-lg hidden md:block">Share</span>
-              </Button>
+                <Share2 className="h-4 w-4 mr-0 sm:mr-1 sm:h-4 sm:w-4" />
+                <span className="text-base hidden md:block">Share</span>
+              </button>
             </div>
             <div className="z-10">
-              <Button
-                variant="ghost"
-                size="sm"
-                className={`px-2 py-2 border-2 border-gray-400 rounded-full hover:bg-gray-200 transition flex items-center justify-center ${
+              <button
+                className={`px-2 py-2 rounded-full transition flex items-center justify-center text-white   ${
                   saved ? "text-orange-500" : ""
                 }`}
                 onClick={handleSave}
                 aria-label="save button"
               >
                 <BookmarkIcon
-                  className={`h-5 w-5 mr-0 sm:mr-1 sm:h-4 sm:w-4 ${saved ? "fill-orange-500" : ""}`}
+                  className={`h-4 w-4 mr-0 sm:mr-1 border-0 ${saved ? "fill-orange-500 text-orange-500" : ""}`}
                 />
-                <span className="text-lg hidden md:block">
+                <span className="text-base hidden md:block">
                   {saved ? "Saved" : "Save"}
                 </span>
-              </Button>
+              </button>
             </div>
           </div>
         </CardFooter>

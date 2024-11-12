@@ -1,8 +1,6 @@
 import { usePaginatedQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 
-export type GetThreadsReturnType = (typeof api.posts.get._returnType)["page"];
-
 const BATCH_SIZE = 5;
 
 export const useGetUserLiked = () => {

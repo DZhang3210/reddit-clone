@@ -5,7 +5,6 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { useLikeComment } from "@/features/comments/api/use-like-comment";
 import { Doc } from "../../convex/_generated/dataModel";
-import { Button } from "./ui/button";
 import { ArrowUpIcon } from "lucide-react";
 
 interface SoloCommentProps {
@@ -34,7 +33,7 @@ export default function SoloComment({ comment }: SoloCommentProps) {
 
   return (
     <>
-      <Card className="shadow-none border-0 border-l-4 border-l-black rounded-none">
+      <Card className="shadow-none border-0 border-l-4 border-l-black rounded-none bg-black">
         <CardContent className="p-4">
           <div className="flex items-start space-x-1">
             <div className="flex flex-col gap-3">
@@ -52,12 +51,12 @@ export default function SoloComment({ comment }: SoloCommentProps) {
                 </Link>
                 <div className="flex flex-col">
                   <Link
-                    className="text-sm font-bold text-black hover:underline"
+                    className="text-sm font-bold text-gray-200 hover:underline"
                     href={`/thread/${comment.thread._id}`}
                   >
                     r/{comment.thread?.title}
                   </Link>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-400">
                     <Link
                       href={`/profile/${comment.authorId}/posts`}
                       className="hover:underline"
@@ -68,21 +67,20 @@ export default function SoloComment({ comment }: SoloCommentProps) {
                   </p>
                 </div>
               </div>
-              <ReadOnly content={comment.content} />
+              <div className="text-gray-200 ml-10">
+                <ReadOnly content={comment.content} />
+              </div>
             </div>
           </div>
         </CardContent>
         <CardFooter className="px-4 py-1 flex items-center space-x-4">
-          <Button
-            aria-label="vote button"
-            variant="ghost"
-            size="sm"
-            className={`px-2 ${comment.isLiked ? "text-orange-500" : ""}`}
+          <button
+            className={`p-2 text-gray-100 flex items-center gap-0 ${comment.isLiked ? "text-orange-500 hover:text-orange-600" : "hover:text-white"}`}
             onClick={() => handleVote()}
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />
             <span className="text-xs font-medium">{comment.likes}</span>
-          </Button>
+          </button>
         </CardFooter>
       </Card>
     </>

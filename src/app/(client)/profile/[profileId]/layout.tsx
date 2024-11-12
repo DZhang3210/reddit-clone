@@ -63,7 +63,7 @@ export default function ProfileLayout({
           ) : user ? (
             <div className="flex items-center space-x-4 col-span-6">
               <button onClick={focusImageProfile} aria-label="profile image">
-                <Avatar className="w-24 h-24">
+                <Avatar className="w-20 h-20">
                   <AvatarImage
                     src={user.image || "/placeholder.svg?height=96&width=96"}
                     alt="User"
@@ -72,16 +72,16 @@ export default function ProfileLayout({
                 </Avatar>
               </button>
               <div>
-                <h1 className="text-2xl text-gray-800 font-bold">
+                <h1 className="text-2xl text-gray-100 font-bold">
                   {user.name || "User Name"}
                 </h1>
-                <p className="text-gray-800">u/{user.name || "user_id"}</p>
+                <p className="text-gray-200">u/{user.name || "user_id"}</p>
               </div>
             </div>
           ) : (
             <div>Error loading user data</div>
           )}
-          <div className="col-span-2 w-full border col-start-7 row-span-6 bg-black rounded-xl">
+          <div className="col-span-2 w-full border col-start-7 row-span-6 bg-black rounded-xl border-none">
             <div className="relative w-full h-32 mb-4 overflow-hidden rounded-lg">
               <Image
                 src={"/login-background.jpg"}
@@ -151,13 +151,13 @@ export default function ProfileLayout({
             </div>
           </div>
 
-          <div className="space-x-4 w-full col-span-6">
+          <div className="space-x-4 w-full col-span-6 my-8">
             {["upvoted", "comments", "posts", "saved", "liked-comments"].map(
               (tab) => (
                 <Link key={tab} href={`/profile/${profileId}/${tab}`}>
                   <div
                     className={cn(
-                      "text-xl font-bold text-gray-700 capitalize inline-block border-b-4 border-transparent",
+                      "text-xl font-bold text-gray-400 capitalize inline-block border-b-4 border-transparent",
                       tab === currentTab && "text-blue-500 border-blue-500"
                     )}
                   >

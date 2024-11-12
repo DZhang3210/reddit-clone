@@ -42,7 +42,6 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
         threadId={thread._id}
         threadImage={thread.logoImage}
         threadDesc={thread.description}
-        memberCount={thread.totalMembers}
         isFollowing={thread.isFollowing}
         threadName={thread.title}
         bannerColor={thread.bannerColor}
@@ -58,7 +57,7 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
               canLoadMore={status === "CanLoadMore"}
             />
           </div>
-          <div className="col-span-2 w-full border h-full bg-black px-6 py-4 row-span-4">
+          <div className="col-span-2 w-full h-full bg-black px-6 py-4 row-span-4">
             <p className="text-lg text-gray-300 font-bold">/r/{thread.title}</p>
             <p className="text-sm text-gray-400">{thread.description}</p>
             <div className="my-5 space-y-1">

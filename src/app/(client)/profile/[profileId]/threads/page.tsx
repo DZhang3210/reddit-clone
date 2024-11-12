@@ -21,7 +21,7 @@ const ThreadsPage = () => {
   }
   return (
     <div className="w-full flex flex-col">
-      <h1 className="text-6xl">Threads</h1>
+      <h1 className="text-6xl text-white">Threads</h1>
       <div className="w-full grid grid-cols-2">
         {threads?.map(
           (
@@ -34,7 +34,6 @@ const ThreadsPage = () => {
               threadImage={thread.logoImage}
               threadName={thread.title}
               threadDesc={thread.description}
-              memberCount={thread.totalMembers}
               isFollowing={thread.isFollowing}
               bannerColor={thread.bannerColor}
               isAdmin={thread.isAdmin}

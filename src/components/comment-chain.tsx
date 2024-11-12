@@ -16,10 +16,7 @@ const CommentChain = ({ comments, editor, setEditor }: CommentChainProps) => {
     <div className="flex flex-col space-y-4 ">
       {comments.map((comment) => {
         return (
-          <div
-            key={comment._id}
-            className="border-l-2 border-gray-500 rounded-sm"
-          >
+          <div key={comment._id} className=" border-gray-500 rounded-sm">
             <Comment
               key={comment._id}
               comment={comment}
@@ -29,7 +26,7 @@ const CommentChain = ({ comments, editor, setEditor }: CommentChainProps) => {
               setShowComments={setShowComments}
             />
             {showComments && (
-              <div className="ml-10 my-2">
+              <div className="ml-10 my-4">
                 {comment.replies.length > 0 && (
                   <CommentChain
                     comments={comment.replies}

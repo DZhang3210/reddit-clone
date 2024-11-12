@@ -1,7 +1,8 @@
 import { usePaginatedQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 
-export type GetThreadsReturnType = (typeof api.threads.get._returnType)["page"];
+export type UseGetThreadsReturnType =
+  (typeof api.threads.get._returnType)["page"];
 
 interface UseGetThreadsProps {
   name?: string;

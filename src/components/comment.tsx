@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ArrowUpIcon, MessageSquare } from "lucide-react";
 import ReadOnly from "./text-editor/read-only";
@@ -67,8 +66,8 @@ export default function Comment({
 
   return (
     <>
-      <Card className="max-w-sm border-0 rounded-none shadow-none ">
-        <CardContent className="pl-4 pb-0">
+      <Card className="max-w-sm border-0 rounded-none shadow-none bg-black">
+        <CardContent className="pl-3 pb-0">
           <div className="flex items-start space-x-1">
             <Link href={`/profile/${comment.author._id}`}>
               <Avatar className="w-8 h-8">
@@ -82,45 +81,43 @@ export default function Comment({
               </Avatar>
             </Link>
 
-            <div className="flex-1 ">
+            <div className="">
               <Link href={`/profile/${comment.author._id}`}>
                 <div className="flex items-center space-x-1 hover:underline">
-                  <p className="text-sm font-medium ">
+                  <p className="text-sm font-semibold text-gray-100 pl-1">
                     u/{comment.author.name}
                   </p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-gray-400">
                     • {formatDistanceToNow(comment.createdAt)}
                   </p>
                 </div>
               </Link>
-              <ReadOnly content={comment.content} />
+              <div className="my-2">
+                <ReadOnly content={comment.content} />
+              </div>
             </div>
           </div>
         </CardContent>
         <CardFooter className="px-12 py-1 flex items-center space-x-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            className={`px-2 ${comment.isLiked ? "text-orange-500" : ""}`}
+          <button
+            className={`px-2 text-gray-300 flex items-center gap-0 ${comment.isLiked ? "text-orange-500 hover:text-orange-600" : "hover:text-white"}`}
             onClick={() => handleVote()}
             aria-label="upvote button"
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />
             <span className="text-xs font-medium">{comment.likes}</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="px-2"
+          </button>
+          <button
+            className="px-2 text-gray-300 flex items-center justify-center gap-0 hover:text-white"
             aria-label="reply button"
             onClick={() => setEditor(editor === comment._id ? "" : comment._id)}
           >
             <MessageSquare className="h-4 w-4 mr-1" />
             <span className="text-xs">Reply</span>
-          </Button>
+          </button>
           {comment.replies.length > 0 && (
             <span
-              className="text-xs text-muted-foreground hover:underline cursor-pointer"
+              className="text-xs text-gray-400 hover:underline cursor-pointer "
               onClick={() => setShowComments(!showComments)}
             >
               {comment.replies.length} replies

@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
-import { Button } from "../ui/button";
 import { TooltipHover } from "../tooltip-hover";
 
 interface CommentEditorProps {
@@ -74,13 +73,18 @@ const CommentEditor = ({
   }
 
   return (
-    <div className="border-2 border-gray-500 bg-gray-100 rounded-3xl my-5 w-full">
-      {open && (
-        <div className="flex gap-1 rounded-xl items-center ml-3 ">
+    <div className="border-2 border-gray-500 rounded-3xl my-5 w-full">
+      <div
+        className={cn(
+          "overflow-hidden transition-all duration-200 ease-in-out",
+          open ? "max-h-[200px] opacity-100" : "max-h-0 opacity-0"
+        )}
+      >
+        <div className="flex gap-1 rounded-xl items-center ml-3">
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
             className={cn(
-              "p-2 my-1 transition hover:bg-gray-300 rounded-full text-black",
+              "p-2 my-1 transition hover:bg-gray-300 rounded-full text-gray-300",
               editor.isActive("bold") && "bg-blue-200"
             )}
             aria-label="bold-trigger"
@@ -90,7 +94,7 @@ const CommentEditor = ({
           <button
             onClick={() => editor.chain().focus().toggleItalic().run()}
             className={cn(
-              "p-2 my-1 transition hover:bg-gray-300 rounded-full text-black",
+              "p-2 my-1 transition hover:bg-gray-300 rounded-full text-gray-300",
               editor.isActive("italic") && "bg-gray-400"
             )}
             aria-label="italic-trigger"
@@ -100,7 +104,7 @@ const CommentEditor = ({
           <button
             onClick={() => editor.chain().focus().toggleUnderline().run()}
             className={cn(
-              "p-2 my-1 transition hover:bg-gray-300 rounded-full text-black",
+              "p-2 my-1 transition hover:bg-gray-300 rounded-full text-gray-300",
               editor.isActive("underline") && "bg-gray-400"
             )}
             aria-label="underline-trigger"
@@ -110,7 +114,7 @@ const CommentEditor = ({
           <button
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={cn(
-              "p-2 my-1 transition hover:bg-gray-300 rounded-full text-black",
+              "p-2 my-1 transition hover:bg-gray-300 rounded-full text-gray-300",
               editor.isActive("bulletList") && "bg-gray-400"
             )}
             aria-label="list-trigger"
@@ -122,17 +126,17 @@ const CommentEditor = ({
             aria-label="emoji-picker"
           />
         </div>
-      )}
+      </div>
       <div className=" rounded-b-xl">
         <EditorContent
           editor={editor}
-          className="prose max-w-none editContent border-b-xl min-h-[20px]  p-3 text-black rounded-full caret-black text-sm"
+          className="prose max-w-none editContent border-b-xl min-h-[20px]  p-3 text-gray-100 rounded-full caret-white text-sm"
         />
         <div className="flex justify-between items-center m-0 px-2">
           <TooltipHover content="Formatting">
             <button
               onClick={() => setOpen(!open)}
-              className="text-black ml-2"
+              className="text-gray-300 ml-2"
               aria-label="formatting-trigger"
             >
               <ArrowUpIcon className={cn("w-4 h-4", open && "rotate-180")} />
@@ -141,21 +145,21 @@ const CommentEditor = ({
 
           <div className="flex gap-2 py-2">
             {!mainEditor && (
-              <Button
-                className="rounded-full bg-black text-white px-4 text-xs h-[30px]"
+              <button
+                className="rounded-full text-white px-4 text-xs h-[30px] hover:bg-gray-300/40"
                 onClick={onCancel}
                 aria-label="cancel button"
               >
                 Cancel
-              </Button>
+              </button>
             )}
-            <Button
-              className="rounded-full bg-orange-600 text-white px-4 text-xs h-[30px]"
+            <button
+              className="rounded-full bg-blue-600 hover:bg-blue-700 text-white px-4 text-xs h-[30px]"
               onClick={onSubmit}
               aria-label="submit button"
             >
               Submit
-            </Button>
+            </button>
           </div>
         </div>
       </div>

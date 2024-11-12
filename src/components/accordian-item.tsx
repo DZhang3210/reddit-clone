@@ -20,9 +20,9 @@ const AccordianItem: React.FC<AccordianItemProps> = ({
         className="flex w-full justify-between px-2 py-3 text-gray-400/80 text-sm"
         onClick={() => setOpen((prev) => !prev)}
       >
-        <div className="space-x-3 flex items-center">
+        <div className="space-x-3 flex">
           <span>{index}</span>
-          <div>{title}</div>
+          <span>{title}</span>
         </div>
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
