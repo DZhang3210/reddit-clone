@@ -149,7 +149,7 @@ export default function PostCard({
   return (
     <>
       <ConfirmDialog />
-      <Card className="w-full max-w-3xl rounded-sm border-0 border-l-8 border-gray-600 hover:bg-gray-700 transition bg-black">
+      <Card className="w-full max-w-3xl rounded-sm border-0  hover:bg-gray-700 transition bg-black">
         <CardHeader className="flex flex-row items-center space-x-4 p-2 text-white">
           <Link href={`/thread/${threadId}`}>
             <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">
@@ -201,8 +201,8 @@ export default function PostCard({
                           disabled={editPost.isOn}
                           className="hover:text-white transition  cursor-pointer text-sm grid grid-cols-5 w-full h-full items-center text-gray-300 gap-7"
                         >
-                          <Pencil className="h-5 w-5 col-span-1" />
-                          <span className="flex items-center col-span-4 text-base">
+                          <Pencil className="h-4 w-4 col-span-1" />
+                          <span className="flex items-center col-span-4 text-sm">
                             Edit
                           </span>
                         </button>
@@ -213,8 +213,8 @@ export default function PostCard({
                           disabled={isRemovePending}
                           className="w-full text-left hover:text-white transition py-2 cursor-pointer text-sm  text-gray-300  rounded-md focus:bg-red-70 focus:text-white grid grid-cols-5 h-full items-center gap-7"
                         >
-                          <Trash className="h-5 w-5 col-span-1" />
-                          <span className="flex items-center col-span-4 text-base">
+                          <Trash className="h-4 w-4 col-span-1" />
+                          <span className="flex items-center col-span-4 text-sm">
                             Delete
                           </span>
                         </button>

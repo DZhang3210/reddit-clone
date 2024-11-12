@@ -37,7 +37,9 @@ export default function MiniThreadBanner({
             </Avatar>
             <div className="flex flex-col">
               <p className="text-sm font-bold text-white">r/{thread?.title}</p>
-              <p className="text-xs text-gray-white">XXX members</p>
+              <p className="text-xs text-gray-white">
+                {thread.totalMembers} members
+              </p>
             </div>
           </Link>
         </div>

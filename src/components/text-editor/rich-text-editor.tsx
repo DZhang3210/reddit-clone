@@ -54,7 +54,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
   }
 
   return (
-    <div className={cn("bg-[#374151] rounded-3xl mb-0 has-focus")}>
+    <div className={cn("bg-gray-600 rounded-xl mb-0 has-focus")}>
       {open && (
         <div className="flex gap-2 mb-1rounded-t-xl items-center ml-2">
           <button
@@ -106,7 +106,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
       <div className="p-2 rounded-b-xl space-y-1">
         <EditorContent
           editor={editor}
-          className="prose max-w-none min-h-[80px] cursor-white"
+          className="prose max-w-none min-h-[120px] cursor-white text-sm"
         />
       </div>
       <div className="pb-1">

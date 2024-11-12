@@ -5,33 +5,8 @@ import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 import { useGetPopularPosts } from "@/features/posts/api/use-get-popular-posts";
 import RecentPostCard from "@/components/recent-post-card";
 
-// type Post = {
-//   image: string | null;
-//   _id: Id<"posts">;
-//   _creationTime: number;
-//   title: string;
-//   createdAt: number;
-//   updatedAt: number;
-//   content: string;
-//   imageTitle: string;
-//   likes: number;
-//   user: Doc<"users"> | null;
-//   thread: Doc<"threads"> | null;
-//   liked: boolean | undefined;
-//   saved: boolean | undefined;
-// };
-
 const PopularPostsPage = () => {
   const { results: posts, status, loadMore } = useGetPopularPosts();
-  // const posts = await fetchQuery(api.posts.get, {
-  //   name: "",
-  //   paginationOpts: { numItems: 10, cursor: null },
-  // });
-
-  // if (posts.page.length === 0) {
-  //   console.log("POSTS", posts.page);
-  //   return <div>Loading...</div>;
-  // }
 
   if (status === "LoadingFirstPage") {
     return <PostsFeedSkeleton />;

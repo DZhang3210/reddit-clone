@@ -154,7 +154,7 @@ export default function ThreadBanner({
                       aria-label="dropdown-trigger"
                       className="p-2 aspect-square border-2 border-gray-300 rounded-full hover:border-white transition"
                     >
-                      <EllipsisVertical className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
+                      <EllipsisVertical className="h-4 w-4 mr-0 text-white" />
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
@@ -169,8 +169,8 @@ export default function ThreadBanner({
                           aria-label="edit-trigger"
                           className="hover:text-white transition  cursor-pointer text-sm grid grid-cols-5 w-full h-full items-center text-gray-300 gap-9"
                         >
-                          <Pencil className="h-5 w-5 ml-2" />
-                          <span className="flex items-center col-span-4 text-base">
+                          <Pencil className="h-4 w-4 ml-2" />
+                          <span className="flex items-center col-span-4 text-sm">
                             Edit
                           </span>
                         </button>
@@ -183,8 +183,8 @@ export default function ThreadBanner({
                         aria-label="admins-trigger"
                         className="hover:text-white transition  cursor-pointer text-sm grid grid-cols-5 w-full h-full items-center text-gray-300 gap-9"
                       >
-                        <ShieldCheck className="h-5 w-5 ml-2" />
-                        <span className="flex items-center col-span-4 text-base">
+                        <ShieldCheck className="h-4 w-4 ml-2" />
+                        <span className="flex items-center col-span-4 text-sm">
                           Admins
                         </span>
                       </Link>

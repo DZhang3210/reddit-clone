@@ -78,12 +78,11 @@ const ViewThreadAdminsModal = ({
             isAdmin={true}
             isFollowing={thread?.isFollowing}
           />
-          <div className="flex flex-col gap-2 p-4">
+          <div className="flex flex-col gap-2 py-2 px-8">
             <div className="flex flex-col">
-              <h1 className="text-lg font-semibold flex-grow border-b-2 border-white">
+              <h1 className="text-base font-semibold flex-grow  text-white ">
                 Admins
               </h1>
-              <p className="text-sm text-gray-500">Current Admin</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
               {adminsData.map((admin) => (
@@ -91,7 +90,7 @@ const ViewThreadAdminsModal = ({
                   key={admin?._id}
                   onClick={() => {}}
                   aria-label="admin-link"
-                  className="flex items-center gap-2 rounded-md transition w-full border p-2"
+                  className="flex items-center gap-2 rounded-xl transition w-full border p-2"
                 >
                   <Avatar>
                     <AvatarImage src={admin?.image} alt={admin?.name} />
@@ -100,13 +99,13 @@ const ViewThreadAdminsModal = ({
                   <div className="flex flex-col">
                     <Link
                       href={`/profile/${admin?._id}`}
-                      className="hover:underline text-base"
+                      className="hover:underline text-base text-gray-100"
                     >
                       {admin?.name}
                     </Link>
                     <Link
                       href={`/profile/${admin?._id}`}
-                      className="text-xs text-gray-500 hover:underline"
+                      className="text-xs text-gray-300 hover:underline"
                     >
                       r/{admin?.name}
                     </Link>
@@ -117,17 +116,19 @@ const ViewThreadAdminsModal = ({
             {thread?.isAdmin && (
               <div className="flex flex-col gap-2 pt-4">
                 <div className="flex flex-col">
-                  <h1 className="text-lg font-semibold w-full border-b-2 border-white ">
+                  <h1 className="text-base font-semibold w-full  text-gray-100">
                     Invite Link
                   </h1>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-xs text-gray-300">
                     Send an invite to join as a moderator
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div className="flex flex-col border rounded-2xl p-2">
-                    <div className="text-sm font-semibold">Web Link</div>
-                    <div className="flex w-full items-center gap-4 text-xs">
+                    <div className="text-sm font-semibold text-gray-300">
+                      Web Link
+                    </div>
+                    <div className="flex w-full items-center gap-1 text-xs text-gray-400">
                       <Input
                         readOnly
                         className="flex-grow"
@@ -150,12 +151,14 @@ const ViewThreadAdminsModal = ({
                     </div>
                   </div>
                   <div className="flex flex-col border rounded-2xl p-2">
-                    <div className="text-sm font-semibold">Moderator Code:</div>
+                    <div className="text-sm font-semibold text-gray-300">
+                      Moderator Code:
+                    </div>
                     <div className="flex items-center gap-2">
                       <Input
                         readOnly
                         value={thread?.moderatorCode}
-                        className="flex-grow min-w-0"
+                        className="flex-grow min-w-0 text-gray-400"
                       />
                       <button
                         onClick={handleCopyCode}

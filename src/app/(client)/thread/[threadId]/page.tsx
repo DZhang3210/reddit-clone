@@ -10,6 +10,7 @@ import { formatDistanceToNow } from "date-fns";
 import { Calendar, Shell } from "lucide-react";
 import AccordianItem from "@/components/accordian-item";
 import { threadQandA } from "@/lib/thread-qanda";
+import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 
 interface ThreadPageProps {
   params: {
@@ -30,7 +31,12 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
     threadId: threadId as Id<"threads">,
   });
   if (threadLoading) {
-    return <ThreadBannerSkeleton />;
+    return (
+      <div className="w-full">
+        <ThreadBannerSkeleton />
+        <PostsFeedSkeleton />
+      </div>
+    );
   }
   if (!thread) {
     return <div>Data not found</div>;

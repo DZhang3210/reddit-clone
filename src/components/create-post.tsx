@@ -1,11 +1,6 @@
 import { useState, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -20,7 +15,6 @@ import { cn } from "@/lib/utils";
 import { useGenerateUploadUrl } from "@/features/upload/api/use-generate-upload-url";
 import { useGetAllThreads } from "@/features/threads/api/use-get-all";
 import { toast } from "sonner";
-
 import { useCreatePost } from "@/features/posts/api/use-create-post";
 import { Id } from "../../convex/_generated/dataModel";
 import dynamic from "next/dynamic";
@@ -52,7 +46,7 @@ export default function CreatePost() {
     () =>
       dynamic(() => import("./text-editor/rich-text-editor"), {
         ssr: false,
-        loading: () => <Skeleton className="w-full mb-4 h-40 bg-gray-700" />,
+        loading: () => <Skeleton className="w-full mb-4 h-40 bg-gray-600" />,
       }),
     []
   );
@@ -161,11 +155,16 @@ export default function CreatePost() {
   };
 
   return (
-    <Card className="w-full mx-auto bg-gray-800 text-white border-transparent overflow-y-auto max-h-screen pt-10 sm:pt-0 rounded-3xl">
-      <CardContent className="mb-0 ">
-        <CardHeader className="text-xl xl:text-2xl font-semibold text-gray-100">
-          Create Post
-        </CardHeader>
+    <Card className="w-full mx-auto bg-black text-white border-none overflow-y-auto max-h-screen pt-10 sm:pt-0 rounded-3xl">
+      <CardContent className="mb-0">
+        <div className="indent-0 pl-0 ml-2 mb-4">
+          <h1 className="text-gray-300 text-xl xl:text-2xl font-bold">
+            {postModal.editMode ? "Edit" : "Create"} Post
+          </h1>
+          <p className="text-gray-400 text-sm">
+            Create a post in the selected community
+          </p>
+        </div>
 
         {threadsLoading || communities ? (
           <Select
@@ -173,8 +172,8 @@ export default function CreatePost() {
             defaultValue={editPost.threadId}
             disabled={threadsLoading}
           >
-            <SelectTrigger className="w-full mb-4 bg-gray-700 text-white border-gray-600">
-              <SelectValue placeholder="Choose a community" />
+            <SelectTrigger className="w-full mb-4 bg-gray-600 text-white border-gray-600 rounded-xl">
+              <SelectValue placeholder="Select a community" />
             </SelectTrigger>
             <SelectContent className="bg-gray-700 text-white border-gray-600">
               {communities &&
@@ -192,17 +191,17 @@ export default function CreatePost() {
         )}
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-4 bg-gray-700">
+          <TabsList className="grid w-full grid-cols-2 mb-4 bg-gray-600">
             <TabsTrigger
               value="text"
-              className="data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+              className="data-[state=active]:bg-blue-700 data-[state=active]:text-white"
             >
               <FileText className={cn("w-4 h-4 mr-2")} />
               Text
             </TabsTrigger>
             <TabsTrigger
               value="image"
-              className="data-[state=active]:bg-blue-600 data-[state=active]:text-white"
+              className="data-[state=active]:bg-blue-700 data-[state=active]:text-white"
             >
               <ImageIcon className="w-4 h-4 mr-2" />
               Image
@@ -210,39 +209,39 @@ export default function CreatePost() {
           </TabsList>
           <TabsContent value="text" className="mt-0 space-y-4 w-full">
             <div>
-              <div className="text-white text-sm">Title</div>
+              <div className="text-gray-300 text-sm mb-2">Title</div>
               <Input
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="bg-gray-700 text-white border-gray-600 focus:border-gray-400
+                className="bg-gray-600 text-white border-gray-600 focus:border-gray-400
                 focus:ring-0
                 transition-colors
-                placeholder:text-sm mt-2 rounded-3xl"
+                placeholder:text-sm mt-2 rounded-xl"
               />
             </div>
             <div>
               <div className="container mx-auto">
-                <h1 className="text-sm mb-4">Body</h1>
+                <h1 className="text-sm mb-2 text-gray-300">Body</h1>
                 {memoizedRichTextEditor}
               </div>
             </div>
           </TabsContent>
           <TabsContent value="image" className="mt-0 space-y-4 w-full">
             <div>
-              <div className="text-white text-sm">Image Title</div>
+              <div className="text-gray-300 text-sm mb-2">Image Title</div>
               <Input
                 id="image-title"
                 value={imageTitle}
                 onChange={(e) => setImageTitle(e.target.value)}
-                className="bg-gray-700 text-white border-gray-600 focus:border-gray-400
+                className="bg-gray-600 text-white border-gray-600 focus:border-gray-400
                 focus:ring-0
                 transition-colors
-                placeholder:text-sm mt-2 rounded-3xl"
+                placeholder:text-sm mt-2 rounded-xl"
               />
             </div>
             <div
-              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[100px] w-full flex flex-col items-center justify-center bg-gray-700 text-white relative"
+              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[100px] w-full flex flex-col items-center justify-center bg-gray-600 text-white relative"
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleImageDrop}
             >

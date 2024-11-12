@@ -1,8 +1,9 @@
 "use client";
 import { useGetThreads } from "@/features/threads/api/use-get-threads";
 import React from "react";
-import { ThreadBannerSkeleton } from "@/components/skeletons/thread-banner-skeleton";
 import MiniThreadBanner from "@/components/mini-thread-banner";
+import MiniThreadBannerSkeleton from "@/components/skeletons/mini-thread-banner-skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // type Thread = Doc<"threads"> & { isFollowing: boolean };
 
@@ -11,12 +12,25 @@ const ThreadsPage = () => {
 
   if (status === "LoadingFirstPage" || !threads) {
     return (
-      <div className="w-full flex flex-col justify-center items-center ">
+      <div className="w-full flex flex-col justify-center items-center bg-gray-600 p-4">
+        <div className="flex flex-col items-start  gap-4 w-full">
+          <Skeleton className="w-[350px] h-14" />
+          <Skeleton className="w-[250px] h-8 my-6" />
+        </div>
         <div className="w-full grid grid-cols-2 gap-4 px-6">
-          <ThreadBannerSkeleton />
-          <ThreadBannerSkeleton />
-          <ThreadBannerSkeleton />
-          <ThreadBannerSkeleton />
+          <MiniThreadBannerSkeleton />
+          <MiniThreadBannerSkeleton />
+          <MiniThreadBannerSkeleton />
+          <MiniThreadBannerSkeleton />
+        </div>
+        <div className="flex flex-col items-start  gap-4 w-full">
+          <Skeleton className="w-[250px] h-8 my-6" />
+        </div>
+        <div className="w-full grid grid-cols-2 gap-4 px-6">
+          <MiniThreadBannerSkeleton />
+          <MiniThreadBannerSkeleton />
+          <MiniThreadBannerSkeleton />
+          <MiniThreadBannerSkeleton />
         </div>
       </div>
     );
