@@ -39,7 +39,7 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-[#181C1F]">
+    <div className="w-full h-full flex items-center justify-center bg-[#181C1F] overflow-auto">
       <div className="w-full h-full p-12 bg-[#181C1F] text-white border-none rounded-none max-w-[550px]">
         <div className="flex items-center gap-x-2 text-orange-600">
           <FaRedditAlien className="size-8" />

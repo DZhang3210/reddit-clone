@@ -155,7 +155,7 @@ export default function CreatePost() {
   };
 
   return (
-    <Card className="w-full mx-auto bg-black text-white border-none overflow-y-auto max-h-screen pt-10 sm:pt-0 rounded-3xl">
+    <Card className="w-full mx-auto bg-[#181C1F] text-white border-none overflow-y-auto max-h-screen pt-10 sm:pt-0 rounded-3xl">
       <CardContent className="mb-0">
         <div className="indent-0 pl-0 ml-2 mb-4">
           <h1 className="text-gray-300 text-xl xl:text-2xl font-bold">

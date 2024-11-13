@@ -2,7 +2,7 @@
 import { useGetPosts } from "@/features/posts/api/use-get-posts";
 import React from "react";
 import PostsFeed from "@/components/posts-feed";
-import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
+// import PostsFeedSkeleton from "@/components/skeletons/posts-feed-skeleton";
 import RecentPostCard from "@/components/recent-post-card";
 
 const PostsPage = () => {
@@ -14,9 +14,9 @@ const PostsPage = () => {
     name: "",
   });
 
-  if (status === "LoadingFirstPage") {
-    return <PostsFeedSkeleton />;
-  }
+  // if (status === "LoadingFirstPage") {
+  //   return <PostsFeedSkeleton />;
+  // }
 
   return (
     <div className="flex flex-col gap-4 mt-4 mx-2 ">
@@ -25,7 +25,7 @@ const PostsPage = () => {
       </h1> */}
       <div className="flex justify-center items-center">
         <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl mt-10">
-          <div className="col-span-6">
+          <div className="col-span-5">
             <PostsFeed
               posts={posts}
               isLoadingMore={status === "LoadingMore"}
@@ -33,7 +33,7 @@ const PostsPage = () => {
               canLoadMore={status === "CanLoadMore"}
             />
           </div>
-          <div className="col-span-2 w-full bg-black">
+          <div className="col-span-3 w-full bg-black">
             <div className="flex justify-between items-center gap-4 px-6 py-4">
               <h1 className="text-xs font-bold uppercase text-gray-400/80">
                 Recent Posts

@@ -55,7 +55,7 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
       />
       <div className="flex justify-center items-center w-full">
         <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl mt-10">
-          <div className="col-span-6">
+          <div className="col-span-5">
             <PostsFeed
               posts={posts}
               isLoadingMore={status === "LoadingMore"}
@@ -63,7 +63,7 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
               canLoadMore={status === "CanLoadMore"}
             />
           </div>
-          <div className="col-span-2 w-full h-full bg-black px-6 py-4 row-span-4">
+          <div className="col-span-3 w-full h-full bg-black px-6 py-4 row-span-4">
             <p className="text-lg text-gray-300 font-bold">/r/{thread.title}</p>
             <p className="text-sm text-gray-400">{thread.description}</p>
             <div className="my-5 space-y-1">

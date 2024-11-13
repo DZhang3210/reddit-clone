@@ -2,39 +2,39 @@
 import { useGetThreads } from "@/features/threads/api/use-get-threads";
 import React from "react";
 import MiniThreadBanner from "@/components/mini-thread-banner";
-import MiniThreadBannerSkeleton from "@/components/skeletons/mini-thread-banner-skeleton";
-import { Skeleton } from "@/components/ui/skeleton";
+// import MiniThreadBannerSkeleton from "@/components/skeletons/mini-thread-banner-skeleton";
+// import { Skeleton } from "@/components/ui/skeleton";
 
 // type Thread = Doc<"threads"> & { isFollowing: boolean };
 
 const ThreadsPage = () => {
-  const { results: threads, status } = useGetThreads({ name: "" });
+  const { results: threads } = useGetThreads({ name: "" });
 
-  if (status === "LoadingFirstPage" || !threads) {
-    return (
-      <div className="w-full flex flex-col justify-center items-center bg-gray-600 p-4">
-        <div className="flex flex-col items-start  gap-4 w-full">
-          <Skeleton className="w-[350px] h-14" />
-          <Skeleton className="w-[250px] h-8 my-6" />
-        </div>
-        <div className="w-full grid grid-cols-2 gap-4 px-6">
-          <MiniThreadBannerSkeleton />
-          <MiniThreadBannerSkeleton />
-          <MiniThreadBannerSkeleton />
-          <MiniThreadBannerSkeleton />
-        </div>
-        <div className="flex flex-col items-start  gap-4 w-full">
-          <Skeleton className="w-[250px] h-8 my-6" />
-        </div>
-        <div className="w-full grid grid-cols-2 gap-4 px-6">
-          <MiniThreadBannerSkeleton />
-          <MiniThreadBannerSkeleton />
-          <MiniThreadBannerSkeleton />
-          <MiniThreadBannerSkeleton />
-        </div>
-      </div>
-    );
-  }
+  // if (status === "LoadingFirstPage" || !threads) {
+  //   return (
+  //     <div className="w-full flex flex-col justify-center items-center bg-gray-600 p-4">
+  //       <div className="flex flex-col items-start  gap-4 w-full">
+  //         <Skeleton className="w-[350px] h-14" />
+  //         <Skeleton className="w-[250px] h-8 my-6" />
+  //       </div>
+  //       <div className="w-full grid grid-cols-2 gap-4 px-6">
+  //         <MiniThreadBannerSkeleton />
+  //         <MiniThreadBannerSkeleton />
+  //         <MiniThreadBannerSkeleton />
+  //         <MiniThreadBannerSkeleton />
+  //       </div>
+  //       <div className="flex flex-col items-start  gap-4 w-full">
+  //         <Skeleton className="w-[250px] h-8 my-6" />
+  //       </div>
+  //       <div className="w-full grid grid-cols-2 gap-4 px-6">
+  //         <MiniThreadBannerSkeleton />
+  //         <MiniThreadBannerSkeleton />
+  //         <MiniThreadBannerSkeleton />
+  //         <MiniThreadBannerSkeleton />
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="w-full flex flex-col px-4">
