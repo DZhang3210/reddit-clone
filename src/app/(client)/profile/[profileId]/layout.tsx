@@ -81,7 +81,7 @@ export default function ProfileLayout({
           ) : (
             <div>Error loading user data</div>
           )}
-          <div className="col-span-3 w-full border col-start-7 row-span-6 bg-black rounded-xl border-none">
+          <div className="col-span-3 w-full border col-start-7 row-span-6 bg-gray-900/50 rounded-xl border-none">
             <div className="relative w-full h-32 mb-4 overflow-hidden rounded-lg">
               <Image
                 src={"/login-background.jpg"}

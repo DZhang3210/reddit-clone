@@ -33,7 +33,7 @@ export default function SoloComment({ comment }: SoloCommentProps) {
 
   return (
     <>
-      <Card className="shadow-none border-0 border-l-4 border-l-black rounded-none bg-black">
+      <Card className="shadow-none border-0 rounded-none bg-transparent">
         <CardContent className="p-4">
           <div className="flex items-start space-x-1">
             <div className="flex flex-col gap-3">

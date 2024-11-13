@@ -63,7 +63,7 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
               canLoadMore={status === "CanLoadMore"}
             />
           </div>
-          <div className="col-span-3 w-full h-full bg-black px-6 py-4 row-span-4">
+          <div className="col-span-3 w-full h-full bg-gray-900/50 rounded-xl px-6 py-4 row-span-4">
             <p className="text-lg text-gray-300 font-bold">/r/{thread.title}</p>
             <p className="text-sm text-gray-400">{thread.description}</p>
             <div className="my-5 space-y-1">

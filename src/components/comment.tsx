@@ -66,7 +66,7 @@ export default function Comment({
 
   return (
     <>
-      <Card className="max-w-sm border-0 rounded-none shadow-none bg-black">
+      <Card className="max-w-sm border-0 rounded-none shadow-none bg-transparent">
         <CardContent className="pl-3 pb-0">
           <div className="flex items-start space-x-1">
             <Link href={`/profile/${comment.author._id}`}>

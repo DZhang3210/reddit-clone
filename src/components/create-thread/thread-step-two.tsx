@@ -93,7 +93,7 @@ export function StepTwo({
   const isNextButtonDisabled = !logoImage || !previewBanner;
 
   return (
-    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full overflow-y-auto text-gray-300 max-w-4xl pb-20 max-h-screen ">
+    <div className="space-y-4 bg-transparent p-3 sm:p-5 rounded-xl w-full h-full overflow-y-auto text-gray-300 max-w-4xl pb-20 max-h-screen ">
       <div>
         <h1 className="text-2xl font-bold">Style your community</h1>
         <p className="text-sm text-gray-400">

@@ -33,7 +33,7 @@ export const Modal: React.FC<ModalProps> = ({
       <DialogContent
         className={cn(
           "py-5 m-0 overflow-y-auto",
-          light ? "bg-white text-black" : "bg-gray-800/80"
+          light ? "bg-white text-black" : "bg-gray-900"
         )}
         aria-describedby="modal"
       >

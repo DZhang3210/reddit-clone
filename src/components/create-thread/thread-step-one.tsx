@@ -34,7 +34,7 @@ export function StepOne({
   };
 
   return (
-    <div className="space-y-4 bg-gray-800/80 p-3 sm:p-5 rounded-xl w-full h-full  text-gray-300 max-w-4xl overflow-y-auto pb-20">
+    <div className="space-y-4 bg-transparent p-3 sm:p-5 rounded-xl w-full h-full  text-gray-300 max-w-4xl overflow-y-auto pb-20">
       <div>
         <h1 className="text-2xl font-bold">Tell us about your community</h1>
         <p className="text-sm text-gray-400">

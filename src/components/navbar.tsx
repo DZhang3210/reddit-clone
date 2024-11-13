@@ -11,7 +11,7 @@ import Search from "./search";
 export default function Navbar() {
   const postModal = useTogglePost();
   return (
-    <nav className="bg-gray-900  h-[80px] flex items-center justify-between sticky top-0 z-50 px-8">
+    <nav className="bg-gray-900/10 h-[80px] flex items-center justify-between sticky top-0 z-50 px-8 border-b-[1px] border-gray-500">
       <Link href="/" className="hidden md:block">
         <div className="flex items-center space-x-2 text-orange-500">
           {/* Reddit Logo */}

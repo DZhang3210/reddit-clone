@@ -124,7 +124,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
             )}
           </div>
         </div>
-        <div className="col-span-3 w-full border h-full bg-black px-6 py-4 row-span-4 border-none rounded-xl">
+        <div className="col-span-3 w-full border h-full bg-gray-900/50 rounded-xl px-6 py-4 row-span-4 border-none">
           <div className="flex justify-between items-center gap-4 mb-2">
             <Link href={`/thread/${thread?._id}`}>
               <h1 className="text-xl font-bold">r/{thread?.title}</h1>

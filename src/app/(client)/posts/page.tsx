@@ -33,7 +33,7 @@ const PostsPage = () => {
               canLoadMore={status === "CanLoadMore"}
             />
           </div>
-          <div className="col-span-3 w-full bg-black">
+          <div className="col-span-3 w-full bg-gray-900/50 rounded-xl">
             <div className="flex justify-between items-center gap-4 px-6 py-4">
               <h1 className="text-xs font-bold uppercase text-gray-400/80">
                 Recent Posts

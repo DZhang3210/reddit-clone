@@ -71,11 +71,11 @@ const MobileSidebar = () => {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="bg-black w-[60%] overflow-y-auto border-none"
+        className="bg-gray-900/90 w-[60%] overflow-y-auto border-none"
         aria-describedby="mobile sidebar"
       >
         <SheetTitle className="sr-only">mobile sidebar</SheetTitle>
-        <div className="left-0 bottom-0 w-full bg-black">
+        <div className="left-0 bottom-0 w-full bg-gray-900/10">
           <Link
             href="/"
             className="w-full flex items-center"

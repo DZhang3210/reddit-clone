@@ -150,7 +150,7 @@ export default function PostCard({
   return (
     <>
       <ConfirmDialog />
-      <Card className="w-full max-w-3xl rounded-sm border-0  hover:bg-gray-700 transition bg-black">
+      <Card className="w-full max-w-3xl rounded-sm border-0  hover:bg-gray-700 transition bg-transparent">
         <CardHeader className="flex flex-row items-center space-x-4 p-2 text-white">
           <Link href={`/thread/${threadId}`}>
             <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">

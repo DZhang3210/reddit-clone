@@ -22,8 +22,8 @@ export default function MiniThreadBanner({
     toggleFollow({ threadId: thread!._id });
   };
   return (
-    <div>
-      <div className="flex items-center justify-between gap-2 my-2">
+    <div className="border-[1px] p-2 border-gray-500 rounded-3xl">
+      <div className="flex items-center justify-between gap-2 my-2 ">
         <div className="flex items-center gap-2">
           <Link
             href={`/thread/${thread._id}`}
