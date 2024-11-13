@@ -34,6 +34,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface PostCardProps {
   username: string;
@@ -263,8 +264,20 @@ export default function PostCard({
                 disabled={isLikePending}
                 aria-label="upvote button"
               >
-                <ArrowUpIcon className="h-4 w-4 mr-1" />
-                <span className="text-base font-medium">{upvotes}</span>
+                <ArrowUpIcon
+                  className={cn(
+                    "h-4 w-4 mr-1",
+                    liked && "fill-orange-500 text-orange-500"
+                  )}
+                />
+                <span
+                  className={cn(
+                    "text-base font-medium",
+                    liked && "text-orange-500"
+                  )}
+                >
+                  {upvotes}
+                </span>
               </button>
             </div>
             <Link href={`/post/${postId}`} className="z-10">
