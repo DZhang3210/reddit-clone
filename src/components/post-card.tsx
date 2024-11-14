@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -150,7 +149,7 @@ export default function PostCard({
   return (
     <>
       <ConfirmDialog />
-      <Card className="w-full max-w-3xl rounded-sm border-0  hover:bg-gray-700 transition bg-transparent">
+      <Card className="w-full max-w-3xl rounded-sm border-0  hover:bg-gray-700/10 transition bg-transparent">
         <CardHeader className="flex flex-row items-center space-x-4 p-2 text-white">
           <Link href={`/thread/${threadId}`}>
             <Avatar className="size-[50px] transition-all duration-300 hover:scale-110">
@@ -161,8 +160,11 @@ export default function PostCard({
           <div className="flex w-full justify-between items-center">
             <div>
               <Link href={`/thread/${threadId}`}>
-                <p className="text-lg font-medium hover:underline cursor-pointer">
-                  r/{subreddit}
+                <p className="text-lg font-medium hover:underline cursor-pointer text-gray-300">
+                  r/{subreddit}{" "}
+                  <span className="text-gray-400/80 text-sm">
+                    &middot; {format(timePosted, "MMM d, yyyy")}
+                  </span>
                 </p>
               </Link>
               <Link href={`/profile/${userId}/posts`}>
@@ -170,9 +172,6 @@ export default function PostCard({
                   Posted by u/{username}
                 </p>
               </Link>
-              <div className="text-gray-400/80 text-sm indent-1">
-                {format(timePosted, "MMM d, yyyy")}
-              </div>
             </div>
             <div className="flex items-center gap-2">
               <div className="z-10">
@@ -182,14 +181,12 @@ export default function PostCard({
                     onOpenChange={setIsDropdownOpen}
                   >
                     <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
+                      <button
                         aria-label="dropdown-trigger"
-                        className="px-3 py-3 rounded-full hover:bg-gray-400/80 transition text-white"
+                        className="p-3 rounded-full hover:bg-gray-400/50 transition text-white"
                       >
                         <Ellipsis className="h-5 w-5 mr-0 sm:h-4 sm:w-4" />
-                      </Button>
+                      </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                       align="end"
@@ -229,7 +226,7 @@ export default function PostCard({
         </CardHeader>
         <CardContent className="px-4 py-2">
           <Link href={`/post/${postId}`}>
-            <h2 className="text-2xl font-bold mb-2 hover:underline text-white">
+            <h2 className="text-xl font-bold mb-2 hover:underline text-gray-100">
               {title}
             </h2>
           </Link>
@@ -257,7 +254,7 @@ export default function PostCard({
           <div className="flex items-center space-x-4">
             <div className="z-10">
               <button
-                className={`px-2 py-2  rounded-full transition text-white flex items-center justify-center ${
+                className={`px-4 py-2  rounded-full transition text-white flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40 ${
                   liked ? "text-orange-500" : ""
                 }`}
                 onClick={handleVote}
@@ -282,7 +279,7 @@ export default function PostCard({
             </div>
             <Link href={`/post/${postId}`} className="z-10">
               <button
-                className="px-2 py-2  rounded-full  transition text-white flex items-center justify-center"
+                className="px-4 py-2  rounded-full  transition text-white flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40"
                 aria-label="comment button"
               >
                 <MessageSquare className="h-4 w-4 mr-1" />
@@ -291,7 +288,7 @@ export default function PostCard({
             </Link>
             <div className="z-10">
               <button
-                className="px-2 py-2 rounded-full transition text-white flex items-center justify-center"
+                className="px-4 py-2 rounded-full transition text-white flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40"
                 onClick={() => sharePostModal.setPostLink(postId.toString())}
                 aria-label="share button"
               >
@@ -301,7 +298,7 @@ export default function PostCard({
             </div>
             <div className="z-10">
               <button
-                className={`px-2 py-2 rounded-full transition flex items-center justify-center text-white   ${
+                className={`px-4 py-2 rounded-full transition flex items-center justify-center text-white bg-gray-400/20 hover:bg-gray-400/40   ${
                   saved ? "text-orange-500" : ""
                 }`}
                 onClick={handleSave}

@@ -68,7 +68,9 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
               className="text-base h-12 rounded-none placeholder:text-gray-400 border-gray-400 focus:border-white focus:ring-0 transition-colors placeholder:text-base"
               required
             />
-
+            <div className="text-green-300 text-sm indent-1">
+              dummy email: dummy@gmail.com
+            </div>
             <Input
               disabled={pending}
               value={password}
@@ -78,6 +80,9 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
               className="text-base h-12 rounded-none placeholder:text-gray-400 border-gray-400 focus:border-white focus:ring-0 transition-colors placeholder:text-base"
               required
             />
+            <div className="text-green-300 text-sm indent-1">
+              dummy password: dummy123
+            </div>
             <Button
               type="submit"
               className="w-full bg-white text-black hover:bg-gray-400 text-lg h-12"

@@ -7,6 +7,6 @@ export default function Home() {
 
   useEffect(() => {
     router.push("/posts");
-  }, []);
+  }, [router]);
   return <div>Main Page</div>;
 }

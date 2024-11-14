@@ -8,7 +8,7 @@ import Image from "next/image";
 const AuthScreen = () => {
   const [state, setState] = useState<SignInFlow>("signIn");
   return (
-    <div className="h-screen w-full grid grid-cols-2 bg-[#FE4500] overflow-hidden">
+    <div className="h-screen w-full grid grid-cols-2 overflow-hidden">
       <div className="md:h-auto ">
         {state === "signIn" ? (
           <SignInCard setState={setState} />

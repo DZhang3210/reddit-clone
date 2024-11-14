@@ -1,6 +1,6 @@
 import React from "react";
 import { Doc } from "../../../convex/_generated/dataModel";
-import ThreadResult from "./thread-result";
+import ThreadResultPage from "./result-thread-feed";
 
 export type Thread = Doc<"threads"> & {
   isFollowing: boolean;
@@ -12,14 +12,14 @@ interface ThreadResultsProps {
   results: Thread[];
 }
 
-const ThreadResults = ({ results }: ThreadResultsProps) => {
+const ThreadResultsPage = ({ results }: ThreadResultsProps) => {
   return (
     <div className="flex flex-col gap-2">
       {results.map((result) => (
-        <ThreadResult key={result._id} thread={result} />
+        <ThreadResultPage key={result._id} thread={result} />
       ))}
     </div>
   );
 };
 
-export default ThreadResults;
+export default ThreadResultsPage;

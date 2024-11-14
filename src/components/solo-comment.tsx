@@ -75,7 +75,7 @@ export default function SoloComment({ comment }: SoloCommentProps) {
         </CardContent>
         <CardFooter className="px-4 py-1 flex items-center space-x-4">
           <button
-            className={`p-2 text-gray-100 flex items-center gap-0 ${comment.isLiked ? "text-orange-500 hover:text-orange-600" : "hover:text-white"}`}
+            className={`px-4 py-2 text-gray-100 flex items-center gap-0 bg-gray-400/20 hover:bg-gray-400/40 rounded-full ${comment.isLiked ? "text-orange-500 hover:text-orange-600" : "hover:text-white"}`}
             onClick={() => handleVote()}
           >
             <ArrowUpIcon className="h-4 w-4 mr-1" />

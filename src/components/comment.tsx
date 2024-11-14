@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { ArrowUpIcon, MessageSquare } from "lucide-react";
+import { ArrowUpIcon, ChevronDown, MessageSquare } from "lucide-react";
 import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
 import CommentEditor from "./text-editor/comment-editor";
@@ -83,8 +83,8 @@ export default function Comment({
 
             <div className="">
               <Link href={`/profile/${comment.author._id}`}>
-                <div className="flex items-center space-x-1 hover:underline">
-                  <p className="text-sm font-semibold text-gray-100 pl-1">
+                <div className="flex items-center space-x-1">
+                  <p className="text-sm font-semibold text-gray-100 pl-1 hover:underline">
                     u/{comment.author.name}
                   </p>
                   <p className="text-xs text-gray-400">
@@ -100,7 +100,7 @@ export default function Comment({
         </CardContent>
         <CardFooter className="px-12 py-1 flex items-center space-x-4">
           <button
-            className={`px-2 text-gray-300 flex items-center gap-0 ${comment.isLiked ? "text-orange-500 hover:text-orange-600" : "hover:text-white"}`}
+            className={`px-2 py-1 text-gray-400 flex items-center justify-center gap-0 bg-gray-400/20 hover:bg-gray-400/40 rounded-full ${comment.isLiked ? "text-orange-500 hover:text-orange-600" : "hover:text-white"}`}
             onClick={() => handleVote()}
             aria-label="upvote button"
           >
@@ -108,7 +108,7 @@ export default function Comment({
             <span className="text-xs font-medium">{comment.likes}</span>
           </button>
           <button
-            className="px-2 text-gray-300 flex items-center justify-center gap-0 hover:text-white"
+            className="px-2 py-1 text-gray-400 flex items-center justify-center gap-0 bg-gray-400/20 hover:bg-gray-400/40 rounded-full hover:text-white"
             aria-label="reply button"
             onClick={() => setEditor(editor === comment._id ? "" : comment._id)}
           >
@@ -117,10 +117,15 @@ export default function Comment({
           </button>
           {comment.replies.length > 0 && (
             <span
-              className="text-xs text-gray-400 hover:underline cursor-pointer "
+              className="text-xs text-gray-400  cursor-pointer bg-gray-400/20 hover:bg-gray-400/40 rounded-full px-3 py-1 flex items-center gap-0"
               onClick={() => setShowComments(!showComments)}
             >
               {comment.replies.length} replies
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-200 ${
+                  showComments ? "rotate-180" : ""
+                }`}
+              />
             </span>
           )}
         </CardFooter>

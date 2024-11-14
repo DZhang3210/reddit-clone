@@ -2,36 +2,68 @@
 import { Search as SearchIcon } from "lucide-react";
 import React, { useRef, useState } from "react";
 import { Input } from "./ui/input";
-import useSearchPost from "@/hooks/search-post-hook";
+
+import { useGetSearchThreads } from "@/features/search/api/use-get-search-threads";
+import { Thread } from "./results/thread-results";
+import ThreadResults from "./results/thread-results";
+import { useRouter } from "next/navigation";
 
 const Search = () => {
-  const searchPost = useSearchPost();
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { results: threads, status: threadsStatus } = useGetSearchThreads({
+    query: searchQuery || "",
+  });
   // Add filters array
   // const filters = ["All", "Posts", "Comments", "Communities", "People"];
 
   // Handle search submission
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+    const trimmedQuery = searchQuery.trim();
+    if (trimmedQuery) {
+      router.push(`/result/${encodeURIComponent(trimmedQuery)}/posts`);
+    }
   };
 
-  const handleClick = () => {
-    searchPost.setSearchQuery("");
+  const handleSearchClick = () => {
+    const trimmedQuery = searchQuery.trim();
+    if (trimmedQuery) {
+      router.push(`/result/${encodeURIComponent(trimmedQuery)}/posts`);
+    }
   };
 
   return (
-    <div
-      className="sm:flex-1 max-w-xl mx-4 h-1/2 rounded-full"
-      onClick={handleClick}
-    >
+    <div className="relative sm:flex-1 max-w-xl mx-4 h-1/2 rounded-full">
+      {searchQuery.trim().length > 0 &&
+        threadsStatus !== "LoadingFirstPage" && (
+          <div className="absolute top-full left-0 w-full bg-[#0F111A]">
+            <div className="w-full overflow-y-auto pt-5 flex-grow p-4">
+              {threads.length > 0 ? (
+                <>
+                  <div className="text-gray-400 text-base font-bold mb-1">
+                    Threads
+                  </div>
+                  <ThreadResults results={threads as Thread[]} />
+                </>
+              ) : (
+                <div className="flex items-center gap-2 text-gray-400 text-base">
+                  <SearchIcon size={22} className="" />
+                  Search for &quot;{searchQuery}&quot;
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       <form
         onSubmit={handleSearch}
         className="relative rounded-full h-full flex gap-1 px-4"
       >
         <button
-          className="text-gray-400 aria-label='search'"
-          onClick={handleClick}
+          type="button"
+          className="text-gray-400"
+          onClick={handleSearchClick}
           aria-label="search-trigger"
         >
           <SearchIcon size={22} className="text-white" />

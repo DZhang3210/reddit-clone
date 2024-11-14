@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Modal } from "@/components/ui/modal";
 import useToggleSharePost from "@/hooks/share-post-hook";
 import { Check, Copy } from "lucide-react";
@@ -28,20 +27,20 @@ const SharePostModal = () => {
       //   light={true}
     >
       <div className="flex flex-col space-y-2 px-8">
-        <div className="text-lg font-semibold mb-4">
-          Share your post with your friends
+        <div className="text-xl font-semibold mb-4 text-center">
+          Share your Post
         </div>
-        <Label className="">Web Link</Label>
-        <div className="flex items-center space-x-2 px-10 w-full">
+        <div className="text-gray-400 text-sm">Web Link</div>
+        <div className="flex items-center space-x-2 w-full border rounded-md border-gray-400/20 px-1 justify-start">
           <Input
             ref={inputRef}
             readOnly
             value={shareableLink}
-            className="flex-grow"
+            className="border-none focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 hover:bg-transparent bg-transparent grow-0 text-gray-400"
           />
           <Button
             size="sm"
-            className="px-3"
+            className="px-3 text-gray-400"
             onClick={copyToClipboard}
             aria-label="copy button"
           >

@@ -40,10 +40,10 @@ const ReadOnly = ({ content }: RichTextEditorProps) => {
   }
 
   return (
-    <div className="indent-1">
+    <div className="">
       <EditorContent
         editor={editor}
-        className="prose max-w-none text-sm text-white"
+        className="prose max-w-none text-lg text-gray-400"
       />
     </div>
   );

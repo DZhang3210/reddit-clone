@@ -30,7 +30,7 @@ export default function Navbar() {
       <div className="flex items-center space-x-3">
         <Button
           onClick={() => postModal.setOn()}
-          className="items-center bg-gray-800 text-gray-400 rounded-full hover:text-gray-200 text-lg py-3 px-3 cursor-pointer hidden lg:flex"
+          className="items-center bg-transparent text-gray-400 rounded-full hover:text-gray-200 hover:bg-gray-500/20 text-lg py-3 px-3 cursor-pointer hidden lg:flex"
           aria-label="Create Post"
         >
           <Plus className="h-6 w-6 mr-1 " />

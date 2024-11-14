@@ -35,9 +35,12 @@ const PostResults = ({
   isLoadingMore,
 }: PostResultsProps) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2 w-full">
       {results.map((result) => (
-        <ResultItem key={result._id} post={result} />
+        <>
+          <ResultItem key={result._id} post={result} />
+          <div className="h-1 border-t-[2px] border-gray-700" />
+        </>
       ))}
       <div
         className="h-1"

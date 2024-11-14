@@ -2,31 +2,22 @@ import Link from "next/link";
 import { Card, CardContent } from "../ui/card";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Button } from "../ui/button";
 import { Thread } from "./thread-results";
 import useSearchPost from "@/hooks/search-post-hook";
-import { useToggleFollow } from "@/features/threads/api/use-toggle-follow";
-import { MouseEvent } from "react";
 
 const ThreadResult = ({ thread }: { thread: Thread }) => {
   const router = useRouter();
   const searchPost = useSearchPost();
-  const { mutate: toggleFollow, isPending: isLoading } = useToggleFollow();
 
-  const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleFollow({ threadId: thread._id });
-  };
   const handleClick = () => {
     router.push(`/thread/${thread._id}`);
     searchPost.setOff();
   };
   return (
     <button onClick={handleClick} aria-label="thread-result">
-      <Card className="overflow-hidden">
-        <CardContent className="px-2 py-1 bg-gray-200 rounded-md">
-          <div className="flex items-center space-x-2 justify-start rounded-md p-0">
+      <Card className="overflow-hidden bg-transparent border-none">
+        <CardContent className="px-2 py-1 rounded-md">
+          <div className="flex items-center space-x-2 justify-start rounded-md p-0 w-full">
             {thread.logoImage ? (
               <Link
                 href={`/thread/${thread._id}`}
@@ -41,36 +32,20 @@ const ThreadResult = ({ thread }: { thread: Thread }) => {
                 />
               </Link>
             ) : (
-              <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-gray-300"></div>
+              <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0"></div>
             )}
-            <div className="flex-grow min-w-0 w-full flex justify-between items-center">
-              <button
-                onClick={handleClick}
-                className="text-xl font-semibold truncate hover:underline"
-                aria-label="thread-result-title"
-              >
-                {thread.title}
-              </button>
-
-              {thread.isFollowing ? (
-                <Button
-                  className="py-2 px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full"
-                  onClick={handleButtonClick}
-                  disabled={isLoading}
-                  aria-label="following button"
+            <div className="flex-grow w-full flex justify-start items-center">
+              <div className="flex flex-col gap-0 justify-start items-start">
+                <h1
+                  className="text-sm font-semibold truncate hover:underline text-gray-400"
+                  aria-label="thread-result-title"
                 >
-                  Following
-                </Button>
-              ) : (
-                <Button
-                  className="py-2 px-4 bg-blue-600 border-2 border-white rounded-xl hover:bg-blue-800"
-                  onClick={handleButtonClick}
-                  disabled={isLoading}
-                  aria-label="follow button"
-                >
-                  Follow
-                </Button>
-              )}
+                  r/{thread.title}
+                </h1>
+                <h2 className="text-gray-400 text-xs">
+                  {thread.totalMembers} members
+                </h2>
+              </div>
             </div>
           </div>
         </CardContent>
