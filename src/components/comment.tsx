@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { ArrowUpIcon, ChevronDown, MessageSquare } from "lucide-react";
+import {
+  ArrowUpIcon,
+  ChevronDown,
+  MessageSquare,
+  MessageSquareText,
+} from "lucide-react";
 import ReadOnly from "./text-editor/read-only";
 import Link from "next/link";
 import CommentEditor from "./text-editor/comment-editor";
@@ -10,6 +15,7 @@ import { Comment as CommentType } from "@/lib/types";
 import { formatDistanceToNow } from "date-fns";
 import { toast } from "sonner";
 import { useLikeComment } from "@/features/comments/api/use-like-comment";
+import { cn } from "@/lib/utils";
 
 interface CommentProps {
   comment: CommentType;
@@ -108,11 +114,19 @@ export default function Comment({
             <span className="text-xs font-medium">{comment.likes}</span>
           </button>
           <button
-            className="px-2 py-1 text-gray-400 flex items-center justify-center gap-0 bg-gray-400/20 hover:bg-gray-400/40 rounded-full hover:text-white"
+            className={cn(
+              "px-2 py-1 text-gray-400 flex items-center justify-center gap-0 bg-gray-400/20 hover:bg-gray-400/40 rounded-full hover:text-white",
+              editor === comment._id &&
+                "text-white bg-blue-600 hover:bg-blue-700"
+            )}
             aria-label="reply button"
             onClick={() => setEditor(editor === comment._id ? "" : comment._id)}
           >
-            <MessageSquare className="h-4 w-4 mr-1" />
+            {editor === comment._id ? (
+              <MessageSquareText className="h-4 w-4 mr-1" />
+            ) : (
+              <MessageSquare className="h-4 w-4 mr-1" />
+            )}
             <span className="text-xs">Reply</span>
           </button>
           {comment.replies.length > 0 && (

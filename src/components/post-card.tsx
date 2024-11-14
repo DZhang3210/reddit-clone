@@ -254,10 +254,10 @@ export default function PostCard({
           )}
         </CardContent>
         <CardFooter className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             <div className="z-10">
               <button
-                className={`px-4 py-2  rounded-full transition text-white flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40 ${
+                className={`px-2 py-2  rounded-full transition text-gray-200 flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40${
                   liked ? "text-orange-500" : ""
                 }`}
                 onClick={handleVote}
@@ -272,7 +272,7 @@ export default function PostCard({
                 />
                 <span
                   className={cn(
-                    "text-base font-medium",
+                    "text-xs font-medium",
                     liked && "text-orange-500"
                   )}
                 >
@@ -282,35 +282,35 @@ export default function PostCard({
             </div>
             <Link href={`/post/${postId}`} className="z-10">
               <button
-                className="px-4 py-2  rounded-full  transition text-white flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40"
+                className="px-2 py-2  rounded-full transition text-gray-200 flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40"
                 aria-label="comment button"
               >
                 <MessageSquare className="h-4 w-4 mr-1" />
-                <span className="text-base flex gap-1">{comments}</span>
+                <span className="text-xs flex gap-1 p-0 m-0">{comments}</span>
               </button>
             </Link>
             <div className="z-10">
               <button
-                className="px-4 py-2 rounded-full transition text-white flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40"
+                className="px-2 py-2 rounded-full transition text-gray-200 flex items-center justify-center bg-gray-400/20 hover:bg-gray-400/40"
                 onClick={() => sharePostModal.setPostLink(postId.toString())}
                 aria-label="share button"
               >
-                <Share2 className="h-4 w-4 mr-0 sm:mr-1 sm:h-4 sm:w-4" />
-                <span className="text-base hidden md:block">Share</span>
+                <Share2 className="h-4 w-4 mr-0 lg:mr-1" />
+                <span className="text-xs hidden lg:block">Share</span>
               </button>
             </div>
             <div className="z-10">
               <button
-                className={`px-4 py-2 rounded-full transition flex items-center justify-center text-white bg-gray-400/20 hover:bg-gray-400/40   ${
+                className={`px-2 py-2 rounded-full transition flex items-center justify-center text-gray-200 bg-gray-400/20 hover:bg-gray-400/40   ${
                   saved ? "text-orange-500" : ""
                 }`}
                 onClick={handleSave}
                 aria-label="save button"
               >
                 <BookmarkIcon
-                  className={`h-4 w-4 mr-0 sm:mr-1 border-0 ${saved ? "fill-orange-500 text-orange-500" : ""}`}
+                  className={`h-4 w-4 mr-0 lg:mr-1 border-0 ${saved ? "fill-orange-500 text-orange-500" : ""}`}
                 />
-                <span className="text-base hidden md:block">
+                <span className="text-xs hidden lg:block">
                   {saved ? "Saved" : "Save"}
                 </span>
               </button>

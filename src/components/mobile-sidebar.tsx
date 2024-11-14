@@ -49,7 +49,7 @@ const MobileSidebar = () => {
       <Link
         href={href}
         className={cn(
-          "text-base transition-all duration-300 border-2 rounded-2xl p-[0.6rem] border-transparent hover:border-gray-600 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2 text-gray-300",
+          "text-xs transition-all duration-300 rounded-2xl p-[0.6rem] border-transparent hover:border-gray-600 hover:bg-gray-800 cursor-pointer w-full flex items-center gap-2 text-gray-300",
           isActive && "bg-gray-800 border-gray-500"
         )}
         onClick={closeSheet}
@@ -66,12 +66,12 @@ const MobileSidebar = () => {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <button onClick={() => setIsOpen(true)} aria-label="sidebar-trigger">
-          <AlignJustify size={30} className="text-white" />
+          <AlignJustify size={35} className="text-white" />
         </button>
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="bg-gray-900/90 w-[60%] overflow-y-auto border-none"
+        className="bg-dark w-[320px] overflow-y-auto border-none"
         aria-describedby="mobile sidebar"
       >
         <SheetTitle className="sr-only">mobile sidebar</SheetTitle>
@@ -87,7 +87,7 @@ const MobileSidebar = () => {
               <h1 className="text-3xl font-bold text-white ">reddit</h1>
             </div>
           </Link>
-          <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-0">
+          <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-1">
             <NavLink href="/posts" icon={Home}>
               Home
             </NavLink>
@@ -102,10 +102,10 @@ const MobileSidebar = () => {
 
             {/* Communities */}
             <div
-              className="flex justify-between w-full px-2 items-center mt-[10rem] transition-all duration-300 hover:bg-gray-700 cursor-pointer py-4 rounded-lg text-white"
+              className="flex justify-between w-full px-2 items-center mt-[10rem] transition-all duration-300 hover:bg-gray-700 cursor-pointer py-2 rounded-lg text-white"
               onClick={() => setCommunitiesTab((prev) => !prev)}
             >
-              <span className="text-sm text-gray-400 uppercase">Threads</span>
+              <span className="text-xs text-gray-400 uppercase">Threads</span>
               {communitiesTab ? (
                 <ChevronUp size={24} />
               ) : (
@@ -127,7 +127,7 @@ const MobileSidebar = () => {
                   >
                     <Plus size={20} className="" />
                     <span
-                      className="text-sm"
+                      className="text-xs"
                       onClick={() => threadModal.setOn()}
                     >
                       Create a Thread

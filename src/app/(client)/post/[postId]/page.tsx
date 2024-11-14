@@ -79,7 +79,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
   return (
     <div className="flex justify-center items-center w-full">
       <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl mt-10">
-        <div className="col-span-5">
+        <div className="col-span-8 md:col-span-5">
           <PostCard
             key={post._id}
             username={post.user?.name || "anonymous"}
@@ -119,14 +119,14 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
             ) : (
               <div className="text-base text-gray-600 capitalize flex flex-col items-center gap-1">
                 <div className="flex items-center gap-2 rounded-full bg-gray-400/10 p-4">
-                  <Cat className="w-16 h-16" />
+                  <Cat className="w-12 h-12" />
                 </div>
                 I&apos;m empty
               </div>
             )}
           </div>
         </div>
-        <div className="col-span-3 w-full border h-full bg-gray-900/50 rounded-xl px-6 py-4 row-span-4 border-none">
+        <div className="hidden md:block col-span-3 w-full border h-full bg-gray-900/50 rounded-xl px-6 py-4 row-span-4 border-none">
           <div className="flex justify-between items-center gap-4 mb-2">
             <Link href={`/thread/${thread?._id}`}>
               <h1 className="text-xl font-bold">r/{thread?.title}</h1>

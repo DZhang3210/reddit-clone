@@ -40,7 +40,11 @@ const Search = () => {
     <div className="relative sm:flex-1 max-w-xl mx-4 h-1/2 rounded-full">
       {searchQuery.trim().length > 0 &&
         threadsStatus !== "LoadingFirstPage" && (
-          <div className="absolute top-full left-0 w-full bg-[#0F111A]">
+          <div
+            className="absolute top-full left-0 w-full bg-[#0F111A] transform transition-all duration-200 ease-in-out origin-top
+            animate-in slide-in-from-top-2 fade-in
+            data-[state=closed]:animate-out data-[state=closed]:slide-out-to-top-2 data-[state=closed]:fade-out"
+          >
             <div className="w-full overflow-y-auto pt-5 flex-grow p-4">
               {threads.length > 0 ? (
                 <>
@@ -77,7 +81,7 @@ const Search = () => {
           ref={inputRef}
           type="text"
           placeholder="Search for your favorite threads!"
-          className="w-full h-full text-white text-lg rounded-full placeholder:text-base placeholder:text-gray-400 border-0 outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 hidden sm:block"
+          className="w-full h-full text-white text-lg rounded-full placeholder:text-sm placeholder:text-gray-400 border-0 outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 hidden sm:block"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

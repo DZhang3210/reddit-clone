@@ -17,9 +17,11 @@ const CommentsProfile = () => {
           </div>
         ))
       ) : (
-        <div className="text-2xl font-bold text-black capitalize flex flex-col items-center">
-          No comments found
-          <Cat className="w-20 h-20" />
+        <div className="text-base text-gray-600 capitalize flex flex-col items-center gap-1">
+          <div className="flex items-center gap-2 rounded-full bg-gray-400/10 p-4">
+            <Cat className="w-12 h-12" />
+          </div>
+          I&apos;m empty
         </div>
       )}
     </div>

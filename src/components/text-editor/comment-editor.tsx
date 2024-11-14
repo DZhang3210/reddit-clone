@@ -130,7 +130,7 @@ const CommentEditor = ({
       <div className=" rounded-b-xl">
         <EditorContent
           editor={editor}
-          className="prose max-w-none editContent border-b-xl min-h-[20px]  p-3 text-gray-100 rounded-full caret-white text-sm"
+          className="prose max-w-none editContent border-b-xl min-h-[20px]  p-3 text-gray-100 rounded-full caret-white text-xs"
         />
         <div className="flex justify-between items-center m-0 px-2">
           <TooltipHover content="Formatting">
@@ -146,7 +146,7 @@ const CommentEditor = ({
           <div className="flex gap-2 py-2">
             {!mainEditor && (
               <button
-                className="rounded-full text-white px-4 text-xs h-[30px] hover:bg-gray-300/40"
+                className="rounded-full text-white px-4 py-4 text-xs h-[30px] hover:bg-gray-300/40"
                 onClick={onCancel}
                 aria-label="cancel button"
               >
@@ -154,7 +154,7 @@ const CommentEditor = ({
               </button>
             )}
             <button
-              className="rounded-full bg-blue-600 hover:bg-blue-700 text-white px-4 text-xs h-[30px]"
+              className="rounded-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-4 text-xs h-[30px] flex items-center justify-center"
               onClick={onSubmit}
               aria-label="submit button"
             >

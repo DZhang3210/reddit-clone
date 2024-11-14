@@ -106,7 +106,7 @@ const RichTextEditor = ({ content, setContent }: RichTextEditorProps) => {
       <div className="p-2 rounded-b-xl space-y-1">
         <EditorContent
           editor={editor}
-          className="prose max-w-none min-h-[120px] cursor-white text-sm"
+          className="prose max-w-none min-h-[80px] cursor-white text-sm"
         />
       </div>
       <div className="pb-1">

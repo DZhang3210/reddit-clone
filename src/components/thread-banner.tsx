@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   EllipsisVertical,
   Pencil,
@@ -111,15 +110,15 @@ export default function ThreadBanner({
           </div>
         </div>
         <div className=" p-4">
-          <div className="flex justify-between px-6">
-            <div>
-              <h4 className="text-4xl font-bold text-white truncate">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-0 justify-between px-6">
+            <Link href={`/thread/${threadId}`}>
+              <h4 className="text-2xl md:text-4xl font-bold text-white truncate">
                 r/{threadName || "Community Name"}
               </h4>
-            </div>
-            <div className="flex gap-4 items-center">
+            </Link>
+            <div className="flex gap-2 md:gap-4 items-center">
               <button
-                className="py-2 px-4 text-white border border-gray-300 rounded-full text-sm flex items-center gap-1 hover:border-white transition"
+                className="py-[0.4rem] px-2 text-white border border-gray-300 rounded-full flex items-center gap-1 hover:border-white transition text-xs md:text-sm md:px-4 md:py-2"
                 onClick={() => {
                   postModal.setMany({
                     threadId,
@@ -132,23 +131,23 @@ export default function ThreadBanner({
                 Create
               </button>
               {isFollowing ? (
-                <Button
-                  className="py-2 px-6 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full text-xs"
+                <button
+                  className="py-[0.4rem] px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full text-xs md:text-sm md:px-6 md:py-2"
                   onClick={handleButtonClick}
                   disabled={isLoading}
                   aria-label="following button"
                 >
                   Joined
-                </Button>
+                </button>
               ) : (
-                <Button
-                  className="py-2 px-6 bg-blue-600 text-sm rounded-full hover:bg-blue-800"
+                <button
+                  className="py-[0.4rem] px-6 bg-blue-600 rounded-full hover:bg-blue-800 text-xs md:text-sm md:px-6 md:py-2"
                   onClick={handleButtonClick}
                   disabled={isLoading}
                   aria-label="follow button"
                 >
                   Join
-                </Button>
+                </button>
               )}
               {!isMini && (
                 <DropdownMenu
@@ -160,13 +159,13 @@ export default function ThreadBanner({
                       aria-label="dropdown-trigger"
                       className="p-2 aspect-square border-2 border-gray-300 rounded-full hover:border-white transition"
                     >
-                      <EllipsisVertical className="h-4 w-4 mr-0 text-white" />
+                      <EllipsisVertical className="h-2 w-2 md:h-4 md:w-4 mr-0 text-white" />
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="end"
                     sideOffset={5}
-                    className=" space-y-2 *:px-1 *:py-2 w-[130px] bg-black border-0"
+                    className=" space-y-2 *:px-1 *:py-2 w-[160px] bg-black border-0"
                   >
                     {isAdmin && (
                       <div>

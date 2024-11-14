@@ -46,7 +46,9 @@ export default function CreatePost() {
     () =>
       dynamic(() => import("./text-editor/rich-text-editor"), {
         ssr: false,
-        loading: () => <Skeleton className="w-full mb-4 h-40 bg-gray-600" />,
+        loading: () => (
+          <Skeleton className="w-full mb-4 h-[80px] bg-gray-600" />
+        ),
       }),
     []
   );
@@ -240,8 +242,9 @@ export default function CreatePost() {
                 placeholder:text-sm mt-2 rounded-xl"
               />
             </div>
+            <div className="text-gray-300 text-sm mb-2">Image Upload</div>
             <div
-              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[100px] w-full flex flex-col items-center justify-center bg-gray-600 text-white relative"
+              className="border-2 border-dashed border-gray-600 rounded-md p-4 text-center cursor-pointer min-h-[80px] w-full flex flex-col items-center justify-center bg-gray-600 text-white relative"
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleImageDrop}
             >
@@ -265,13 +268,13 @@ export default function CreatePost() {
                 </div>
               ) : (
                 <>
-                  <Image
+                  {/* <Image
                     src="/placeholder-image.webp"
                     alt="Upload placeholder"
                     width={80}
                     height={80}
                     className="mb-4 text-gray-400 rounded-full"
-                  />
+                  /> */}
                   <p className="text-sm text-gray-400">
                     {imageFile
                       ? imageFile.name

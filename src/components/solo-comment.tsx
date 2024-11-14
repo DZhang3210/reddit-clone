@@ -56,7 +56,7 @@ export default function SoloComment({ comment }: SoloCommentProps) {
                   >
                     r/{comment.thread?.title}
                   </Link>
-                  <p className="text-sm text-gray-400">
+                  <p className="text-xs text-gray-400">
                     <Link
                       href={`/profile/${comment.authorId}/posts`}
                       className="hover:underline"

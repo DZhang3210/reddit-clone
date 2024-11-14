@@ -43,7 +43,7 @@ const ReadOnly = ({ content }: RichTextEditorProps) => {
     <div className="">
       <EditorContent
         editor={editor}
-        className="prose max-w-none text-lg text-gray-400"
+        className="prose max-w-none text-base text-gray-400"
       />
     </div>
   );

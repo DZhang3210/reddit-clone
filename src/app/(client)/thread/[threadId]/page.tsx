@@ -55,7 +55,7 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
       />
       <div className="flex justify-center items-center w-full">
         <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl mt-10">
-          <div className="col-span-5">
+          <div className="col-span-8 md:col-span-5">
             <PostsFeed
               posts={posts}
               isLoadingMore={status === "LoadingMore"}
@@ -63,38 +63,44 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
               canLoadMore={status === "CanLoadMore"}
             />
           </div>
-          <div className="col-span-3 w-full h-full bg-gray-900/50 rounded-xl px-6 py-4 row-span-4">
-            <p className="text-lg text-gray-300 font-bold">/r/{thread.title}</p>
-            <p className="text-sm text-gray-400">{thread.description}</p>
-            <div className="my-5 space-y-1">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-gray-400" />
-                <p className="text-xs text-gray-400">
-                  Created {formatDistanceToNow(thread.createdAt)} ago
+          <div className="hidden md:block col-span-3 w-full h-full bg-gray-900/50 rounded-xl px-6 py-4 row-span-4 relative">
+            <div className="sticky top-4 w-full overflow-y-auto h-[calc(100vh-80px)]">
+              <p className="text-lg text-gray-300 font-bold">
+                /r/{thread.title}
+              </p>
+              <p className="text-sm text-gray-400">{thread.description}</p>
+              <div className="my-5 space-y-1">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-gray-400" />
+                  <p className="text-xs text-gray-400">
+                    Created {formatDistanceToNow(thread.createdAt)} ago
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Shell className="w-4 h-4 text-gray-400" />
+                  <p className="text-xs text-gray-400">Public</p>
+                </div>
+              </div>
+
+              <div className="grid-cols-3">
+                <p className="text-base text-gray-100 flex flex-col">
+                  <span className="font-bold">{thread.totalMembers}</span>
+                  <span className="text-gray-400 text-xs"> Members</span>
                 </p>
               </div>
-              <div className="flex items-center gap-2">
-                <Shell className="w-4 h-4 text-gray-400" />
-                <p className="text-xs text-gray-400">Public</p>
+              <div className="text-xs text-gray-400/80 mt-4 uppercase">
+                Rules
               </div>
-            </div>
-
-            <div className="grid grid-cols-3">
-              <p className="text-base text-gray-100 flex flex-col">
-                <span className="font-bold">{thread.totalMembers}</span>
-                <span className="text-gray-400 text-xs"> Members</span>
-              </p>
-            </div>
-            <div className="text-xs text-gray-400/80 mt-4 uppercase">Rules</div>
-            <div className="space-y-1">
-              {threadQandA.map((item) => (
-                <AccordianItem
-                  key={item.index}
-                  index={item.index}
-                  title={item.title}
-                  content={item.content}
-                />
-              ))}
+              <div className="space-y-1">
+                {threadQandA.map((item) => (
+                  <AccordianItem
+                    key={item.index}
+                    index={item.index}
+                    title={item.title}
+                    content={item.content}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

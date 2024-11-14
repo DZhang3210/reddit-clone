@@ -27,7 +27,7 @@ const SharePostModal = () => {
       //   light={true}
     >
       <div className="flex flex-col space-y-2 px-8">
-        <div className="text-xl font-semibold mb-4 text-center">
+        <div className="text-xl font-semibold mb-4 text-center text-gray-100">
           Share your Post
         </div>
         <div className="text-gray-400 text-sm">Web Link</div>

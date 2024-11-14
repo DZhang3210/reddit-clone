@@ -7,11 +7,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen w-full bg-gray-900/50">
+    <div className="min-h-screen w-full bg-dark">
       <Navbar />
       <div className="flex w-full">
         <Sidebar />
-        <div className="w-full md:w-[calc(100vw-14rem)] xl:w-[calc(100vw-16rem)] h-[calc(100vh-80px)] overflow-y-auto ">
+        <div className=" w-full md:w-[calc(100vw - 14rem)] h-[calc(100vh-80px)] overflow-y-auto px-4 mx-auto">
           {children}
         </div>
       </div>

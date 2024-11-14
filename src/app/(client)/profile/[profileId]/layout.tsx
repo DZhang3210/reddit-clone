@@ -55,13 +55,13 @@ export default function ProfileLayout({
   } = stats;
 
   return (
-    <div className="container mx-auto p-4 space-y-6 ">
+    <div className="mx-auto p-4 space-y-6 ">
       <div className="flex justify-center items-center w-full">
-        <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl mt-10">
+        <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-6xl mt-10">
           {isLoading ? (
             <ProfileHeaderSkeleton />
           ) : user ? (
-            <div className="flex items-center space-x-4 col-span-5">
+            <div className="flex items-center space-x-4 col-span-8 md:col-span-5">
               <button onClick={focusImageProfile} aria-label="profile image">
                 <Avatar className="w-20 h-20">
                   <AvatarImage
@@ -79,86 +79,91 @@ export default function ProfileLayout({
               </div>
             </div>
           ) : (
-            <div>Error loading user data</div>
+            <div className="col-span-5">Error loading user data</div>
           )}
-          <div className="col-span-3 w-full border col-start-7 row-span-6 bg-gray-900/50 rounded-xl border-none">
-            <div className="relative w-full h-32 mb-4 overflow-hidden rounded-lg">
-              <Image
-                src={"/login-background.jpg"}
-                alt="Profile banner"
-                className="object-cover"
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                priority
-              />
-            </div>
+          <div className="hidden md:block col-span-3 w-full border col-start-6 row-span-6 bg-gray-900/50 rounded-xl border-none relative">
+            <div className="sticky top-4 w-full overflow-y-auto h-[calc(100vh-80px)]">
+              <div className="relative w-full h-32">
+                <Image
+                  src={"/login-background.jpg"}
+                  alt="Profile banner"
+                  className="object-cover rounded-t-xl"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority
+                />
+              </div>
 
-            <div className="flex flex-col gap-4 px-6 py-4">
-              <div className="flex justify-between items-center gap-4 col-span-3 font-bold">
-                {user?.name}
-              </div>
-              <div className="grid grid-cols-3 gap-1 mt-4">
-                <div className="text-sm font-bold text-gray-100 col-span-3">
-                  Threads
-                </div>
-                <div>
-                  <h1 className="text-sm font-bold uppercase text-white">
-                    {followingThreadsLength}
-                  </h1>
-                  <span className="text-xs text-gray-400 ">Following</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-3 gap-1">
-                <div className="text-sm font-bold text-gray-100 col-span-3">
-                  Posts
-                </div>
-                <div>
-                  <h1 className="text-sm font-bold uppercase text-white">
-                    {createdPostsLength}
-                  </h1>
-                  <span className="text-xs text-gray-400">Created</span>
-                </div>
-                <div>
-                  <h1 className="text-sm font-bold uppercase text-white">
-                    {upvotedPostsLength}
-                  </h1>
-                  <span className="text-xs text-gray-400">Upvotes</span>
-                </div>
-                <div>
-                  <h1 className="text-sm font-bold uppercase text-white">
-                    {savedPostsLength}
-                  </h1>
-                  <span className="text-xs text-gray-400">Saved</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-3 gap-1">
-                <div className="text-sm font-bold text-gray-100 col-span-3">
-                  Comments
-                </div>
-                <div>
-                  <h1 className="text-sm font-bold uppercase text-white">
-                    {commentsLength}
-                  </h1>
-                  <span className="text-xs text-gray-400">Created</span>
-                </div>
-                <div>
-                  <h1 className="text-sm font-bold uppercase text-white">
-                    {likedCommentsLength}
-                  </h1>
-                  <span className="text-xs text-gray-400">Liked</span>
+              <div className="flex flex-col gap-4 px-6 py-4 relative">
+                <div className="sticky top-4 w-full overflow-y-auto h-[calc(100vh-80px)]">
+                  <div className="flex justify-between items-center gap-4 col-span-3 font-bold text-gray-100">
+                    {user?.name}
+                  </div>
+                  <div className="grid grid-cols-3 gap-1 mt-4">
+                    <div className="text-sm font-bold text-gray-100 col-span-3">
+                      Threads
+                    </div>
+                    <div>
+                      <h1 className="text-sm font-bold uppercase text-white">
+                        {followingThreadsLength}
+                      </h1>
+                      <span className="text-xs text-gray-400 ">Following</span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1">
+                    <div className="text-sm font-bold text-gray-100 col-span-3">
+                      Posts
+                    </div>
+                    <div>
+                      <h1 className="text-sm font-bold uppercase text-white">
+                        {createdPostsLength}
+                      </h1>
+                      <span className="text-xs text-gray-400">Created</span>
+                    </div>
+                    <div>
+                      <h1 className="text-sm font-bold uppercase text-white">
+                        {upvotedPostsLength}
+                      </h1>
+                      <span className="text-xs text-gray-400">Upvotes</span>
+                    </div>
+                    <div>
+                      <h1 className="text-sm font-bold uppercase text-white">
+                        {savedPostsLength}
+                      </h1>
+                      <span className="text-xs text-gray-400">Saved</span>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1">
+                    <div className="text-sm font-bold text-gray-100 col-span-3">
+                      Comments
+                    </div>
+                    <div>
+                      <h1 className="text-sm font-bold uppercase text-white">
+                        {commentsLength}
+                      </h1>
+                      <span className="text-xs text-gray-400">Created</span>
+                    </div>
+                    <div>
+                      <h1 className="text-sm font-bold uppercase text-white">
+                        {likedCommentsLength}
+                      </h1>
+                      <span className="text-xs text-gray-400">Liked</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="space-x-4 w-full col-span-6 my-8">
+          <div className="space-x-2 w-full col-span-8 md:col-span-5 my-8">
             {["upvoted", "comments", "posts", "saved", "liked-comments"].map(
               (tab) => (
                 <Link key={tab} href={`/profile/${profileId}/${tab}`}>
                   <div
                     className={cn(
-                      "text-xl font-bold text-gray-400 capitalize inline-block border-b-4 border-transparent",
-                      tab === currentTab && "text-blue-500 border-blue-500"
+                      "text-xs font-bold text-gray-400 capitalize inline-block border-b-4 border-transparent hover:bg-gray-400/40 rounded-full px-1 py-1",
+                      tab === currentTab &&
+                        "text-blue-500 border-blue-500 rounded-none hover:bg-transparent"
                     )}
                   >
                     {tab}
@@ -167,8 +172,8 @@ export default function ProfileLayout({
               )
             )}
           </div>
-          <div className="w-full flex items-center justify-center col-span-6">
-            <div className="max-w-3xl w-full">{children}</div>
+          <div className="w-full flex items-center justify-center col-span-8 md:col-span-5 mx-auto">
+            <div className="max-w-6xl w-full mx-auto">{children}</div>
           </div>
         </div>
       </div>

@@ -11,26 +11,29 @@ import Search from "./search";
 export default function Navbar() {
   const postModal = useTogglePost();
   return (
-    <nav className="bg-gray-900/10 h-[80px] flex items-center justify-between sticky top-0 z-50 px-8 border-b-[1px] border-gray-500">
-      <Link href="/" className="hidden md:block">
-        <div className="flex items-center space-x-2 text-orange-500">
-          {/* Reddit Logo */}
-          <FaReddit size={35} />
-          <h1 className="text-2xl font-bold text-white hidden md:block">
-            reddit
-          </h1>
+    <nav className="bg-dark h-[80px] flex items-center justify-between sticky top-0 z-50 px-4 border-b-[1px] border-gray-500">
+      <div className="flex items-center space-x-3">
+        <div className="flex lg:hidden items-center">
+          <MobileSidebar />
         </div>
-      </Link>
-      <div className="block md:hidden">
-        <MobileSidebar />
+        <Link href="/" className="hidden md:block">
+          <div className="flex items-center space-x-2 text-orange-500">
+            {/* Reddit Logo */}
+            <FaReddit size={35} />
+            <h1 className="text-2xl font-bold text-white hidden md:block">
+              reddit
+            </h1>
+          </div>
+        </Link>
       </div>
+
       <Search />
 
       {/* Right side buttons */}
       <div className="flex items-center space-x-3">
         <Button
           onClick={() => postModal.setOn()}
-          className="items-center bg-transparent text-gray-400 rounded-full hover:text-gray-200 hover:bg-gray-500/20 text-lg py-3 px-3 cursor-pointer hidden lg:flex"
+          className="items-center bg-transparent text-gray-400 rounded-full hover:text-gray-200 hover:bg-gray-500/20 text-base py-3 px-3 cursor-pointer hidden lg:flex"
           aria-label="Create Post"
         >
           <Plus className="h-6 w-6 mr-1 " />
