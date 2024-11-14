@@ -24,6 +24,7 @@ const Search = () => {
     const trimmedQuery = searchQuery.trim();
     if (trimmedQuery) {
       router.push(`/result/${encodeURIComponent(trimmedQuery)}/posts`);
+      setSearchQuery("");
     }
   };
 
@@ -31,6 +32,7 @@ const Search = () => {
     const trimmedQuery = searchQuery.trim();
     if (trimmedQuery) {
       router.push(`/result/${encodeURIComponent(trimmedQuery)}/posts`);
+      setSearchQuery("");
     }
   };
 
@@ -45,7 +47,10 @@ const Search = () => {
                   <div className="text-gray-400 text-base font-bold mb-1">
                     Threads
                   </div>
-                  <ThreadResults results={threads as Thread[]} />
+                  <ThreadResults
+                    results={threads as Thread[]}
+                    setSearchQuery={setSearchQuery}
+                  />
                 </>
               ) : (
                 <div className="flex items-center gap-2 text-gray-400 text-base">

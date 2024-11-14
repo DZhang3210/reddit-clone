@@ -13,8 +13,14 @@ export default function ResultsLayout({
   const pathname = usePathname();
   const isPosts = pathname.split("/").pop() === "posts";
   const isThreads = pathname.split("/").pop() === "threads";
+  const searchQuery = pathname.split("/")[2];
   return (
     <section className="flex flex-col gap-y-2 mx-auto max-w-6xl">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-300 pt-4">
+          Search results for &quot;{searchQuery}&quot;
+        </h1>
+      </div>
       <div className="flex gap-x-4 my-4">
         <Link
           href={`/result/${keyword}/posts`}

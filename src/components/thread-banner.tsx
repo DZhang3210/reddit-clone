@@ -120,7 +120,13 @@ export default function ThreadBanner({
             <div className="flex gap-4 items-center">
               <button
                 className="py-2 px-4 text-white border border-gray-300 rounded-full text-sm flex items-center gap-1 hover:border-white transition"
-                onClick={() => postModal.setOn()}
+                onClick={() => {
+                  postModal.setMany({
+                    threadId,
+                    editMode: false,
+                  });
+                  postModal.setOn();
+                }}
               >
                 <Plus className="h-4 w-4 " />
                 Create

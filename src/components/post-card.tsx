@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface PostCardProps {
   username: string;
@@ -72,6 +73,7 @@ export default function PostCard({
   isAdmin,
   isOwner,
 }: PostCardProps) {
+  const router = useRouter();
   const { mutate: likePost, isPending: isLikePending } = useLikePost();
   const { mutate: savePost } = useSavePost();
   const sharePostModal = useToggleSharePost();
@@ -112,10 +114,11 @@ export default function PostCard({
       { postId },
       {
         onSuccess: () => {
+          router.push(`/thread/${threadId}`);
           toast.success("Post Removed");
         },
-        onError: () => {
-          toast.error("Error removing post");
+        onError: (error) => {
+          toast.error(`Error removing post: ${error.message}`);
         },
       }
     );
@@ -160,8 +163,8 @@ export default function PostCard({
           <div className="flex w-full justify-between items-center">
             <div>
               <Link href={`/thread/${threadId}`}>
-                <p className="text-lg font-medium hover:underline cursor-pointer text-gray-300">
-                  r/{subreddit}{" "}
+                <p className="text-lg font-medium  cursor-pointer text-gray-300">
+                  <span className="hover:underline">r/{subreddit} </span>
                   <span className="text-gray-400/80 text-sm">
                     &middot; {format(timePosted, "MMM d, yyyy")}
                   </span>

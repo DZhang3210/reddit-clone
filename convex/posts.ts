@@ -293,11 +293,11 @@ export const removePost = mutation({
       throw new Error("Thread not found");
     }
 
-    const isAdmin = thread.moderators.includes(userId);
+    // const isAdmin = thread.moderators.includes(userId);
 
-    if (!isAdmin) {
-      throw new Error("User is not an admin");
-    }
+    // if (!isAdmin) {
+    //   throw new Error("User is not an admin");
+    // }
 
     await ctx.db.delete(args.postId);
     return args.postId;
