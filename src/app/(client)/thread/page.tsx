@@ -46,7 +46,7 @@ const ThreadsPage = () => {
           Recommended for you
         </div>
       </div>
-      <div className="mt-4 w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-5 gap-4 px-12">
+      <div className="mt-4 w-full grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-5 gap-4 px-12">
         {threads?.map(
           (
             thread: any // eslint-disable-line @typescript-eslint/no-explicit-any

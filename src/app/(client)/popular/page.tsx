@@ -19,7 +19,7 @@ const PopularPostsPage = () => {
       </h1> */}
       <div className="flex justify-center items-center">
         <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl mt-10">
-          <div className="col-span-5">
+          <div className="col-span-8 md:col-span-5">
             <PostsFeed
               posts={posts}
               isLoadingMore={status === "LoadingMore"}
@@ -27,7 +27,7 @@ const PopularPostsPage = () => {
               canLoadMore={status === "CanLoadMore"}
             />
           </div>
-          <div className="col-span-3 w-full bg-gray-900/50 rounded-xl relative">
+          <div className="hidden md:block col-span-3 w-full bg-gray-900/50 rounded-xl relative">
             <div className="sticky top-4 w-full overflow-y-auto h-[calc(100vh-80px)]">
               <div className="flex justify-between items-center gap-4 px-6 py-4">
                 <h1 className="text-xs font-bold uppercase text-gray-400/80">
