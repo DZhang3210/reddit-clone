@@ -40,7 +40,7 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-[#181C1F] overflow-auto">
-      <div className="w-full h-full p-12 bg-[#181C1F] text-white border-none rounded-none max-w-[550px]">
+      <div className="w-full h-full p-4 bg-[#181C1F] text-white border-none rounded-none max-w-[550px]">
         <div className="flex items-center gap-x-2 text-orange-600">
           <FaRedditAlien className="size-8" />
           <span className="text-2xl translate-y-[10%]">reddit</span>
@@ -68,7 +68,7 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
               className="text-base h-12 rounded-none placeholder:text-gray-400 border-gray-400 focus:border-white focus:ring-0 transition-colors placeholder:text-base"
               required
             />
-            <div className="text-green-300 text-sm indent-1">
+            <div className="text-green-300 text-sm">
               dummy email: dummy@gmail.com
             </div>
             <Input
@@ -105,8 +105,8 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
               className="w-full relative text-lg h-12 bg-white text-black hover:bg-gray-300 gap-3 items-center"
               aria-label="google button"
             >
-              <FcGoogle />
-              Continue with Google
+              <FcGoogle />{" "}
+              <span className="hidden md:block">Continue with</span> Google
             </Button>
             <Button
               disabled={pending}
@@ -116,8 +116,8 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
               className="w-full relative text-lg h-12 bg-white text-black hover:bg-gray-300 gap-3 items-center"
               aria-label="github button"
             >
-              <FaGithub />
-              Continue with Github
+              <FaGithub />{" "}
+              <span className="hidden md:block">Continue with</span> Github
             </Button>
           </div>
           <p className="text-base text-gray-300">

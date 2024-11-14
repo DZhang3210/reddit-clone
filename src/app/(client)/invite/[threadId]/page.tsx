@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { useGetThreadAdmins } from "@/features/threads/api/use-get-admins";
 import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -11,6 +10,7 @@ import VerificationInput from "react-verification-input";
 import { toast } from "sonner";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { useAddModerator } from "@/features/threads/api/use-add-moderator";
+import { FaRedditAlien } from "react-icons/fa";
 
 const JoinPage = ({
   params: { threadId },
@@ -32,14 +32,14 @@ const JoinPage = ({
 
   const handleComplete = (value: string) => {
     addModerator(
-      { id: threadId as Id<"threads">, code: value },
+      { id: threadId as Id<"threads">, code: value.toUpperCase() },
       {
         onSuccess: (id) => {
           router.replace(`/thread/${id}`);
           toast.success("Workspace joined");
         },
         onError: () => {
-          toast.error("Failed to join workspace");
+          toast.error("Invalid code");
         },
       }
     );
@@ -54,16 +54,18 @@ const JoinPage = ({
   }
 
   return (
-    <div className="h-screen flex flex-col gap-y-8 items-center justify-center bg-white p-8 rounded-lg shadow-md">
-      <Image src="/kita-image.webp" width={60} height={60} alt="logo" />
+    <div className="h-screen flex flex-col gap-y-8 items-center justify-center p-8 rounded-lg shadow-md">
+      <FaRedditAlien className="size-12 text-orange-600" />
       <div className="flex flex-col gap-y-4 items-center justify-center max-w-md">
         <div className="flex flex-col gap-y-2 items-center justify-center">
-          <h1 className="text-2xl font-bold text-black">
-            Join {thread.title}{" "}
+          <h1 className="text-2xl font-bold text-gray-300">
+            Join{" "}
+            <span className="text-white font-semibold">
+              &quot;{thread.title}&quot;
+            </span>{" "}
+            thread
           </h1>
-          <p className="text-md text-muted-foreground">
-            Enter workspace code to join
-          </p>
+          <p className="text-md text-gray-400">Enter workspace code to join</p>
         </div>
         <VerificationInput
           onComplete={handleComplete}
@@ -86,7 +88,7 @@ const JoinPage = ({
         <Button
           size="lg"
           variant="outline"
-          className="flex-shrink-0 text-black"
+          className="flex-shrink-0 text-gray-300"
         >
           <Link href="/">Back to home</Link>
         </Button>

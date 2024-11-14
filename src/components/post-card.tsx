@@ -97,7 +97,7 @@ export default function PostCard({
       { postId },
       {
         onSuccess: () => {
-          toast.success("Post Saved");
+          toast.success("Save Toggled");
         },
         onError: () => {
           toast.error("Error saving post");
@@ -194,7 +194,7 @@ export default function PostCard({
                     <DropdownMenuContent
                       align="end"
                       sideOffset={5}
-                      className="*:px-2 *:py-2 w-[130px] bg-black border-none"
+                      className="px-2 *:py-2 w-[130px] bg-black border-none"
                     >
                       {isOwner && (
                         <button

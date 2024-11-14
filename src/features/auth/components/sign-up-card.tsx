@@ -45,7 +45,7 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-[#181C1F] overflow-y-auto">
-      <div className="w-full h-full p-8 bg-[#181C1F] text-white border-none rounded-none max-w-[550px]">
+      <div className="w-full h-full p-4 bg-[#181C1F] text-white border-none rounded-none max-w-[550px]">
         <div className="flex items-center gap-x-2 text-orange-600">
           <FaRedditAlien className="size-8" />
           <span className="text-2xl translate-y-[10%]">reddit</span>
@@ -124,7 +124,8 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
               className="w-full relative text-lg h-12 bg-white text-black hover:bg-gray-300 gap-3 items-center"
               aria-label="google button"
             >
-              <FcGoogle /> Continue with Google
+              <FcGoogle />{" "}
+              <span className="hidden md:block">Continue with</span> Google
             </Button>
             <Button
               disabled={pending}
@@ -134,8 +135,8 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
               className="w-full relative text-lg h-12 bg-white text-black hover:bg-gray-300 gap-3 items-center"
               aria-label="github button"
             >
-              <FaGithub />
-              Continue with Github
+              <FaGithub />{" "}
+              <span className="hidden md:block">Continue with</span> Github
             </Button>
           </div>
           <p className="text-base text-gray-300">
