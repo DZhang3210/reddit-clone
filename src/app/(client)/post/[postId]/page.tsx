@@ -78,7 +78,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
 
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl mt-10">
+      <div className="grid grid-cols-8 gap-2 mx-auto w-screen max-w-5xl my-10">
         <div className="col-span-8 md:col-span-5">
           <PostCard
             key={post._id}
