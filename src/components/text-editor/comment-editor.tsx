@@ -143,10 +143,10 @@ const CommentEditor = ({
             </button>
           </TooltipHover>
 
-          <div className="flex gap-2 py-2">
+          <div className="flex gap-2 py-2 items-center">
             {!mainEditor && (
               <button
-                className="rounded-full text-white px-4 py-4 text-xs h-[30px] hover:bg-gray-300/40"
+                className="rounded-full text-white px-4 py-4 text-xs h-[30px] hover:bg-gray-300/40 flex items-center justify-center"
                 onClick={onCancel}
                 aria-label="cancel button"
               >

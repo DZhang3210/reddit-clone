@@ -72,7 +72,7 @@ export default function Comment({
 
   return (
     <>
-      <Card className="max-w-sm border-0 rounded-none shadow-none bg-transparent">
+      <Card className="border-0 rounded-none shadow-none bg-transparent">
         <CardContent className="pl-3 pb-0">
           <div className="flex items-start space-x-1">
             <Link href={`/profile/${comment.author._id}`}>
@@ -123,18 +123,19 @@ export default function Comment({
             onClick={() => setEditor(editor === comment._id ? "" : comment._id)}
           >
             {editor === comment._id ? (
-              <MessageSquareText className="h-4 w-4 mr-1" />
+              <MessageSquareText className="h-4 w-4 mr-0 md:mr-1" />
             ) : (
-              <MessageSquare className="h-4 w-4 mr-1" />
+              <MessageSquare className="h-4 w-4 mr-0 md:mr-1" />
             )}
-            <span className="text-xs">Reply</span>
+            <span className="text-xs hidden md:block">Reply</span>
           </button>
           {comment.replies.length > 0 && (
             <span
               className="text-xs text-gray-400  cursor-pointer bg-gray-400/20 hover:bg-gray-400/40 rounded-full px-3 py-1 flex items-center gap-0"
               onClick={() => setShowComments(!showComments)}
             >
-              {comment.replies.length} replies
+              {comment.replies.length}
+              <span className="hidden md:block">replies</span>
               <ChevronDown
                 className={`h-4 w-4 transition-transform duration-200 ${
                   showComments ? "rotate-180" : ""
@@ -144,7 +145,7 @@ export default function Comment({
           )}
         </CardFooter>
       </Card>
-      <div className="mx-10 mt-1">
+      <div className="ml-10 mt-1">
         {editor === comment._id && (
           <CommentEditor
             content={replyContent}

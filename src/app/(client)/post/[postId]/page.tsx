@@ -99,7 +99,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
             isAdmin={post.isAdmin}
             isOwner={post.isCreator}
           />
-          <div className="w-full">
+          <div className="w-full p-1">
             <CommentEditor
               content={content}
               setContent={setContent}
@@ -109,7 +109,7 @@ const PostPage = ({ params: { postId } }: PostPageProps) => {
             />
           </div>
 
-          <div className="w-full mt-4">
+          <div className="w-full mt-4 p-1">
             {comments.length > 0 ? (
               <CommentChain
                 comments={comments}

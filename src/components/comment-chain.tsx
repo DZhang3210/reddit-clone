@@ -13,7 +13,7 @@ type CommentChainProps = {
 const CommentChain = ({ comments, editor, setEditor }: CommentChainProps) => {
   const [showComments, setShowComments] = useState(true);
   return (
-    <div className="flex flex-col space-y-4 ">
+    <div className="w-full flex flex-col space-y-4 ">
       {comments.map((comment) => {
         return (
           <div key={comment._id} className=" border-gray-500 rounded-sm">

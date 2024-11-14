@@ -81,7 +81,7 @@ const Search = () => {
           ref={inputRef}
           type="text"
           placeholder="Search for your favorite threads!"
-          className="w-full h-full text-white text-lg rounded-full placeholder:text-sm placeholder:text-gray-400 border-0 outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 hidden sm:block"
+          className="w-full h-full text-white text-lg rounded-full placeholder:text-sm placeholder:text-gray-400 border-0 outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 block"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

@@ -163,7 +163,7 @@ export default function PostCard({
           <div className="flex w-full justify-between items-center">
             <div>
               <Link href={`/thread/${threadId}`}>
-                <p className="text-lg font-medium  cursor-pointer text-gray-300">
+                <p className="text-sm font-medium  cursor-pointer text-gray-300">
                   <span className="hover:underline">r/{subreddit} </span>
                   <span className="text-gray-400/80 text-sm">
                     &middot; {format(timePosted, "MMM d, yyyy")}
@@ -171,7 +171,7 @@ export default function PostCard({
                 </p>
               </Link>
               <Link href={`/profile/${userId}/posts`}>
-                <p className="text-base text-gray-400 hover:underline cursor-pointer">
+                <p className="text-xs text-gray-400 hover:underline cursor-pointer">
                   Posted by u/{username}
                 </p>
               </Link>
@@ -229,11 +229,11 @@ export default function PostCard({
         </CardHeader>
         <CardContent className="px-4 py-2">
           <Link href={`/post/${postId}`}>
-            <h2 className="text-xl font-bold mb-2 hover:underline text-gray-100">
+            <h2 className="text-lg font-bold mb-0 hover:underline text-gray-100">
               {title}
             </h2>
           </Link>
-          <div className="mb-4">
+          <div className="mb-0">
             <ReadOnly content={content} />
           </div>
           {image && (
@@ -253,7 +253,7 @@ export default function PostCard({
             </button>
           )}
         </CardContent>
-        <CardFooter className="flex items-center justify-between">
+        <CardFooter className="flex items-center p-0 pl-4">
           <div className="flex items-center space-x-2">
             <div className="z-10">
               <button
