@@ -25,7 +25,7 @@ const ThreadCreate = () => {
   const { mutate: updateThread } = useUpdateThread();
   useEffect(() => {
     if (step < 0) toggleThread.setOff();
-  }, [step, toggleThread]);
+  }, [step]);
 
   const onSubmit = () => {
     if (
