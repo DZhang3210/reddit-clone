@@ -125,7 +125,10 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
               aria-label="google button"
             >
               <FcGoogle />{" "}
-              <span className="hidden md:block">Continue with</span> Google
+              <div className="flex items-center gap-x-1">
+                <span className="hidden md:block">Continue with</span>
+                <span>Google</span>
+              </div>
             </Button>
             <Button
               disabled={pending}
@@ -136,7 +139,10 @@ const SignUpCard: React.FC<SignUpCardProps> = ({ setState }) => {
               aria-label="github button"
             >
               <FaGithub />{" "}
-              <span className="hidden md:block">Continue with</span> Github
+              <div className="flex items-center gap-x-1">
+                <span className="hidden md:block">Continue with</span>
+                <span>Github</span>
+              </div>
             </Button>
           </div>
           <p className="text-base text-gray-300">

@@ -95,8 +95,8 @@ export default function ProfileLayout({
               </div>
 
               <div className="flex flex-col gap-4 px-6 py-4 relative">
-                <div className="sticky top-4 w-full overflow-y-auto h-[calc(100vh-80px)]">
-                  <div className="flex justify-between items-center gap-4 col-span-3 font-bold text-gray-100">
+                <div className="sticky top-4 w-full h-[calc(100vh-250px)] space-y-4">
+                  <div className="flex justify-between items-center gap-4 col-span-3 font-bold text-gray-100 text-lg">
                     {user?.name}
                   </div>
                   <div className="grid grid-cols-3 gap-1 mt-4">

@@ -105,8 +105,11 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
               className="w-full relative text-lg h-12 bg-white text-black hover:bg-gray-300 gap-3 items-center"
               aria-label="google button"
             >
-              <FcGoogle />{" "}
-              <span className="hidden md:block">Continue with</span> Google
+              <FcGoogle />
+              <div className="flex items-center gap-x-1">
+                <span className="hidden md:block">Continue with</span>
+                <span>Google</span>
+              </div>
             </Button>
             <Button
               disabled={pending}
@@ -116,8 +119,11 @@ const SignInCard: React.FC<SignInCardProps> = ({ setState }) => {
               className="w-full relative text-lg h-12 bg-white text-black hover:bg-gray-300 gap-3 items-center"
               aria-label="github button"
             >
-              <FaGithub />{" "}
-              <span className="hidden md:block">Continue with</span> Github
+              <FaGithub />
+              <div className="flex items-center gap-x-1">
+                <span className="hidden md:block">Continue with</span>
+                <span>Github</span>
+              </div>
             </Button>
           </div>
           <p className="text-base text-gray-300">
