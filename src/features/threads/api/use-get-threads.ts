@@ -8,7 +8,7 @@ interface UseGetThreadsProps {
   name?: string;
 }
 
-const BATCH_SIZE = 5;
+const BATCH_SIZE = 20;
 
 export const useGetThreads = ({ name }: UseGetThreadsProps) => {
   const { results, status, loadMore } = usePaginatedQuery(
