@@ -53,6 +53,7 @@ interface PostCardProps {
   threadImage: string;
   isAdmin?: boolean;
   isOwner?: boolean;
+  smaller?: boolean;
 }
 
 export default function PostCard({
@@ -72,6 +73,7 @@ export default function PostCard({
   threadImage,
   isAdmin,
   isOwner,
+  smaller,
 }: PostCardProps) {
   const router = useRouter();
   const { mutate: likePost, isPending: isLikePending } = useLikePost();
@@ -234,11 +236,17 @@ export default function PostCard({
             </h2>
           </Link>
           <div className="mb-0">
-            <ReadOnly content={content} />
+            <ReadOnly
+              content={content}
+              className={(smaller && "line-clamp-4") || ""}
+            />
           </div>
           {image && (
             <button
-              className="w-full aspect-square relative overflow-hidden rounded-md border-2 border-black mb-2"
+              className={cn(
+                "w-full relative overflow-hidden rounded-md border-2 border-black mb-2",
+                smaller ? "max-h-[300px] aspect-video" : "aspect-square"
+              )}
               onClick={handleFocusImage}
             >
               <Image

@@ -132,7 +132,7 @@ export default function ThreadBanner({
               </button>
               {isFollowing ? (
                 <button
-                  className="py-[0.4rem] px-4 text-black bg-white border-[2px] border-black hover:text-white hover:border-white rounded-full text-xs md:text-sm md:px-6 md:py-2"
+                  className="py-[0.4rem] px-4 text-black bg-white border-[2px] border-black  hover:border-white rounded-full text-xs md:text-sm md:px-6 md:py-2 hover:bg-white/95"
                   onClick={handleButtonClick}
                   disabled={isLoading}
                   aria-label="following button"

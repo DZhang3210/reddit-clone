@@ -61,6 +61,7 @@ const ThreadPage = ({ params: { threadId } }: ThreadPageProps) => {
               isLoadingMore={status === "LoadingMore"}
               loadMore={loadMore}
               canLoadMore={status === "CanLoadMore"}
+              smaller={true}
             />
           </div>
           <div className="hidden md:block col-span-3 w-full h-full bg-gray-900/50 rounded-xl px-6 py-4 row-span-4 relative">

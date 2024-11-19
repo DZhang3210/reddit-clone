@@ -9,12 +9,14 @@ import Document from "@tiptap/extension-document";
 import History from "@tiptap/extension-history";
 import BulletList from "@tiptap/extension-bullet-list";
 import ListItem from "@tiptap/extension-list-item";
+import { cn } from "@/lib/utils";
 
 interface RichTextEditorProps {
   content: string;
+  className?: string;
 }
 
-const ReadOnly = ({ content }: RichTextEditorProps) => {
+const ReadOnly = ({ content, className }: RichTextEditorProps) => {
   const editor = useEditor({
     extensions: [
       Document,
@@ -43,7 +45,7 @@ const ReadOnly = ({ content }: RichTextEditorProps) => {
     <div className="">
       <EditorContent
         editor={editor}
-        className="prose max-w-none text-sm text-gray-400"
+        className={cn("prose max-w-none text-sm text-gray-400", className)}
       />
     </div>
   );

@@ -34,6 +34,7 @@ interface PostsPageProps {
   isLoadingMore: boolean;
   loadMore: () => void;
   canLoadMore: boolean;
+  smaller?: boolean;
 }
 
 const PostsFeed = ({
@@ -41,6 +42,7 @@ const PostsFeed = ({
   loadMore,
   isLoadingMore,
   canLoadMore,
+  smaller,
 }: PostsPageProps) => {
   return (
     <div className="flex flex-col gap-4 mb-20 ">
@@ -106,6 +108,7 @@ const PostsFeed = ({
                   threadImage={post.thread.image || ""}
                   isAdmin={post.isAdmin}
                   isOwner={post.isCreator}
+                  smaller={smaller}
                 />
                 {/* {post.firstComment && (
                 <div className="max-w-sm">

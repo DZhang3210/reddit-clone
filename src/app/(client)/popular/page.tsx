@@ -25,6 +25,7 @@ const PopularPostsPage = () => {
               isLoadingMore={status === "LoadingMore"}
               loadMore={loadMore}
               canLoadMore={status === "CanLoadMore"}
+              smaller={true}
             />
           </div>
           <div className="hidden md:block col-span-3 w-full bg-gray-900/50 rounded-xl relative">
