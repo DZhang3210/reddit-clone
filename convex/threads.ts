@@ -31,7 +31,15 @@ export const toggleFollow = mutation({
         ? [...user.followingThreads, thread._id]
         : [thread._id];
     }
-
+    if (!isFollowing) {
+      await ctx.db.patch(thread._id, {
+        totalMembers: thread.totalMembers + 1,
+      });
+    } else {
+      await ctx.db.patch(thread._id, {
+        totalMembers: thread.totalMembers - 1,
+      });
+    }
     await ctx.db.patch(userId, {
       followingThreads: user.followingThreads,
     });
