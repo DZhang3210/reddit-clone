@@ -81,10 +81,10 @@ const MobileSidebar = () => {
             className="w-full flex items-center"
             onClick={closeSheet}
           >
-            <div className="flex items-center space-x-1 text-orange-500">
+            <div className="flex items-center space-x-1 text-blue-500">
               {/* Reddit Logo */}
               <FaReddit size={50} />
-              <h1 className="text-3xl font-bold text-white ">reddit</h1>
+              <h1 className="text-3xl font-bold text-white ">blueit</h1>
             </div>
           </Link>
           <div className="flex flex-col items-start justify-start h-full py-4 px-2 space-y-1">

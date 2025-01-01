@@ -17,11 +17,11 @@ export default function Navbar() {
           <MobileSidebar />
         </div>
         <Link href="/" className="hidden md:block">
-          <div className="flex items-center space-x-2 text-orange-500">
+          <div className="flex items-center space-x-2 text-blue-600">
             {/* Reddit Logo */}
             <FaReddit size={35} />
             <h1 className="text-2xl font-bold text-white hidden md:block">
-              reddit
+              blueit
             </h1>
           </div>
         </Link>
